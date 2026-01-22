@@ -11,88 +11,90 @@
 #include "position_drv.h"
 #include "observer_drv.h"
 
-#define LOW_RESITOR        4.7f     //ĸ�ߵ�ѹ����¶˵���
-#define HIGH_RESITOR       100.0f   //ĸ�ߵ�ѹ����϶˵���
-#define SAMPLING_RESITOR   0.005f   //�������������
-#define MAGNIFICATION      10.0f    //�����Ŵ���
-#define ADC_RESOLUTION     4096.0f  //ADC�ֱ���
-#define ADC_VREF           3.3f     //ADC��׼��ѹ
-#define PWM_LIMLT          7800     //�������ռ�ձ�
-#define PWM_CYCLE          8500     //PWM����ռ�ձ�
-#define TS                 0.00005f //FOCִ�м��
+// Stepper mapping: Iu -> IA (phase A), Iw -> IB (phase B).
 
-#define VBUS_FACTOR            ((ADC_VREF / ADC_RESOLUTION) / (LOW_RESITOR / (LOW_RESITOR+HIGH_RESITOR))) // ĸ�ߵ�ѹ����ϵ��
-#define PHASE_CURRENT_FACTOR   ((ADC_VREF / ADC_RESOLUTION) / MAGNIFICATION / SAMPLING_RESITOR)           // ���������ϵ��
+#define LOW_RESITOR        4.7f     //母线电压检测下端电阻
+#define HIGH_RESITOR       100.0f   //母线电压检测上端电阻
+#define SAMPLING_RESITOR   0.005f   //相电流采样电阻
+#define MAGNIFICATION      10.0f    //采样放大倍数
+#define ADC_RESOLUTION     4096.0f  //ADC分辨率
+#define ADC_VREF           3.3f     //ADC基准电压
+#define PWM_LIMLT          7800     //限制最大占空比
+#define PWM_CYCLE          8500     //PWM周期占空比
+#define TS                 0.00005f //FOC执行间隔
 
-/****************������ʶ״̬*******************/  
-#define RESISTANCE_IDENTIFICATION           0X00  // �����ʶ��
-#define INDUCTANCE_IDENTIFICATION           0X01  // ����ʶ��
+#define VBUS_FACTOR            ((ADC_VREF / ADC_RESOLUTION) / (LOW_RESITOR / (LOW_RESITOR+HIGH_RESITOR))) // 母线电压计算系数
+#define PHASE_CURRENT_FACTOR   ((ADC_VREF / ADC_RESOLUTION) / MAGNIFICATION / SAMPLING_RESITOR)           // 相电流计算系数
 
-/******************����״̬*********************/
-#define ADC_CALIB                           0X00  // ADCУ׼
-#define MOTOR_STOP                          0X01  // ͣ��
-#define MOTOR_ERROR                         0X02  // ���ϱ���
-#define MOTOR_IDENTIFY                      0X03  // ������ʶ
-#define MOTOR_SENSORUSE                     0X04  // �ип���
-#define MOTOR_SENSORLESS                    0X05  // �޸п���
+/****************参数辨识状态*******************/  
+#define RESISTANCE_IDENTIFICATION           0X00  // 相电阻识别
+#define INDUCTANCE_IDENTIFICATION           0X01  // 相电感识别
 
-/****************�и�����ģʽ*******************/
-#define ENCODER_CALIB                       0X00  // ������У׼
-#define CURRENT_OPEN_LOOP		                0X01  // ��������
-#define CURRENT_CLOSE_LOOP	                0X02  // �����ջ�
-#define SPEED_CURRENT_LOOP                  0X03  // �ٶȱջ�
-#define POS_SPEED_CURRENT_LOOP	            0X04  // λ�ñջ�
+/******************运行状态*********************/
+#define ADC_CALIB                           0X00  // ADC校准
+#define MOTOR_STOP                          0X01  // 停机
+#define MOTOR_ERROR                         0X02  // 故障报错
+#define MOTOR_IDENTIFY                      0X03  // 参数辨识
+#define MOTOR_SENSORUSE                     0X04  // 有感控制
+#define MOTOR_SENSORLESS                    0X05  // 无感控制
 
-/****************�޸�����ģʽ*******************/
-#define STRONG_DRAG_CURRENT_OPEN            0X05  // ��������ǿ��
-#define STRONG_DRAG_CURRENT_CLOSE		        0X06  // �����ջ�ǿ��
-#define STRONG_DRAG_SMO_SPEED_CURRENT_LOOP  0X07  // ǿ���л�Ĥ�ٶȵ����ջ�
-#define HFI_CURRENT_CLOSE                   0X08  // �����ջ���Ƶע�루����HFI�Ƕ�����Ч����
-#define HFI_SPEED_CURRENT_CLOSE             0X09  // ��Ƶע���ٶȵ����ջ�
-#define HFI_POS_SPEED_CURRENT_CLOSE         0X0A  // ��Ƶע��λ���ٶȵ����ջ�
+/****************有感运行模式*******************/
+#define ENCODER_CALIB                       0X00  // 编码器校准
+#define CURRENT_OPEN_LOOP		                0X01  // 电流开环
+#define CURRENT_CLOSE_LOOP	                0X02  // 电流闭环
+#define SPEED_CURRENT_LOOP                  0X03  // 速度闭环
+#define POS_SPEED_CURRENT_LOOP	            0X04  // 位置闭环
+
+/****************无感运行模式*******************/
+#define STRONG_DRAG_CURRENT_OPEN            0X05  // 电流开环强拖
+#define STRONG_DRAG_CURRENT_CLOSE		        0X06  // 电流闭环强拖
+#define STRONG_DRAG_SMO_SPEED_CURRENT_LOOP  0X07  // 强拖切滑膜速度电流闭环
+#define HFI_CURRENT_CLOSE                   0X08  // 电流闭环高频注入（测试HFI角度收敛效果）
+#define HFI_SPEED_CURRENT_CLOSE             0X09  // 高频注入速度电流闭环
+#define HFI_POS_SPEED_CURRENT_CLOSE         0X0A  // 高频注入位置速度电流闭环
 
 
 #define HALF_PI  1.5707963f
 #define ONE_PI   3.1415926f
 #define TWO_PI   6.2831853f
 
-#define CW  0                        //������˳ʱ�뷽��
-#define CCW 1                        //��������ʱ�뷽��
+#define CW  0                        //编码器顺时针方向
+#define CCW 1                        //编码器逆时针方向
                        
-#define ENCODER_LINE 1024            //����������
-#define PUL_MAX (4*ENCODER_LINE -1)  //��Ȧ�������ֵ
+#define ENCODER_LINE 1024            //编码器线数
+#define PUL_MAX (4*ENCODER_LINE -1)  //单圈脉冲最大值
 
-#define PUL_ANGLE_FACTOR (4095.0f/PUL_MAX)  //�Ƕ�ϵ��
+#define PUL_ANGLE_FACTOR (4095.0f/PUL_MAX)  //角度系数
 
-#define POLEPAIRS   7                //Ĭ�ϼ�����
-#define ACCELERATION 3               //Ĭ�ϼ��ٶ�
+#define POLEPAIRS   7                //默认极对数
+#define ACCELERATION 3               //默认加速度
 
-#define SPEED_DIVISION_FACTOR  2     //�ٶȻ���Ƶϵ��
-#define POS_DIVISION_FACTOR    4     //λ�û���Ƶϵ��
+#define SPEED_DIVISION_FACTOR  2     //速度环分频系数
+#define POS_DIVISION_FACTOR    4     //位置环分频系数
 
 typedef struct
 {	
-  u8    RunState;          // ����״̬
-	u8    RunMode;           // ����ģʽ
+  u8    RunState;          // 运行状态
+	u8    RunMode;           // 运行模式
 }MOTOR_STRUCT;
 
 typedef struct
 {	
 	u8    Flag;
 	u8    State;	
-	u8    EndFlag;           // ��ʶ��ɱ�־	
-	u16   Count;             // ����
-	u16   WaitTim;           // �ȴ�ʱ��
-	float Rs;                // �����
-	float Ls;                // ����
-	float Lq;                // q����
-	float Ld;                // d����	
-	float Flux;              // ����
-	float LsSum;             // ����ۼ�ֵ
-	float CurMax;            // ���ʶ�����
-	float CurSum;            // �����ۼ�ֵ
-	float CurAverage[2];     // ����ƽ��ֵ
-	float VoltageSet[2];     // ��ѹ����ֵ
+	u8    EndFlag;           // 辨识完成标志	
+	u16   Count;             // 计数
+	u16   WaitTim;           // 等待时间
+	float Rs;                // 相电阻
+	float Ls;                // 相电感
+	float Lq;                // q轴电感
+	float Ld;                // d轴电感	
+	float Flux;              // 磁链
+	float LsSum;             // 电感累计值
+	float CurMax;            // 最大识别电流
+	float CurSum;            // 电流累计值
+	float CurAverage[2];     // 电流平均值
+	float VoltageSet[2];     // 电压给定值
 }IDENTIFY_STRUCT;
 
 typedef struct

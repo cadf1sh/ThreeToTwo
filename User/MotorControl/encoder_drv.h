@@ -3,18 +3,22 @@
 
 #include "main.h"
 
+#define ENCODER_TYPE_OPEN_LOOP 0
+#define ENCODER_TYPE_ABS       1
+
+
 typedef struct
 {
-	u8    Dir;                        // ±àÂëÆ÷·½Ïò	
-  u8    Type;                       // ±àÂëÆ÷ÀàĞÍ	
-	u8    PolePairs;                  // ×ª×Ó¼«¶ÔÊı
-	s32   EncoderVal;                 // ±àÂëÆ÷Ô­Ê¼Êı¾İ
-	s32   EncoderValMax;              // ±àÂëÆ÷×î´óÔ­Ê¼Öµ
-	s32   ElectricalVal;              // µçÆø½Ç¶È
-	u16   CalibFlag;                  // Ğ£×¼Íê³É±êÖ¾
-	u16   CalibOffset;                // ×ª×ÓÁãÎ»Æ«²î	
-	float ElectricalSpdSet;           // ¸ø¶¨µÄµç½ÇËÙ¶È    	
-	float ElectricalValSet;           // ¸ø¶¨µÄµç½Ç¶È	
+	u8    Dir;                        // ç¼–ç å™¨æ–¹å‘	
+  u8    Type;                       // ç¼–ç å™¨ç±»å‹	
+	u8    PolePairs;                  // è½¬å­æå¯¹æ•°
+	s32   EncoderVal;                 // ç¼–ç å™¨åŸå§‹æ•°æ®
+	s32   EncoderValMax;              // ç¼–ç å™¨æœ€å¤§åŸå§‹å€¼
+	s32   ElectricalVal;              // ç”µæ°”è§’åº¦
+	u16   CalibFlag;                  // æ ¡å‡†å®Œæˆæ ‡å¿—
+	u16   CalibOffset;                // è½¬å­é›¶ä½åå·®	
+	float ElectricalSpdSet;           // ç»™å®šçš„ç”µè§’é€Ÿåº¦    	
+	float ElectricalValSet;           // ç»™å®šçš„ç”µè§’åº¦	
 }ENCODER_STRUCT; 
 
 void Electrical_Angle_Generator(ENCODER_STRUCT *p);

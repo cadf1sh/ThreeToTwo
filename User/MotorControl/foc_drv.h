@@ -5,33 +5,34 @@
 
 typedef struct
 {		
-	float Iu;            // UÏàµçÁ÷  
-	float Iv;            // VÏàµçÁ÷ 
-	float Iw;            // WÏàµçÁ÷ 	
-	float Ialpha;        // alphaÖáµçÁ÷ 
-	float Ibeta;	       // betaÖáµçÁ÷ 
+	float Iu;            // A  
+	float Iv;            //  
+	float Iw;            // B 	
+	u16   DutyCycleC;    // Õ¼Õ±	
+void Calculate_HBridge_PWM(FOC_STRUCT *p);
+	float Ibeta;	       // betaè½´ç”µæµ 
 	
-	float SinVal;        // ÕıÏÒÖµ
-	float CosVal;        // ÓàÏÒÖµ
-	float Id;	           // dÖáµçÁ÷ 
-	float Iq;	           // qÖáµçÁ÷ 
+	float SinVal;        // æ­£å¼¦å€¼
+	float CosVal;        // ä½™å¼¦å€¼
+	float Id;	           // dè½´ç”µæµ 
+	float Iq;	           // qè½´ç”µæµ 
 	
-  float IdLPF; 	       // dÖáµçÁ÷ÂË²¨Öµ
-  float IqLPF; 		     // qÖáµçÁ÷ÂË²¨Öµ
-  float IdLPFFactor; 	 // dÖáµçÁ÷ÂË²¨ÏµÊı
-  float IqLPFFactor; 	 // qÖáµçÁ÷ÂË²¨ÏµÊı	
+  float IdLPF; 	       // dè½´ç”µæµæ»¤æ³¢å€¼
+  float IqLPF; 		     // qè½´ç”µæµæ»¤æ³¢å€¼
+  float IdLPFFactor; 	 // dè½´ç”µæµæ»¤æ³¢ç³»æ•°
+  float IqLPFFactor; 	 // qè½´ç”µæµæ»¤æ³¢ç³»æ•°	
 	
-	float Ud;            // dÖáµçÑ¹ 
-	float Uq;            // qÖáµçÑ¹ 	
-	float Ualpha;        // alphaÖáµçÑ¹
-	float Ubeta;         // betaÖáµçÑ¹		
-	float Ubus;          // Ä¸ÏßµçÑ¹	
+	float Ud;            // dè½´ç”µå‹ 
+	float Uq;            // qè½´ç”µå‹ 	
+	float Ualpha;        // alphaè½´ç”µå‹
+	float Ubeta;         // betaè½´ç”µå‹		
+	float Ubus;          // æ¯çº¿ç”µå‹	
 	
-  u16   PwmCycle;      // PWMÖÜÆÚ
-  u16   PwmLimit;	     // ×î´óÕ¼¿Õ±È
-	u16   DutyCycleA;    // AÏàÕ¼¿Õ±È
-	u16   DutyCycleB;    // BÏàÕ¼¿Õ±È
-	u16   DutyCycleC;    // CÏàÕ¼¿Õ±È	
+  u16   PwmCycle;      // PWMå‘¨æœŸ
+  u16   PwmLimit;	     // æœ€å¤§å ç©ºæ¯”
+	u16   DutyCycleA;    // Aç›¸å ç©ºæ¯”
+	u16   DutyCycleB;    // Bç›¸å ç©ºæ¯”
+	u16   DutyCycleC;    // Cç›¸å ç©ºæ¯”	
 }FOC_STRUCT;
 
 void Clark_Transform(FOC_STRUCT *p);

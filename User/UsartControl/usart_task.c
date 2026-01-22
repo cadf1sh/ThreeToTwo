@@ -1,13 +1,13 @@
 /**
   ******************************************************************************
-  * ÎÄ¼şÃû³Ì: usart_task.c
-  * ×÷    Õß: ºÆÈ»
-  * °æ    ±¾: V1.0
-  * ±àĞ´ÈÕÆÚ: 2024-03-29
-  * ¹¦    ÄÜ: ¶¨Ê±Ö´ĞĞ´®¿ÚÈÎÎñ
+  * æ–‡ä»¶åç¨‹: usart_task.c
+  * ä½œ    è€…: æµ©ç„¶
+  * ç‰ˆ    æœ¬: V1.0
+  * ç¼–å†™æ—¥æœŸ: 2024-03-29
+  * åŠŸ    èƒ½: å®šæ—¶æ‰§è¡Œä¸²å£ä»»åŠ¡
   ******************************************************************************
   */
-/* °üº¬Í·ÎÄ¼ş ----------------------------------------------------------------*/
+/* åŒ…å«å¤´æ–‡ä»¶ ----------------------------------------------------------------*/
 #include "usart_task.h"
 #include "usart_drv.h"
 #include "motor_system.h"
@@ -17,10 +17,10 @@ volatile u16 UsartTaskId = 10;
 volatile u16 UsartTaskTim = 0;
 
 /**
-  * º¯Êı¹¦ÄÜ: ¶¨Ê±Ö´ĞĞ´®¿ÚÈÎÎñ
-  * ÊäÈë²ÎÊı:
-  * ·µ »Ø Öµ: 
-  * Ëµ    Ã÷:
+  * å‡½æ•°åŠŸèƒ½: å®šæ—¶æ‰§è¡Œä¸²å£ä»»åŠ¡
+  * è¾“å…¥å‚æ•°:
+  * è¿” å› å€¼: 
+  * è¯´    æ˜:
   */
 void Usart_Task(void)
 {
@@ -38,16 +38,17 @@ void Usart_Task(void)
 		
 		case 20:
 		{ 
-//			printf("%0.3f,%0.3f\n",(float)MC.Sample.IuRaw,(float)MC.Sample.IwRaw);                               //²ÉÑùÔ­Ê¼Öµ			
-//		  printf("%0.3f,%0.3f,%0.3f\n",MC.Sample.IuReal,MC.Sample.IvReal,MC.Sample.IwReal);                    //ÈıÏàµçÁ÷Öµ£¨ÕıÏÒ²¨£©
-//			printf("%0.3f,%0.3f\n",MC.Foc.Ialpha,MC.Foc.Ibeta);                                                  //¦ÁÖáºÍ¦ÂÖáµçÁ÷Öµ£¨ÕıÏÒ²¨£©			
-//		  printf("%0.3f,%0.3f,%0.3f\n",(float)MC.Foc.Channel1,(float)MC.Foc.Channel2,(float)MC.Foc.Channel3);  //ÈıÏàÕ¼¿Õ±È£¨Âí°°²¨£©		
-//			printf("%0.3f,%0.3f\n",MC.IdPid.Ref,MC.IdPid.Fbk);                                                   //DÖáµçÁ÷Ä¿±êÖµºÍ·´À¡Öµ	
-//			printf("%0.3f,%0.3f\n",MC.IqPid.Ref,MC.IqPid.Fbk);                                                   //QÖáµçÁ÷Ä¿±êÖµºÍ·´À¡Öµ				
-//	    printf("%0.3f\n",(float)MC.Encoder.ElectricalVal);                                                   //µç½Ç¶ÈÖµ
-//			printf("%0.3f,%0.3f\n",MC.TShapedAccDec.SpeedOut/7,MC.Speed.MechanicalSpeed);                        //Ä¿±êËÙ¶ÈÓëÊµ¼ÊËÙ¶È£¨»úĞµËÙ¶È£¬µ¥Î»RPM£©	
-//      printf("%0.3f\n",MC.SPLL.ETheta);                                                                    //»¬Ä¤¹Û²âÆ÷¼ÆËãµÃµ½µÄµç½Ç¶È			
-//      printf("%0.3f\n",MC.HPLL.ETheta);                                                                    //¸ßÆµ×¢Èë¼ÆËãµÃµ½µÄµç½Ç¶È	                                                     
+//      printf("Id:%0.3f Iq:%0.3f Ua:%0.3f Ub:%0.3f Theta:%0.3f\n",MC.Foc.Id,MC.Foc.Iq,MC.Foc.Ualpha,MC.Foc.Ubeta,(float)MC.Encoder.ElectricalValSet); // Stepper FOC debug
+//			printf("%0.3f,%0.3f\n",(float)MC.Sample.IuRaw,(float)MC.Sample.IwRaw);                               //é‡‡æ ·åŸå§‹å€¼			
+//		  printf("%0.3f,%0.3f,%0.3f\n",MC.Sample.IuReal,MC.Sample.IvReal,MC.Sample.IwReal);                    //ä¸‰ç›¸ç”µæµå€¼ï¼ˆæ­£å¼¦æ³¢ï¼‰
+//			printf("%0.3f,%0.3f\n",MC.Foc.Ialpha,MC.Foc.Ibeta);                                                  //Î±è½´å’ŒÎ²è½´ç”µæµå€¼ï¼ˆæ­£å¼¦æ³¢ï¼‰			
+//		  printf("%0.3f,%0.3f,%0.3f\n",(float)MC.Foc.Channel1,(float)MC.Foc.Channel2,(float)MC.Foc.Channel3);  //ä¸‰ç›¸å ç©ºæ¯”ï¼ˆé©¬éæ³¢ï¼‰		
+//			printf("%0.3f,%0.3f\n",MC.IdPid.Ref,MC.IdPid.Fbk);                                                   //Dè½´ç”µæµç›®æ ‡å€¼å’Œåé¦ˆå€¼	
+//			printf("%0.3f,%0.3f\n",MC.IqPid.Ref,MC.IqPid.Fbk);                                                   //Qè½´ç”µæµç›®æ ‡å€¼å’Œåé¦ˆå€¼				
+//	    printf("%0.3f\n",(float)MC.Encoder.ElectricalVal);                                                   //ç”µè§’åº¦å€¼
+//			printf("%0.3f,%0.3f\n",MC.TShapedAccDec.SpeedOut/7,MC.Speed.MechanicalSpeed);                        //ç›®æ ‡é€Ÿåº¦ä¸å®é™…é€Ÿåº¦ï¼ˆæœºæ¢°é€Ÿåº¦ï¼Œå•ä½RPMï¼‰	
+//      printf("%0.3f\n",MC.SPLL.ETheta);                                                                    //æ»‘è†œè§‚æµ‹å™¨è®¡ç®—å¾—åˆ°çš„ç”µè§’åº¦			
+//      printf("%0.3f\n",MC.HPLL.ETheta);                                                                    //é«˜é¢‘æ³¨å…¥è®¡ç®—å¾—åˆ°çš„ç”µè§’åº¦	                                                     
 			UsartTaskId = 10; 
 		}
 		break;
