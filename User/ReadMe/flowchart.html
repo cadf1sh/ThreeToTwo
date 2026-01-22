@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ThreeToTwo - 控制流程图</title>
+  <style>
+    body {
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #f6f8fb;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      padding: 24px;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 16px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+    svg text {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ThreeToTwo 控制流程图（简化）</h1>
+    <div class="subtitle">覆盖上电初始化、主循环、定时中断驱动的采样与FOC流程。</div>
+
+    <svg width="100%" height="720" viewBox="0 0 1040 720" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto">
+          <path d="M0,0 L10,3 L0,6 Z" fill="#2563eb" />
+        </marker>
+      </defs>
+
+      <!-- Boxes -->
+      <rect x="40" y="30" width="260" height="60" rx="8" fill="#e0f2fe" stroke="#2563eb" />
+      <text x="170" y="65" text-anchor="middle">上电 / Reset</text>
+
+      <rect x="40" y="120" width="260" height="70" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+      <text x="170" y="155" text-anchor="middle">HAL_Init()</text>
+
+      <rect x="40" y="220" width="260" height="80" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+      <text x="170" y="255" text-anchor="middle">SystemClock_Config()</text>
+      <text x="170" y="275" text-anchor="middle">外设时钟配置</text>
+
+      <rect x="40" y="330" width="260" height="100" rx="8" fill="#fef3c7" stroke="#f59e0b" />
+      <text x="170" y="360" text-anchor="middle">MX_*_Init()</text>
+      <text x="170" y="380" text-anchor="middle">GPIO/ADC/TIM/SPI/UART</text>
+      <text x="170" y="400" text-anchor="middle">外设初始化</text>
+
+      <rect x="40" y="460" width="260" height="80" rx="8" fill="#d1fae5" stroke="#10b981" />
+      <text x="170" y="490" text-anchor="middle">Global_Init()</text>
+      <text x="170" y="510" text-anchor="middle">电机/LCD/PWM启动</text>
+
+      <rect x="40" y="570" width="260" height="80" rx="8" fill="#dbeafe" stroke="#3b82f6" />
+      <text x="170" y="600" text-anchor="middle">main while(1)</text>
+      <text x="170" y="620" text-anchor="middle">Global_Loop()</text>
+
+      <rect x="420" y="570" width="280" height="80" rx="8" fill="#ede9fe" stroke="#8b5cf6" />
+      <text x="560" y="600" text-anchor="middle">Led/Lcd/Usart Task</text>
+      <text x="560" y="620" text-anchor="middle">周期性任务</text>
+
+      <rect x="420" y="320" width="280" height="90" rx="8" fill="#fee2e2" stroke="#ef4444" />
+      <text x="560" y="350" text-anchor="middle">TIM1 周期中断</text>
+      <text x="560" y="372" text-anchor="middle">触发 ADC 注入采样</text>
+
+      <rect x="420" y="170" width="280" height="100" rx="8" fill="#fee2e2" stroke="#ef4444" />
+      <text x="560" y="205" text-anchor="middle">ADC Inject 回调</text>
+      <text x="560" y="227" text-anchor="middle">采样 IA/IB/母线/编码器</text>
+      <text x="560" y="249" text-anchor="middle">进入 Motor_System_Run()</text>
+
+      <rect x="760" y="170" width="240" height="110" rx="8" fill="#e0f2fe" stroke="#2563eb" />
+      <text x="880" y="205" text-anchor="middle">Motor_System_Run</text>
+      <text x="880" y="227" text-anchor="middle">ADC校准/识别</text>
+      <text x="880" y="249" text-anchor="middle">有感/无感控制</text>
+
+      <rect x="760" y="320" width="240" height="120" rx="8" fill="#e0f2fe" stroke="#2563eb" />
+      <text x="880" y="350" text-anchor="middle">FOC 计算 (两相)</text>
+      <text x="880" y="372" text-anchor="middle">Clark/Park/PID</text>
+      <text x="880" y="394" text-anchor="middle">H-bridge PWM</text>
+
+      <rect x="760" y="470" width="240" height="80" rx="8" fill="#e0f2fe" stroke="#2563eb" />
+      <text x="880" y="500" text-anchor="middle">更新 H-bridge PWM</text>
+      <text x="880" y="520" text-anchor="middle">驱动两相H桥</text>
+
+      <!-- Arrows -->
+      <line x1="170" y1="90" x2="170" y2="120" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="170" y1="190" x2="170" y2="220" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="170" y1="300" x2="170" y2="330" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="170" y1="430" x2="170" y2="460" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="170" y1="540" x2="170" y2="570" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+
+      <line x1="300" y1="610" x2="420" y2="610" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+
+      <line x1="300" y1="365" x2="420" y2="365" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="560" y1="320" x2="560" y2="270" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="700" y1="220" x2="760" y2="220" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="880" y1="280" x2="880" y2="320" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+      <line x1="880" y1="440" x2="880" y2="470" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)" />
+    </svg>
+  </div>
+</body>
+</html>

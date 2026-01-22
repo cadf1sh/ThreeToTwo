@@ -1,14 +1,14 @@
 
 /**
   ******************************************************************************
-  * ÎÄ¼þÃû³Ì: 
-  * ×÷    Õß: ºÆÈ»
-  * °æ    ±¾: V1.0
-  * ±àÐ´ÈÕÆÚ: 
-  * ¹¦    ÄÜ: 
+  * æ–‡ä»¶åç¨‹: 
+  * ä½œ    è€…: æµ©ç„¶
+  * ç‰ˆ    æœ¬: V1.0
+  * ç¼–å†™æ—¥æœŸ: 
+  * åŠŸ    èƒ½: 
   ******************************************************************************
   */
-/* °üº¬Í·ÎÄ¼þ ----------------------------------------------------------------*/
+/* åŒ…å«å¤´æ–‡ä»¶ ----------------------------------------------------------------*/
 
 #include "global_control.h"
 #include "motor_system.h"
@@ -22,10 +22,10 @@ extern volatile u16 LcdTaskTim;
 extern volatile u16 UsartTaskTim;
 
 /**
-  * º¯Êý¹¦ÄÜ: È«¾Ö³õÊ¼»¯
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA); // Phase A H-bridge PWM
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB); // Phase B H-bridge PWM
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);                 // Unused channel
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,0);                 // Unused channel
   */
 void Global_Init(void)
 {
@@ -34,29 +34,29 @@ void Global_Init(void)
 	
 	Motor_System_Init();
 	
-	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);  //Æô¶¯±àÂëÆ÷½Ó¿Ú 
+	HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);  //å¯åŠ¨ç¼–ç å™¨æŽ¥å£ 
 
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);   //ÉèÖÃ³õÊ¼Õ¼¿Õ±È
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);   //ÉèÖÃ³õÊ¼Õ¼¿Õ±È
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);	 //ÉèÖÃ³õÊ¼Õ¼¿Õ±È
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,0);	 //ÉèÖÃ³õÊ¼Õ¼¿Õ±È
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);        //¿ªÆô¶ÔÓ¦Í¨µÀPWMÊä³ö
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);        //¿ªÆô¶ÔÓ¦Í¨µÀPWMÊä³ö
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);        //¿ªÆô¶ÔÓ¦Í¨µÀPWMÊä³ö
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);        //¿ªÆô¶ÔÓ¦Í¨µÀPWMÊä³ö
-	HAL_TIM_Base_Start_IT(&htim1);	                 //¿ªÆô¶¨Ê±Æ÷ÖÐ¶Ï
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,0);   //è®¾ç½®åˆå§‹å ç©ºæ¯”
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,0);   //è®¾ç½®åˆå§‹å ç©ºæ¯”
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);	 //è®¾ç½®åˆå§‹å ç©ºæ¯”
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,0);	 //è®¾ç½®åˆå§‹å ç©ºæ¯”
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);        //å¼€å¯å¯¹åº”é€šé“PWMè¾“å‡º
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);        //å¼€å¯å¯¹åº”é€šé“PWMè¾“å‡º
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);        //å¼€å¯å¯¹åº”é€šé“PWMè¾“å‡º
+	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);        //å¼€å¯å¯¹åº”é€šé“PWMè¾“å‡º
+	HAL_TIM_Base_Start_IT(&htim1);	                 //å¼€å¯å®šæ—¶å™¨ä¸­æ–­
 	
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET); //Ê¹ÄÜSD1
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET); //Ê¹ÄÜSD2
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET); //Ê¹ÄÜSD3
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET); //Ê¹ÄÜSD4
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET); //ä½¿èƒ½SD1
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET); //ä½¿èƒ½SD2
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET); //ä½¿èƒ½SD3
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET); //ä½¿èƒ½SD4
 }
 
 /**
-  * º¯Êý¹¦ÄÜ: Ö÷Ñ­»·
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 
+  * å‡½æ•°åŠŸèƒ½: ä¸»å¾ªçŽ¯
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž: 
   */
 void Global_Loop(void)
 {
@@ -66,46 +66,47 @@ void Global_Loop(void)
 }
 
 /**
-  * º¯Êý¹¦ÄÜ: ¶¨Ê±Æ÷ÖÐ¶Ï»Øµ÷º¯Êý
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if(htim->Instance == htim1.Instance)                      //20KHZ   50US
-	{	
-	  HAL_ADCEx_InjectedStart_IT(&hadc2);	                  	//¿ªÆôADC×¢ÈëÍ¨µÀÖÐ¶Ï
-		LedTaskTim++;                                           //LEDÈÎÎñ¼ÆÊ±
-		LcdTaskTim++;	                                          //LCDÈÎÎñ¼ÆÊ±
-		UsartTaskTim++;		                                      //´®¿ÚÈÎÎñ¼ÆÊ±
+	MC.Sample.IuRaw = ADC2->JDR1;           // Stepper IA sample
+	MC.Sample.IwRaw = ADC2->JDR2;              // Stepper IB sample
+	MC.Sample.BusRaw = ADC2->JDR3;             // DC bus voltage
+	MC.Encoder.EncoderVal = TIM3->CNT;         // Encoder count (optional)
+	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4; // Speed command input
+	MC.Position.MechanicalPosSet = -ADC2->JDR4; // Position command input
+
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA); // Phase A H-bridge PWM
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB); // Phase B H-bridge PWM
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,0);                 // Unused channel
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,0);                 // Unused channel
+		LedTaskTim++;                                           //LEDä»»åŠ¡è®¡æ—¶
+		LcdTaskTim++;	                                          //LCDä»»åŠ¡è®¡æ—¶
+		UsartTaskTim++;		                                      //ä¸²å£ä»»åŠ¡è®¡æ—¶
 	}	
 }
 
 /**
-  * º¯Êý¹¦ÄÜ: ADC×¢ÈëÖÐ¶Ï»Øµ÷º¯Êý
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 20KHZÆµÂÊ¼´50USÖ´ÐÐÒ»´Î
+  * å‡½æ•°åŠŸèƒ½: ADCæ³¨å…¥ä¸­æ–­å›žè°ƒå‡½æ•°
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž: 20KHZé¢‘çŽ‡å³50USæ‰§è¡Œä¸€æ¬¡
   */
 void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 {		
 	
-	MC.Sample.IuRaw = ADC2->JDR1;          	   //»ñÈ¡ÏàµçÁ÷
-	MC.Sample.IwRaw = ADC2->JDR2;              //»ñÈ¡ÏàµçÁ÷
-	MC.Sample.BusRaw = ADC2->JDR3;          	 //»ñÈ¡Ä¸ÏßµçÑ¹
-	MC.Encoder.EncoderVal = TIM3->CNT;         //»ñÈ¡±àÂëÆ÷Öµ		
- 	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;//Ê¹ÓÃ²¨ÂÖµçÎ»Æ÷¸øµç»úÄ¿±ê×ªËÙ£¨ËÙ¶È±Õ»·Ä£Ê½ÏÂ£©
-	MC.Position.MechanicalPosSet = -ADC2->JDR4;//Ê¹ÓÃ²¨ÂÖµçÎ»Æ÷¸øµç»úÄ¿±êÎ»ÖÃ£¨Î»ÖÃ±Õ»·Ä£Ê½ÏÂ£©
+	MC.Sample.IuRaw = ADC2->JDR1;          	   //èŽ·å–ç›¸ç”µæµ
+	MC.Sample.IwRaw = ADC2->JDR2;              //èŽ·å–ç›¸ç”µæµ
+	MC.Sample.BusRaw = ADC2->JDR3;          	 //èŽ·å–æ¯çº¿ç”µåŽ‹
+	MC.Encoder.EncoderVal = TIM3->CNT;         //èŽ·å–ç¼–ç å™¨å€¼		
+ 	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;//ä½¿ç”¨æ³¢è½®ç”µä½å™¨ç»™ç”µæœºç›®æ ‡è½¬é€Ÿï¼ˆé€Ÿåº¦é—­çŽ¯æ¨¡å¼ä¸‹ï¼‰
+	MC.Position.MechanicalPosSet = -ADC2->JDR4;//ä½¿ç”¨æ³¢è½®ç”µä½å™¨ç»™ç”µæœºç›®æ ‡ä½ç½®ï¼ˆä½ç½®é—­çŽ¯æ¨¡å¼ä¸‹ï¼‰
 	
 	
- 	Motor_System_Run();                        //µç»úÏµÍ³ÔËÐÐ
+ 	Motor_System_Run();                        //ç”µæœºç³»ç»Ÿè¿è¡Œ
 
 	
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //¸üÐÂPWM±È½ÏÖµ             
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     //¸üÐÂPWM±È½ÏÖµ
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MC.Foc.DutyCycleC); 		 //¸üÐÂPWM±È½ÏÖµ
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,2149);		               //¸üÐÂPWM±È½ÏÖµ
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //æ›´æ–°PWMæ¯”è¾ƒå€¼             
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     //æ›´æ–°PWMæ¯”è¾ƒå€¼
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MC.Foc.DutyCycleC); 		 //æ›´æ–°PWMæ¯”è¾ƒå€¼
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,2149);		               //æ›´æ–°PWMæ¯”è¾ƒå€¼
 	
 	
 }

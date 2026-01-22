@@ -1,20 +1,21 @@
 /**
   ******************************************************************************
-  * ÎÄ¼þÃû³Ì: 
-  * ×÷    Õß: ºÆÈ»
-  * °æ    ±¾: V1.0
-  * ±àÐ´ÈÕÆÚ: 
-  * ¹¦    ÄÜ: 
+	// Stepper FOC: treat IA/IB as Ialpha/Ibeta directly.
+	p->Ibeta  = p->Iw;
+  * ä½œ    è€…: æµ©ç„¶
+  * ç‰ˆ    æœ¬: V1.0
+  * ç¼–å†™æ—¥æœŸ: 
+  * åŠŸ    èƒ½: 
   ******************************************************************************
   */
-/* °üº¬Í·ÎÄ¼þ ----------------------------------------------------------------*/
+/* åŒ…å«å¤´æ–‡ä»¶ ----------------------------------------------------------------*/
 #include "foc_drv.h"
                                                             
 /**
-  * º¯Êý¹¦ÄÜ:Clark±ä»» 
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷:ºã·ùÖµ±ä»» 
+  * å‡½æ•°åŠŸèƒ½:Clarkå˜æ¢ 
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž:æ’å¹…å€¼å˜æ¢ 
   */
 void Clark_Transform(FOC_STRUCT *p)
 {
@@ -23,10 +24,10 @@ void Clark_Transform(FOC_STRUCT *p)
 }
 	
 /**
-  * º¯Êý¹¦ÄÜ:Pack±ä»» 
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 
+  * å‡½æ•°åŠŸèƒ½:Packå˜æ¢ 
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž: 
   */
 void Pack_Transform(FOC_STRUCT *p)
 {
@@ -35,10 +36,10 @@ void Pack_Transform(FOC_STRUCT *p)
 }
 
 /**
-  * º¯Êý¹¦ÄÜ:·´Pack±ä»» 
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 
+  * å‡½æ•°åŠŸèƒ½:åPackå˜æ¢ 
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž: 
   */
 void IPack_Transform(FOC_STRUCT *p)
 {
@@ -47,10 +48,10 @@ void IPack_Transform(FOC_STRUCT *p)
 }
 
 /**
-  * º¯Êý¹¦ÄÜ:ºÏ³É¿Õ¼äµçÑ¹Ê¸Á¿ 
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷:ÈýÏàµç»úÊ¹ÓÃSVPWM 
+  * å‡½æ•°åŠŸèƒ½:åˆæˆç©ºé—´ç”µåŽ‹çŸ¢é‡ 
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž:ä¸‰ç›¸ç”µæœºä½¿ç”¨SVPWM 
   */
 void Calculate_SVPWM(FOC_STRUCT *p)
 {
@@ -141,4 +142,38 @@ void Calculate_SVPWM(FOC_STRUCT *p)
       p->DutyCycleC = Tc;
 		}break;
 	}
+}
+
+
+/**
+  * Function: Two-phase H-bridge PWM generation
+  * Note: Bipolar modulation with center-aligned PWM.
+  */
+void Calculate_HBridge_PWM(FOC_STRUCT *p)
+{
+  float ua = p->Ualpha;
+  float ub = p->Ubeta;
+  float ulimit = p->Ubus * 0.5f;
+
+  if (p->Ubus <= 0)
+  {
+    p->DutyCycleA = 0;
+    p->DutyCycleB = 0;
+    p->DutyCycleC = 0;
+    return;
+  }
+
+  // Voltage limit to avoid over-modulation.
+  if (ua > ulimit) { ua = ulimit; }
+  if (ua < -ulimit) { ua = -ulimit; }
+  if (ub > ulimit) { ub = ulimit; }
+  if (ub < -ulimit) { ub = -ulimit; }
+
+  // Map bipolar voltage to PWM duty: [-Ubus/2, Ubus/2] -> [0, PwmCycle].
+  p->DutyCycleA = (u16)((ua / p->Ubus + 0.5f) * p->PwmCycle);
+  p->DutyCycleB = (u16)((ub / p->Ubus + 0.5f) * p->PwmCycle);
+
+  if (p->DutyCycleA > p->PwmLimit) { p->DutyCycleA = p->PwmLimit; }
+  if (p->DutyCycleB > p->PwmLimit) { p->DutyCycleB = p->PwmLimit; }
+  p->DutyCycleC = 0;
 }

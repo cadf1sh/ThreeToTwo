@@ -1,30 +1,30 @@
 /**
   ******************************************************************************
-  * ÎÄ¼şÃû³Ì: 
-  * ×÷    Õß: ºÆÈ»
-  * °æ    ±¾: V1.0
-  * ±àĞ´ÈÕÆÚ: 
-  * ¹¦    ÄÜ: 
+  * æ–‡ä»¶åç¨‹: 
+  * ä½œ    è€…: æµ©ç„¶
+  * ç‰ˆ    æœ¬: V1.0
+  * ç¼–å†™æ—¥æœŸ: 
+  * åŠŸ    èƒ½: 
   ******************************************************************************
   */
-/* °üº¬Í·ÎÄ¼ş ----------------------------------------------------------------*/
+/* åŒ…å«å¤´æ–‡ä»¶ ----------------------------------------------------------------*/
 
 #include "motor_identify.h"
 
 /**
-  * º¯Êı¹¦ÄÜ:µç»ú²ÎÊı±æÊ¶ 
-  * ÊäÈë²ÎÊı:
-  * ·µ»Ø²ÎÊı:
-  * Ëµ    Ã÷: 
+  * å‡½æ•°åŠŸèƒ½:ç”µæœºå‚æ•°è¾¨è¯† 
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›å‚æ•°:
+  * è¯´    æ˜: 
   */
 
 void Motor_Identify()
 {
 	switch (MC.Identify.State)
 	{		
-		case RESISTANCE_IDENTIFICATION:       //µç×èÊ¶±ğ                 
+		case RESISTANCE_IDENTIFICATION:       //ç”µé˜»è¯†åˆ«                 
 		{
-			if(MC.Identify.Flag == 0)           //Çå¿Õ²ÎÊı
+			if(MC.Identify.Flag == 0)           //æ¸…ç©ºå‚æ•°
 			{
 				MC.Foc.Uq = 0;
 				MC.Foc.Ud = 0;	
@@ -41,7 +41,7 @@ void Motor_Identify()
 				}
 				else
 				{
-					MC.Foc.Ud += 0.0001f;				   	     //Öğ½¥Ôö¼ÓµçÁ÷£¨¹ı´óµç»ú·¢ÈÈ£¬¹ıĞ¡²âÁ¿²»×¼£©
+					MC.Foc.Ud += 0.0001f;				   	     //é€æ¸å¢åŠ ç”µæµï¼ˆè¿‡å¤§ç”µæœºå‘çƒ­ï¼Œè¿‡å°æµ‹é‡ä¸å‡†ï¼‰
 					MC.Identify.VoltageSet[0] = MC.Foc.Ud;							
 				}
 				
@@ -50,14 +50,14 @@ void Motor_Identify()
 			if(MC.Identify.Flag == 2)
 			{
 					MC.Identify.WaitTim++;
-					if(MC.Identify.WaitTim > 4000)       // 0.2S µÈ´ıµçÁ÷ÎÈ¶¨
+					if(MC.Identify.WaitTim > 4000)       // 0.2S ç­‰å¾…ç”µæµç¨³å®š
 					{
 						MC.Identify.CurSum += MC.Sample.IuReal;
 					}	
 					
-					if(MC.Identify.WaitTim >= 4100)      // ¼ÇÂ¼100´ÎµçÁ÷Öµ
+					if(MC.Identify.WaitTim >= 4100)      // è®°å½•100æ¬¡ç”µæµå€¼
 					{
-						MC.Identify.CurAverage[0] = MC.Identify.CurSum * 0.01f; //¼ÆËãÆ½¾ùµçÁ÷								
+						MC.Identify.CurAverage[0] = MC.Identify.CurSum * 0.01f; //è®¡ç®—å¹³å‡ç”µæµ								
 						MC.Identify.WaitTim = 0;
 						MC.Identify.CurSum = 0;
 						MC.Identify.Flag = 3;
@@ -72,7 +72,7 @@ void Motor_Identify()
 				}
 				else
 				{
-					MC.Foc.Ud += 0.0001f;					    // Öğ½¥Ôö¼ÓµçÁ÷£¨¹ı´óµç»ú·¢ÈÈ£¬¹ıĞ¡²âÁ¿²»×¼£©
+					MC.Foc.Ud += 0.0001f;					    // é€æ¸å¢åŠ ç”µæµï¼ˆè¿‡å¤§ç”µæœºå‘çƒ­ï¼Œè¿‡å°æµ‹é‡ä¸å‡†ï¼‰
 					MC.Identify.VoltageSet[1] = MC.Foc.Ud;							
 				}					
 			}
@@ -80,14 +80,14 @@ void Motor_Identify()
 			if(MC.Identify.Flag == 4)
 			{
 					MC.Identify.WaitTim++;
-					if(MC.Identify.WaitTim > 4000)       // 0.2S µÈ´ıµçÁ÷ÎÈ¶¨
+					if(MC.Identify.WaitTim > 4000)       // 0.2S ç­‰å¾…ç”µæµç¨³å®š
 					{
 						MC.Identify.CurSum += MC.Sample.IuReal;
 					}	
 					
-					if(MC.Identify.WaitTim >= 4100)      // ¼ÇÂ¼100´ÎµçÁ÷Öµ
+					if(MC.Identify.WaitTim >= 4100)      // è®°å½•100æ¬¡ç”µæµå€¼
 					{
-						MC.Identify.CurAverage[1] = MC.Identify.CurSum * 0.01f; //¼ÆËãÆ½¾ùµçÁ÷
+						MC.Identify.CurAverage[1] = MC.Identify.CurSum * 0.01f; //è®¡ç®—å¹³å‡ç”µæµ
 						MC.Identify.WaitTim = 0;
 						MC.Identify.CurSum = 0;
 						MC.Identify.Flag = 5;
@@ -102,12 +102,12 @@ void Motor_Identify()
 				MC.Identify.State = INDUCTANCE_IDENTIFICATION;			
 			}	
 
-		  MC.Foc.SinVal = 0;                  //µç½Ç¶ÈÎª0£¬ÕıÏÒÖµÎª0
-		  MC.Foc.CosVal = 1;           		 		//µç½Ç¶ÈÎª0£¬ÓàÏÒÖµÎª1	
-		  IPack_Transform(&MC.Foc);           //·´PACK±ä»»			
+		  MC.Foc.SinVal = 0;                  //ç”µè§’åº¦ä¸º0ï¼Œæ­£å¼¦å€¼ä¸º0
+		  MC.Foc.CosVal = 1;           		 		//ç”µè§’åº¦ä¸º0ï¼Œä½™å¼¦å€¼ä¸º1	
+		  IPack_Transform(&MC.Foc);           //åPACKå˜æ¢			
 		}break;	
 
-		case INDUCTANCE_IDENTIFICATION:          //µç¸ĞÊ¶±ğ             
+		case INDUCTANCE_IDENTIFICATION:          //ç”µæ„Ÿè¯†åˆ«             
 		{
 			if(MC.Identify.Flag == 0)
 			{
@@ -150,9 +150,9 @@ void Motor_Identify()
 				MC.Identify.EndFlag = 1;
 			}
 			
-			MC.Foc.SinVal = 0;                  //µç½Ç¶ÈÎª0£¬ÕıÏÒÖµÎª0
-			MC.Foc.CosVal = 1;           		 		//µç½Ç¶ÈÎª0£¬ÓàÏÒÖµÎª1	
-			IPack_Transform(&MC.Foc);           //·´PACK±ä»»
+	Calculate_HBridge_PWM(&MC.Foc);              // Stepper H-bridge PWM
+			MC.Foc.CosVal = 1;           		 		//ç”µè§’åº¦ä¸º0ï¼Œä½™å¼¦å€¼ä¸º1	
+			IPack_Transform(&MC.Foc);           //åPACKå˜æ¢
 		}break;	
 	}	
 	

@@ -1,112 +1,125 @@
 /**
   ******************************************************************************
-  * ÎÄ¼þÃû³Ì: 
-  * ×÷    Õß: ºÆÈ»
-  * °æ    ±¾: V1.0
-  * ±àÐ´ÈÕÆÚ: 
-  * ¹¦    ÄÜ: 
+	if(MC.Motor.RunMode != ENCODER_CALIB)
+	{
+		if(MC.Encoder.Type == ENCODER_TYPE_OPEN_LOOP)
+		{
+			Electrical_Angle_Generator(&MC.Encoder);
+			Calculate_Sin_Cos(MC.Encoder.ElectricalValSet,&MC.Foc.SinVal,&MC.Foc.CosVal);
+		}
+		else
+		{
+			Calculate_Sin_Cos(MC.Encoder.ElectricalVal,&MC.Foc.SinVal,&MC.Foc.CosVal);
+		}
+	}
+			MC.Foc.Iw = MC.Sample.IwReal;
+			MC.Foc.Iv = 0;
+  * ç‰ˆ    æœ¬: V1.0
+  * ç¼–å†™æ—¥æœŸ: 
+  * åŠŸ    èƒ½: 
   ******************************************************************************
   */
-/* °üº¬Í·ÎÄ¼þ ----------------------------------------------------------------*/
+/* åŒ…å«å¤´æ–‡ä»¶ ----------------------------------------------------------------*/
 
 #include "motor_sensoruse.h"
 
 /**
-  * º¯Êý¹¦ÄÜ:ÓÐ¸Ð¿ØÖÆ 
-  * ÊäÈë²ÎÊý:
-  * ·µ»Ø²ÎÊý:
-  * Ëµ    Ã÷: 
+  * å‡½æ•°åŠŸèƒ½:æœ‰æ„ŸæŽ§åˆ¶ 
+  * è¾“å…¥å‚æ•°:
+  * è¿”å›žå‚æ•°:
+  * è¯´    æ˜Ž: 
   */
 void Sensoruse_Control()
 {
 	Calculate_Sin_Cos(MC.Encoder.ElectricalVal,&MC.Foc.SinVal,&MC.Foc.CosVal);	
 	switch(MC.Motor.RunMode)
 	{
-		case ENCODER_CALIB:                                                //±àÂëÆ÷Ð£×¼
+		case ENCODER_CALIB:                                                //ç¼–ç å™¨æ ¡å‡†
 		{	
-			if(MC.Encoder.CalibFlag == 0)                                    //µÚÒ»´Î¶¨Î»µ½90¶È
+			if(MC.Encoder.CalibFlag == 0)                                    //ç¬¬ä¸€æ¬¡å®šä½åˆ°90åº¦
 			{
 				MC.Foc.Ud += 0.0001f;
 				MC.Foc.Uq = 0;
-				MC.Foc.SinVal = 1;                                             //µç½Ç¶È¸ø90¶È£¬¶ÔÓ¦ÕýÏÒÖµÎª1
-				MC.Foc.CosVal = 0;                                             //µç½Ç¶È¸ø90¶È£¬¶ÔÓ¦ÓàÏÒÖµÎª0		 								
-				if(MC.Foc.Ud >= MC.Identify.VoltageSet[1])                     //Ð£×¼ÓÃµÄµçÑ¹Óë²ÎÊýÊ¶±ðÊ±Ò»ÖÂ
+				MC.Foc.SinVal = 1;                                             //ç”µè§’åº¦ç»™90åº¦ï¼Œå¯¹åº”æ­£å¼¦å€¼ä¸º1
+				MC.Foc.CosVal = 0;                                             //ç”µè§’åº¦ç»™90åº¦ï¼Œå¯¹åº”ä½™å¼¦å€¼ä¸º0		 								
+				if(MC.Foc.Ud >= MC.Identify.VoltageSet[1])                     //æ ¡å‡†ç”¨çš„ç”µåŽ‹ä¸Žå‚æ•°è¯†åˆ«æ—¶ä¸€è‡´
 				{
 					MC.Foc.Ud = 0;
-					MC.Encoder.CalibFlag = 1;                                    //µÚÒ»´Î¶¨Î»Íê³É£¬½øÐÐµÚ¶þ´Î
+					MC.Encoder.CalibFlag = 1;                                    //ç¬¬ä¸€æ¬¡å®šä½å®Œæˆï¼Œè¿›è¡Œç¬¬äºŒæ¬¡
 				}				
 			} 	
 			
-			if(MC.Encoder.CalibFlag == 1)                                    //µÚ¶þ´Î¶¨Î»µ½0¶È
+			if(MC.Encoder.CalibFlag == 1)                                    //ç¬¬äºŒæ¬¡å®šä½åˆ°0åº¦
 			{
 				MC.Foc.Ud += 0.0001f;
 				MC.Foc.Uq = 0;
-				MC.Foc.SinVal = 0;                                             //µç½Ç¶È¸ø0£¬¶ÔÓ¦ÕýÏÒÖµÎª0
-				MC.Foc.CosVal = 1;                                             //µç½Ç¶È¸ø0£¬¶ÔÓ¦ÓàÏÒÖµÎª1		 				                  
+				MC.Foc.SinVal = 0;                                             //ç”µè§’åº¦ç»™0ï¼Œå¯¹åº”æ­£å¼¦å€¼ä¸º0
+				MC.Foc.CosVal = 1;                                             //ç”µè§’åº¦ç»™0ï¼Œå¯¹åº”ä½™å¼¦å€¼ä¸º1		 				                  
 				
-				if(MC.Foc.Ud >= MC.Identify.VoltageSet[1])                     //Ð£×¼ÓÃµÄµçÑ¹Óë²ÎÊýÊ¶±ðÊ±Ò»ÖÂ
+				if(MC.Foc.Ud >= MC.Identify.VoltageSet[1])                     //æ ¡å‡†ç”¨çš„ç”µåŽ‹ä¸Žå‚æ•°è¯†åˆ«æ—¶ä¸€è‡´
 				{
-					MC.Encoder.CalibOffset = MC.Encoder.EncoderVal;              //»ñµÃÆ«ÖÃÖµ
+					MC.Encoder.CalibOffset = MC.Encoder.EncoderVal;              //èŽ·å¾—åç½®å€¼
 					MC.Encoder.CalibFlag = 0;
 					MC.Foc.Ud = 0;
-					MC.Motor.RunMode = POS_SPEED_CURRENT_LOOP;                   //Íê³É×ª×ÓÐ£×¼£¬½øÈë¿ØÖÆÄ£Ê½
+					MC.Motor.RunMode = POS_SPEED_CURRENT_LOOP;                   //å®Œæˆè½¬å­æ ¡å‡†ï¼Œè¿›å…¥æŽ§åˆ¶æ¨¡å¼
 				}	  
 			}
-	  IPack_Transform(&MC.Foc);                                          //·´PACK±ä»»			
+	  IPack_Transform(&MC.Foc);                                          //åPACKå˜æ¢			
 		}break;				
 		
-		case CURRENT_OPEN_LOOP:                                            //µçÁ÷¿ª»·£¬¸ø¶¨UqÖµµç»ú×ª¶¯
+		case CURRENT_OPEN_LOOP:                                            //ç”µæµå¼€çŽ¯ï¼Œç»™å®šUqå€¼ç”µæœºè½¬åŠ¨
 		{   	
-			IPack_Transform(&MC.Foc);                                        //·´PACK±ä»»
+			IPack_Transform(&MC.Foc);                                        //åPACKå˜æ¢
 		}break;	
 		
-		case CURRENT_CLOSE_LOOP:                                           //µçÁ÷±Õ»·£¬¸ø¶¨Iq_refµç»ú×ª¶¯
+		case CURRENT_CLOSE_LOOP:                                           //ç”µæµé—­çŽ¯ï¼Œç»™å®šIq_refç”µæœºè½¬åŠ¨
 		{						
 			MC.Foc.Iu = MC.Sample.IuReal;
 			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        //¿ËÀ­¿Ë±ä»»
+			Clark_Transform(&MC.Foc);                                        //å…‹æ‹‰å…‹å˜æ¢
 		
-			Pack_Transform(&MC.Foc);                                         //ÅÉ¿Ë±ä»»
+			Pack_Transform(&MC.Foc);                                         //æ´¾å…‹å˜æ¢
 			
-			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //IdµÍÍ¨ÂË²¨
-			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //IqµÍÍ¨ÂË²¨ 
+			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Idä½Žé€šæ»¤æ³¢
+			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //Iqä½Žé€šæ»¤æ³¢ 
 
 			MC.IqPid.Fbk = MC.Foc.IqLPF;
 			MC.IdPid.Fbk = MC.Foc.IdLPF;			
-			PID_Control(&MC.IqPid);                                          //Iq±Õ»·
-			PID_Control(&MC.IdPid);                                          //Id±Õ»·		
+			PID_Control(&MC.IqPid);                                          //Iqé—­çŽ¯
+			PID_Control(&MC.IdPid);                                          //Idé—­çŽ¯		
 
 
 			MC.Foc.Uq = MC.IqPid.Out;			
 			MC.Foc.Ud = MC.IdPid.Out;
-      IPack_Transform(&MC.Foc);                                        //·´PACK±ä»»			
+      IPack_Transform(&MC.Foc);                                        //åPACKå˜æ¢			
 		}break;	
 		
 		case SPEED_CURRENT_LOOP:
 		{		
 			MC.Speed.SpeedCalculateCnt++;  			
-			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //Ã¿SPEED_DIVISION_FACTOR´Î Ö´ÐÐÒ»´ÎËÙ¶È±Õ»·
+			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //æ¯SPEED_DIVISION_FACTORæ¬¡ æ‰§è¡Œä¸€æ¬¡é€Ÿåº¦é—­çŽ¯
 			{
 				MC.Speed.SpeedCalculateCnt = 0;
-				MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //»ñÈ¡µ±Ç°µç½Ç¶È
-				Calculate_Speed(&MC.Speed);                                  	 //¸ù¾Ýµ±Ç°µç½Ç¶ÈºÍÉÏ´Îµç½Ç¶È¼ÆËãµç½ÇËÙ¶È
+				MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //èŽ·å–å½“å‰ç”µè§’åº¦
+				Calculate_Speed(&MC.Speed);                                  	 //æ ¹æ®å½“å‰ç”µè§’åº¦å’Œä¸Šæ¬¡ç”µè§’åº¦è®¡ç®—ç”µè§’é€Ÿåº¦
 				MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
-				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//µÍÍ¨ÂË²¨	
+				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//ä½Žé€šæ»¤æ³¢	
 				MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;				
 				
-				if(MC.Speed.MechanicalSpeedSet != MC.Speed.MechanicalSpeedSetLast)               //¸ø¶¨ÁËÐÂµÄÄ¿±êËÙ¶È
+			MC.Foc.Iw = MC.Sample.IwReal;
+			MC.Foc.Iv = 0;
 				{                                                      						
-					MC.TAccDec.StartSpeed = MC.Speed.MechanicalSpeedSetLast * MC.Encoder.PolePairs;//ÉèÖÃ³õËÙ¶È
-					MC.TAccDec.EndSpeed   = MC.Speed.MechanicalSpeedSet     * MC.Encoder.PolePairs;//ÉèÖÃÄ©ËÙ¶È
-					T_Shaped_Acc_Dec(&MC.TAccDec);                                                 //TÐÎ¼Ó¼õËÙ¼ÆËã
-					if(MC.TAccDec.FinishFlag == 1)                                                 //Ö´ÐÐÍê¼Ó¼õËÙ
+					MC.TAccDec.StartSpeed = MC.Speed.MechanicalSpeedSetLast * MC.Encoder.PolePairs;//è®¾ç½®åˆé€Ÿåº¦
+					MC.TAccDec.EndSpeed   = MC.Speed.MechanicalSpeedSet     * MC.Encoder.PolePairs;//è®¾ç½®æœ«é€Ÿåº¦
+					T_Shaped_Acc_Dec(&MC.TAccDec);                                                 //Tå½¢åŠ å‡é€Ÿè®¡ç®—
+					if(MC.TAccDec.FinishFlag == 1)                                                 //æ‰§è¡Œå®ŒåŠ å‡é€Ÿ
 					{
-						MC.Speed.MechanicalSpeedSetLast = MC.Speed.MechanicalSpeedSet;               //¸üÐÂÉÏ´ÎÄ¿±êËÙ¶È
+						MC.Speed.MechanicalSpeedSetLast = MC.Speed.MechanicalSpeedSet;               //æ›´æ–°ä¸Šæ¬¡ç›®æ ‡é€Ÿåº¦
 						MC.TAccDec.FinishFlag = 0;
 					}					
 				}		
-				MC.SpdPid.Ref = MC.TAccDec.SpeedOut;					                 //»ñµÃÄ¿±êÖµ   
-				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //·´À¡ËÙ¶ÈÖµ	
+				MC.SpdPid.Ref = MC.TAccDec.SpeedOut;					                 //èŽ·å¾—ç›®æ ‡å€¼   
+				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //åé¦ˆé€Ÿåº¦å€¼	
 				if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 				{
 					MC.SpdPid.Kp = MC.SpdPid.KpMax;
@@ -115,55 +128,56 @@ void Sensoruse_Control()
 				{
 					MC.SpdPid.Kp = MC.SpdPid.KpMin;
 				}			
-				PID_Control(&MC.SpdPid);                            					 //ËÙ¶È±Õ»·
+				PID_Control(&MC.SpdPid);                            					 //é€Ÿåº¦é—­çŽ¯
 				MC.IqPid.Ref = MC.SpdPid.Out;	
 			}
 			MC.Foc.Iu = MC.Sample.IuReal;
 			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);            														 //¿ËÀ­¿Ë±ä»»
+			Clark_Transform(&MC.Foc);            														 //å…‹æ‹‰å…‹å˜æ¢
 	
-			Pack_Transform(&MC.Foc);             														 //ÅÉ¿Ë±ä»»
+			Pack_Transform(&MC.Foc);             														 //æ´¾å…‹å˜æ¢
 
-			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //IdµÍÍ¨ÂË²¨
-			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //IqµÍÍ¨ÂË²¨ 
+			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Idä½Žé€šæ»¤æ³¢
+			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //Iqä½Žé€šæ»¤æ³¢ 
 
 			MC.IqPid.Fbk = MC.Foc.IqLPF;
 			MC.IdPid.Fbk = MC.Foc.IdLPF;		
 		
-			PID_Control(&MC.IqPid);               													 //Iq±Õ»·
-			PID_Control(&MC.IdPid);              														 //Id±Õ»·
+			PID_Control(&MC.IqPid);               													 //Iqé—­çŽ¯
+			PID_Control(&MC.IdPid);              														 //Idé—­çŽ¯
 
 			MC.Foc.Uq = MC.IqPid.Out;			
 			MC.Foc.Ud = MC.IdPid.Out;
-    	IPack_Transform(&MC.Foc);            														 //·´PACK±ä»»			
+    	IPack_Transform(&MC.Foc);            														 //åPACKå˜æ¢			
 		}break;	
 		
 		case POS_SPEED_CURRENT_LOOP:
 		{
 			MC.Position.PosCalculateCnt++;
 			MC.Speed.SpeedCalculateCnt++;			
-			if(MC.Position.PosCalculateCnt >= POS_DIVISION_FACTOR)           //POS_DIVISION_FACTOR Ö´ÐÐÒ»´ÎÎ»ÖÃ±Õ»·
+			if(MC.Position.PosCalculateCnt >= POS_DIVISION_FACTOR)           //POS_DIVISION_FACTOR æ‰§è¡Œä¸€æ¬¡ä½ç½®é—­çŽ¯
 			{											
 				MC.Position.PosCalculateCnt = 0;			
-				MC.Position.ElectricalPosThis = MC.Encoder.ElectricalVal;			 //»ñÈ¡µ±Ç°Î»ÖÃ
-				Calculate_Position(&MC.Position);                              //¼ÆËã×ÜÎ»ÖÃ
-				MC.PosPid.Fbk = MC.Position.ElectricalPosSum;								   //·´À¡Êµ¼ÊÎ»ÖÃ
-				MC.PosPid.Ref = MC.Position.MechanicalPosSet * POLEPAIRS;			 //¸ø¶¨Ä¿±êÎ»ÖÃ
+				MC.Position.ElectricalPosThis = MC.Encoder.ElectricalVal;			 //èŽ·å–å½“å‰ä½ç½®
+				Calculate_Position(&MC.Position);                              //è®¡ç®—æ€»ä½ç½®
+				MC.PosPid.Fbk = MC.Position.ElectricalPosSum;								   //åé¦ˆå®žé™…ä½ç½®
+				MC.PosPid.Ref = MC.Position.MechanicalPosSet * POLEPAIRS;			 //ç»™å®šç›®æ ‡ä½ç½®
 				MC.Position.MechanicalPosRaw = MC.Position.ElectricalPosSum / POLEPAIRS;
-				PID_Control(&MC.PosPid);                                       //Î»ÖÃ±Õ»·
+				PID_Control(&MC.PosPid);                                       //ä½ç½®é—­çŽ¯
 			}
 					
-			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)					 //SPEED_DIVISION_FACTOR Ö´ÐÐÒ»´ÎËÙ¶È±Õ»·
-			{
+			MC.Foc.Iw = MC.Sample.IwReal;
+			MC.Foc.Iv = 0;
+  Calculate_HBridge_PWM(&MC.Foc);                // Stepper H-bridge PWM						
 				MC.Speed.SpeedCalculateCnt = 0;
 				MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;
-				Calculate_Speed(&MC.Speed);                                    //¼ÆËãËÙ¶È
+				Calculate_Speed(&MC.Speed);                                    //è®¡ç®—é€Ÿåº¦
 				MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
-				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//µÍÍ¨ÂË²¨
+				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//ä½Žé€šæ»¤æ³¢
 				MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / POLEPAIRS;	
 				
 				MC.SpdPid.Ref = MC.PosPid.Out;					
-				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //·´À¡ËÙ¶ÈÖµ	
+				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //åé¦ˆé€Ÿåº¦å€¼	
 				if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 				{
 					MC.SpdPid.Kp = MC.SpdPid.KpMax;
@@ -172,26 +186,26 @@ void Sensoruse_Control()
 				{
 					MC.SpdPid.Kp = MC.SpdPid.KpMin;
 				}							
-				PID_Control(&MC.SpdPid);                            					 //ËÙ¶È±Õ»·
+				PID_Control(&MC.SpdPid);                            					 //é€Ÿåº¦é—­çŽ¯
 				MC.IqPid.Ref = MC.SpdPid.Out;										
 			}                                                   
 			MC.Foc.Iu = MC.Sample.IuReal;
 			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        //¿ËÀ­¿Ë±ä»»
+			Clark_Transform(&MC.Foc);                                        //å…‹æ‹‰å…‹å˜æ¢
 	
-			Pack_Transform(&MC.Foc);                                         //ÅÉ¿Ë±ä»»
+			Pack_Transform(&MC.Foc);                                         //æ´¾å…‹å˜æ¢
 
-			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //IdµÍÍ¨ÂË²¨ 
-			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //IqµÍÍ¨ÂË²¨ 
+			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Idä½Žé€šæ»¤æ³¢ 
+			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //Iqä½Žé€šæ»¤æ³¢ 
 			
 			MC.IqPid.Fbk = MC.Foc.IqLPF;
 			MC.IdPid.Fbk = MC.Foc.IdLPF;			
-			PID_Control(&MC.IqPid);                                          //Iq±Õ»·
-			PID_Control(&MC.IdPid);                                          //Id±Õ»·			
+			PID_Control(&MC.IqPid);                                          //Iqé—­çŽ¯
+			PID_Control(&MC.IdPid);                                          //Idé—­çŽ¯			
 
 			MC.Foc.Uq = MC.IqPid.Out;			
 			MC.Foc.Ud = MC.IdPid.Out;
-			IPack_Transform(&MC.Foc);                                        //·´PACK±ä»»
+			IPack_Transform(&MC.Foc);                                        //åPACKå˜æ¢
 		}break;	
 	}
 	
