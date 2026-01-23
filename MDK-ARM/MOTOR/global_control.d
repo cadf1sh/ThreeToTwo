@@ -39,7 +39,7 @@ motor\global_control.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex
 motor\global_control.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\global_control.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
 motor\global_control.o: ../User/MotorControl/motor_system.h
-motor\global_control.o: ../User/MotorControl/motor_identify.h
+motor\global_control.o: ../User/MotorControl/motor_sensoruse.h
 motor\global_control.o: ../User/MotorControl/motor_publicdata.h
 motor\global_control.o: ../User/MotorControl/foc_drv.h
 motor\global_control.o: ../User/MotorControl/pid_drv.h
@@ -49,8 +49,6 @@ motor\global_control.o: ../User/MotorControl/sample_drv.h
 motor\global_control.o: ../User/MotorControl/encoder_drv.h
 motor\global_control.o: ../User/MotorControl/position_drv.h
 motor\global_control.o: ../User/MotorControl/observer_drv.h
-motor\global_control.o: ../User/MotorControl/motor_sensoruse.h
-motor\global_control.o: ../User/MotorControl/motor_sensorless.h
 motor\global_control.o: ../User/LedControl/led_task.h
 motor\global_control.o: ../User/LcdControl/lcd_task.h
 motor\global_control.o: ../User/LcdControl/lcd_drv.h

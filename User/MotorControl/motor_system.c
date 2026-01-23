@@ -1,3 +1,24 @@
+/**
+  ******************************************************************************
+  * 文件名程: 
+  * 作    者: 浩然
+  * 版    本: V1.0
+  * 编写日期: 
+  * 功    能: 
+  ******************************************************************************
+  */
+/* 包含头文件 ----------------------------------------------------------------*/
+
+#include "motor_system.h"
+
+
+/**
+  * 函数功能:电机系统初始化 
+  * 输入参数:
+  * 返回参数:
+  * 说    明: 
+  */
+ 
 void Motor_System_Run()
 {
 	if(MC.Sample.EndFlag == 1)                 //?У?ADC
@@ -31,7 +52,7 @@ void Motor_System_Run()
       Sensoruse_Control();
 		}break;	
 
-		case MOTOR_ERROR:                         //?
+		case 2:                         //error
 		{
 			MC.Foc.DutyCycleA = 0;
 			MC.Foc.DutyCycleB = 0;
@@ -39,7 +60,7 @@ void Motor_System_Run()
 			MC.Foc.DutyCycleD = 0;
 		}break;		
 		
-		case MOTOR_STOP:                          //?
+		case 1:                          //stop
 		{	  			
 			MC.Foc.DutyCycleA = 0;
 			MC.Foc.DutyCycleB = 0;

@@ -26,20 +26,56 @@ Project File Date:  01/23/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\Version5.06\Bin'
-Rebuild target 'MOTOR'
-assembling startup_stm32g431xx.s...
-compiling stm32g4xx_ll_adc.c...
-compiling stm32g4xx_it.c...
-compiling stm32g4xx_hal_gpio.c...
-compiling stm32g4xx_hal_dma.c...
-compiling stm32g4xx_hal_rcc.c...
-compiling stm32g4xx_hal_msp.c...
-compiling stm32g4xx_hal_flash_ex.c...
-compiling stm32g4xx_hal_adc_ex.c...
-compiling stm32g4xx_hal.c...
-compiling stm32g4xx_hal_flash.c...
-compiling stm32g4xx_hal_dma_ex.c...
-compiling main.c...
-compiling stm32g4xx_hal_flash_ramfunc.c...
-compiling stm32g4xx_hal_exti.c...
-compiling stm32g4xx_hal_rcc_ex.c...
+Build target 'MOTOR'
+compiling motor_system.c...
+..\User\MotorControl\motor_system.c(3): error:  #20: identifier "MC" is undefined
+  	if(MC.Sample.EndFlag == 1)                 //?§µ?ADC
+..\User\MotorControl\motor_system.c(5): warning:  #223-D: function "Calculate_Bus_Voltage" declared implicitly
+  		Calculate_Bus_Voltage(&MC.Sample);       //????
+..\User\MotorControl\motor_system.c(6): warning:  #223-D: function "Calculate_Phase_Current" declared implicitly
+  		Calculate_Phase_Current(&MC.Sample);     //?	
+..\User\MotorControl\motor_system.c(14): error:  #20: identifier "MOTOR_ERROR" is undefined
+  			MC.Motor.RunState = MOTOR_ERROR;       //» 
+..\User\MotorControl\motor_system.c(17): error:  #20: identifier "MC" is undefined
+  	switch (MC.Motor.RunState)
+..\User\MotorControl\motor_system.c(19): error:  #20: identifier "ADC_CALIB" is undefined
+  		case ADC_CALIB:                 //ADC§µ?
+..\User\MotorControl\motor_system.c(21): warning:  #223-D: function "Calculate_Adc_Offset" declared implicitly
+  			Calculate_Adc_Offset(&MC.Sample);
+..\User\MotorControl\motor_system.c(24): error:  #20: identifier "MOTOR_SENSORUSE" is undefined
+  				MC.Motor.RunState = MOTOR_SENSORUSE;
+..\User\MotorControl\motor_system.c(28): error:  #20: identifier "MOTOR_SENSORUSE" is undefined
+  		case MOTOR_SENSORUSE:                     //§Ú§á
+..\User\MotorControl\motor_system.c(30): warning:  #223-D: function "Calculate_Encoder_Data" declared implicitly
+  		  Calculate_Encoder_Data(&MC.Encoder);    //			
+..\User\MotorControl\motor_system.c(31): warning:  #223-D: function "Sensoruse_Control" declared implicitly
+        Sensoruse_Control();
+..\User\MotorControl\motor_system.c: 5 warnings, 6 errors
+"MOTOR\MOTOR.axf" - 6 Error(s), 5 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
+                ARM.CMSIS.6.1.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32G4xx_DFP.2.2.0.pack
+                Keil.STM32G4xx_DFP.2.2.0
+                STMicroelectronics STM32G4 Series Device Support
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_MOTOR
+  D:/Keil_v5/ARM/PACK/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:6.1.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Target not created.
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
