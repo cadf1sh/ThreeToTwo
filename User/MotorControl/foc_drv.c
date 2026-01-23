@@ -34,6 +34,19 @@ void Pack_Transform(FOC_STRUCT *p)
 	p->Iq = (-p->Ialpha * p->SinVal) + (p->Ibeta * p->CosVal);	
 }
 
+
+
+/**
+  * : -> Ialpha/Ibeta (Stepper)
+  * ?    : IA->Ialpha, IB->Ibeta
+  */
+void TwoPhase_CurrentToAlphaBeta(FOC_STRUCT *p)
+{
+	p->Ialpha = p->Iu;
+	p->Ibeta  = p->Iw;
+}
+
+
 /**
   * 函数功能:反Pack变换 
   * 输入参数:
@@ -141,4 +154,42 @@ void Calculate_SVPWM(FOC_STRUCT *p)
       p->DutyCycleC = Tc;
 		}break;
 	}
+}
+
+
+/**
+  * :HPWM (Stepper)
+  * ?    : Ualpha/Ubeta -> A+/A-/B+/B- (TIM1 CH1-4)
+  */
+void Calculate_HBridgePWM(FOC_STRUCT *p)
+{
+  float ua = p->Ualpha;
+  float ub = p->Ubeta;
+  float ulimit = p->Ubus * ((float)p->PwmLimit / (float)p->PwmCycle);
+  if(ua > ulimit) ua = ulimit;
+  if(ua < -ulimit) ua = -ulimit;
+  if(ub > ulimit) ub = ulimit;
+  if(ub < -ulimit) ub = -ulimit;
+
+  if(p->Ubus <= 0.01f)
+  {
+    p->DutyCycleA = 0;
+    p->DutyCycleB = 0;
+    p->DutyCycleC = 0;
+    p->DutyCycleD = 0;
+    return;
+  }
+
+  float dutyA = (ua / p->Ubus * 0.5f + 0.5f) * p->PwmCycle;
+  float dutyB = (ub / p->Ubus * 0.5f + 0.5f) * p->PwmCycle;
+
+  if(dutyA < 0) dutyA = 0;
+  if(dutyA > p->PwmCycle) dutyA = p->PwmCycle;
+  if(dutyB < 0) dutyB = 0;
+  if(dutyB > p->PwmCycle) dutyB = p->PwmCycle;
+
+  p->DutyCycleA = (u16)dutyA;
+  p->DutyCycleB = (u16)(p->PwmCycle - dutyA);
+  p->DutyCycleC = (u16)dutyB;
+  p->DutyCycleD = (u16)(p->PwmCycle - dutyB);
 }

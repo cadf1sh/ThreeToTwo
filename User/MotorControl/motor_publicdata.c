@@ -1,90 +1,99 @@
 /**
   ******************************************************************************
-  * 文件名程: 
-  * 作    者: 浩然
-  * 版    本: V1.0
-  * 编写日期: 
-  * 功    能: 
+  * ?: 
+  *     : ?
+  *     : V1.0
+  * д: 
+  *     : 
   ******************************************************************************
   */
-/* 包含头文件 ----------------------------------------------------------------*/
+/* ?? ----------------------------------------------------------------*/
 
 #include "motor_publicdata.h"
 
-MOTORCONTROL_STRUCT MC;                           //实例化总结构体
+MOTORCONTROL_STRUCT MC;                           //???
 
 /**
-  * 函数功能:电机结构体初始化 
-  * 输入参数:
-  * 返回参数:
-  * 说    明: 
+  * :?? 
+  * :
+  * ?:
+  * ?    : 
   */
 void Motor_Struct_Init()
 {	
-	/*参数初始化*/
-	MC.Motor.RunState = ADC_CALIB;      			 	  	 //设置电机最初的运行状态
-	MC.Motor.RunMode = ENCODER_CALIB;                //设置运行后最初的运行模式
+	/*?*/
+	MC.Motor.RunState = ADC_CALIB;      			 	  	 //???
+#if MOTOR_TWO_PHASE_STEPPER
+	MC.Motor.RunMode = CURRENT_CLOSE_LOOP;           // Stepper: default current loop
+#else
+	MC.Motor.RunMode = ENCODER_CALIB;                //к??
+#endif
 		
-	MC.Sample.CurrentDir = 1;       					  	   //设置电机电流采样的方向(由硬件决定)
-	MC.Sample.CurrentFactor = PHASE_CURRENT_FACTOR;  //相电流计算系数(由采样电阻值和放大倍数以及ADC分辨率计算得出)
-	MC.Sample.BusFactor = VBUS_FACTOR;               //母线电压计算系数（由分压电阻计算得出）
+	MC.Sample.CurrentDir = 1;       					  	   //??(?)
+	MC.Sample.CurrentFactor = PHASE_CURRENT_FACTOR;  //?(?????ADC??ó)
+	MC.Sample.BusFactor = VBUS_FACTOR;               //??????ó
 
-	MC.Encoder.Dir = CCW;              							 //设置编码器的方向（逆时针转动 角度从0向360度增加）
-	MC.Encoder.PolePairs = POLEPAIRS;								 //设置电机的极对数（磁铁数除以2）
-	MC.Encoder.EncoderValMax = PUL_MAX;  					   //设置编码器单圈脉冲的最大值
+	MC.Encoder.Dir = CCW;              							 //???? ??0360?
+	MC.Encoder.PolePairs = POLEPAIRS;								 //??2
+	MC.Encoder.EncoderValMax = PUL_MAX;  					   //???
 	
-	MC.Foc.IdLPFFactor = 0.1f;	                     //设置d轴电流低通滤波系数
-	MC.Foc.IqLPFFactor = 0.1f;	                     //设置q轴电流低通滤波系数
-	MC.Foc.PwmCycle = PWM_CYCLE;									   //设置PWM周期
-	MC.Foc.PwmLimit = PWM_LIMLT;									   //设置PWM限幅值
+	MC.Foc.IdLPFFactor = 0.1f;	                     //d???
+	MC.Foc.IqLPFFactor = 0.1f;	                     //q???
+	MC.Foc.PwmCycle = PWM_CYCLE;									   //PWM
+	MC.Foc.PwmLimit = PWM_LIMLT;                           // PWM limit (Stepper: Ualpha/Ubeta limit)
 	
-	MC.Position.ElectricalValMax = PUL_MAX; 			   //设置编码器单圈脉冲的最大值
+	MC.Position.ElectricalValMax = PUL_MAX; 			   //???
 	
-	MC.TAccDec.AccSpeed = ACCELERATION;              //设置速度模式下的加速度	
+	MC.TAccDec.AccSpeed = ACCELERATION;              //??????	
 	
-	MC.Speed.ElectricalValMax = PUL_MAX; 					   //设置编码器单圈脉冲的最大值	
-	MC.Speed.ElectricalSpeedLPFFactor = 0.05f;       //设置速度低通滤波系数
-	MC.Speed.ElectricalSpeedFactor = 146.5f;         //设置速度计算系数
+	MC.Speed.ElectricalValMax = PUL_MAX; 					   //???	
+	MC.Speed.ElectricalSpeedLPFFactor = 0.05f;       //?????
+	MC.Speed.ElectricalSpeedFactor = 146.5f;         //???
 
-	MC.Identify.CurMax = 0.6f;                       //设置电阻电感识别时的最大母线电流（单位：安）
+	MC.Identify.CurMax = 0.6f;                       //?????λ
 	
-	MC.SMO.Gain = 14.0f;                             //设置滑膜观测器增益
-	MC.SMO.Ts = TS;                                  //设置滑膜观测器运行时间间隔
-  MC.SMO.EabForeLPFFactor = 0.1f;                  //设置预估反电动势低通滤波系数
+	MC.SMO.Gain = 14.0f;                             //???
+	MC.SMO.Ts = TS;                                  //????
+  MC.SMO.EabForeLPFFactor = 0.1f;                  //?綯????
 	
-	MC.SPLL.Ts = TS;                                 //设置锁相环运行时间间隔
-	MC.SPLL.Kp = 80.0f;                              //设置锁相环比例系数
-	MC.SPLL.Ki = 0.5f;                               //设置锁相环积分系数
-	MC.SPLL.WeForeLPFFactor = 0.01f;	               //设置观测电角速度低通滤波系数
+	MC.SPLL.Ts = TS;                                 //??
+	MC.SPLL.Kp = 80.0f;                              //??
+	MC.SPLL.Ki = 0.5f;                               //??
+	MC.SPLL.WeForeLPFFactor = 0.01f;	               //ù??????
 	
-	MC.HFI.Uin = 1.4f;	                             //设置高频注入的电压幅值
-	MC.HPLL.Dir = 1;                                 //设置锁相环输入方向
-	MC.HPLL.Kp = 900.0f;                             //设置锁相环比例系数
-	MC.HPLL.Ki = 20.0f;                              //设置锁相环积分系数
-	MC.HPLL.Ts = TS;                                 //设置锁相环运行时间间隔
-	MC.HPLL.WeForeLPFFactor = 0.01f;                 //设置观测电角速度低通滤波系数
+	MC.HFI.Uin = 1.4f;	                             //??????
+	MC.HPLL.Dir = 1;                                 //??
+	MC.HPLL.Kp = 900.0f;                             //??
+	MC.HPLL.Ki = 20.0f;                              //??
+	MC.HPLL.Ts = TS;                                 //??
+	MC.HPLL.WeForeLPFFactor = 0.01f;                 //ù??????
 	
-	MC.IqPid.Kp = 0.2f;                              //设置q轴PID比例系数
-	MC.IqPid.Ki = 0.002f;                            //设置q轴PID比例系数
-	MC.IqPid.OutMax = 6;                             //设置q轴PID输出上限
-	MC.IqPid.OutMin = -6;                            //设置q轴PID输出下限
+	MC.IqPid.Kp = 0.2f;                              //qPID?
+	MC.IqPid.Ki = 0.002f;                            //qPID?
+	MC.IqPid.OutMax = 6;                             //qPID
+	MC.IqPid.OutMin = -6;                            //qPID
 
-	MC.IdPid.Kp = 0.2f;                              //设置d轴PID比例系数
-	MC.IdPid.Ki = 0.002f;                            //设置d轴PID比例系数
-	MC.IdPid.OutMax = 6;                             //设置d轴PID输出上限
-	MC.IdPid.OutMin = -6;                            //设置d轴PID输出下限
+	MC.IdPid.Kp = 0.2f;                              //dPID?
+	MC.IdPid.Ki = 0.002f;                            //dPID?
+	MC.IdPid.OutMax = 6;                             //dPID
+	MC.IdPid.OutMin = -6;                            //dPID
 
-	MC.SpdPid.Kp = 0.001f;                           //设置速度PID比例系数
-	MC.SpdPid.KpMax = 0.005f;                        //设置速度PID比例系数最大值（用于分段或模糊PID）
-	MC.SpdPid.KpMin = 0.001f;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
-	MC.SpdPid.Ki = 0.000002f;                        //设置速度PID积分系数
-	MC.SpdPid.OutMax = 8;                            //设置速度PID输出上限  
-	MC.SpdPid.OutMin = -8;	                         //设置速度PID输出下限
+#if MOTOR_TWO_PHASE_STEPPER
+	MC.IdPid.Ref = 0.0f;                             // Stepper demo: Id = 0
+	MC.IqPid.Ref = 0.6f;                             // Stepper demo: Iq constant (adjust as needed)
+	MC.Encoder.ElectricalSpdSet = 200.0f;           // Stepper demo: electrical speed command
+#endif
 
-  MC.PosPid.Kp = 0.5f;                             //设置位置PID比例系数
-	MC.PosPid.Ki = 0;                                //设置位置PID积分系数
-	MC.PosPid.Kd = 0;                                //设置位置PID微分系数
-	MC.PosPid.OutMax = 14000;                        //设置位置PID输出上限
-	MC.PosPid.OutMin = -14000;                       //设置位置PID输出下限
-}                                                  
+	MC.SpdPid.Kp = 0.001f;                           //?PID?
+	MC.SpdPid.KpMax = 0.005f;                        //?PID????λ?PID
+	MC.SpdPid.KpMin = 0.001f;	                       //?PID?С???λ?PID
+	MC.SpdPid.Ki = 0.000002f;                        //?PID?
+	MC.SpdPid.OutMax = 8;                            //?PID  
+	MC.SpdPid.OutMin = -8;	                         //?PID
 
+  MC.PosPid.Kp = 0.5f;                             //λPID?
+	MC.PosPid.Ki = 0;                                //λPID?
+	MC.PosPid.Kd = 0;                                //λPID??
+	MC.PosPid.OutMax = 14000;                        //λPID
+	MC.PosPid.OutMin = -14000;                       //λPID
+}  
