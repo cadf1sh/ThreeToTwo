@@ -52,4 +52,5 @@ void Calculate_Stepper_PWM(FOC_STRUCT *p)
   p->DutyCycleB = (u16)(p->PwmCycle - duty_a); // A-
   p->DutyCycleC = (u16)duty_b;                 // B+
   p->DutyCycleD = (u16)(p->PwmCycle - duty_b); // B-
+	
 }

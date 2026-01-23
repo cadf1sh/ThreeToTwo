@@ -17,7 +17,7 @@ Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         SARMCM3.DLL V5.41.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
-Target DLL:      CMSIS_AGDI.dll V1.33.21.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
@@ -27,31 +27,11 @@ Project File Date:  01/23/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\Version5.06\Bin'
 Build target 'MOTOR'
-compiling motor_system.c...
-..\User\MotorControl\motor_system.c(3): error:  #20: identifier "MC" is undefined
-  	if(MC.Sample.EndFlag == 1)                 //?§µ?ADC
-..\User\MotorControl\motor_system.c(5): warning:  #223-D: function "Calculate_Bus_Voltage" declared implicitly
-  		Calculate_Bus_Voltage(&MC.Sample);       //????
-..\User\MotorControl\motor_system.c(6): warning:  #223-D: function "Calculate_Phase_Current" declared implicitly
-  		Calculate_Phase_Current(&MC.Sample);     //?	
-..\User\MotorControl\motor_system.c(14): error:  #20: identifier "MOTOR_ERROR" is undefined
-  			MC.Motor.RunState = MOTOR_ERROR;       //» 
-..\User\MotorControl\motor_system.c(17): error:  #20: identifier "MC" is undefined
-  	switch (MC.Motor.RunState)
-..\User\MotorControl\motor_system.c(19): error:  #20: identifier "ADC_CALIB" is undefined
-  		case ADC_CALIB:                 //ADC§µ?
-..\User\MotorControl\motor_system.c(21): warning:  #223-D: function "Calculate_Adc_Offset" declared implicitly
-  			Calculate_Adc_Offset(&MC.Sample);
-..\User\MotorControl\motor_system.c(24): error:  #20: identifier "MOTOR_SENSORUSE" is undefined
-  				MC.Motor.RunState = MOTOR_SENSORUSE;
-..\User\MotorControl\motor_system.c(28): error:  #20: identifier "MOTOR_SENSORUSE" is undefined
-  		case MOTOR_SENSORUSE:                     //§Ú§á
-..\User\MotorControl\motor_system.c(30): warning:  #223-D: function "Calculate_Encoder_Data" declared implicitly
-  		  Calculate_Encoder_Data(&MC.Encoder);    //			
-..\User\MotorControl\motor_system.c(31): warning:  #223-D: function "Sensoruse_Control" declared implicitly
-        Sensoruse_Control();
-..\User\MotorControl\motor_system.c: 5 warnings, 6 errors
-"MOTOR\MOTOR.axf" - 6 Error(s), 5 Warning(s).
+compiling global_control.c...
+linking...
+Program Size: Code=20732 RO-data=15628 RW-data=48 ZI-data=2392  
+FromELF: creating hex file...
+"MOTOR\MOTOR.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -74,8 +54,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

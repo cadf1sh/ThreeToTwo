@@ -11,14 +11,19 @@
 
 #include "motor_system.h"
 
-
 /**
   * 函数功能:电机系统初始化 
   * 输入参数:
   * 返回参数:
   * 说    明: 
   */
- 
+void Motor_System_Init(void)
+{
+	Motor_Struct_Init();                       //结构体参数初始化
+}
+
+
+
 void Motor_System_Run()
 {
 	if(MC.Sample.EndFlag == 1)                 //?У?ADC

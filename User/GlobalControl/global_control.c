@@ -96,7 +96,11 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 	MC.Encoder.EncoderVal = TIM3->CNT;         //获取编码器值		
  	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;//使用波轮电位器给电机目标转速（速度闭环模式下）
 	MC.Position.MechanicalPosSet = -ADC2->JDR4;//使用波轮电位器给电机目标位置（位置闭环模式下）
-	
+	machinebutton = MC.Speed.MechanicalSpeedSet;
+	IIA = MC.Sample.IuRaw;
+	IIB = MC.Sample.IwRaw;
+	Encod = MC.Encoder.EncoderVal;
+	Volt = MC.Sample.BusRaw;
  	Motor_System_Run();                        //电机系统运行
             
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //更新PWM比较值             
