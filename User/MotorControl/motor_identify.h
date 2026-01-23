@@ -3,8 +3,7 @@
 
 #include "motor_publicdata.h"
 
-void Motor_Identify(void);
+void Motor_Identify(MOTORCONTROL_STRUCT *mc);
 
 #endif 
-
 
