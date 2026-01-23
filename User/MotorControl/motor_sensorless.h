@@ -4,8 +4,7 @@
 #include "motor_publicdata.h"
 
 
-void Sensorless_Control(void);
+void Sensorless_Control(MOTORCONTROL_STRUCT *mc);
 
 #endif 
-
 

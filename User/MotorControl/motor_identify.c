@@ -1,93 +1,93 @@
 /**
   ******************************************************************************
-  * ÎÄ¼şÃû³Ì: 
-  * ×÷    Õß: ºÆÈ»
-  * °æ    ±¾: V1.0
-  * ±àĞ´ÈÕÆÚ: 
-  * ¹¦    ÄÜ: 
-  ******************************************************************************
-  */
-/* °üº¬Í·ÎÄ¼ş ----------------------------------------------------------------*/
-
-#include "motor_identify.h"
-
-/**
-  * º¯Êı¹¦ÄÜ:µç»ú²ÎÊı±æÊ¶ 
-  * ÊäÈë²ÎÊı:
-  * ·µ»Ø²ÎÊı:
-  * Ëµ    Ã÷: 
-  */
-
-void Motor_Identify()
-{
-	switch (MC.Identify.State)
-	{		
-		case RESISTANCE_IDENTIFICATION:       //µç×èÊ¶±ğ                 
-		{
-			if(MC.Identify.Flag == 0)           //Çå¿Õ²ÎÊı
-			{
-				MC.Foc.Uq = 0;
-				MC.Foc.Ud = 0;	
-        MC.Identify.Count = 0;					
-				MC.Identify.WaitTim = 0;			
-				MC.Identify.Flag = 1;
-			}	
-			
-			if(MC.Identify.Flag == 1)           
-			{							
-				if(( MC.Sample.IuReal * MC.Foc.Ud * 1.5f) / MC.Sample.BusReal >= 0.6f * MC.Identify.CurMax) 
-				{						
-					MC.Identify.Flag = 2;
-				}
-				else
-				{
-					MC.Foc.Ud += 0.0001f;				   	     //Öğ½¥Ôö¼ÓµçÁ÷£¨¹ı´óµç»ú·¢ÈÈ£¬¹ıĞ¡²âÁ¿²»×¼£©
-					MC.Identify.VoltageSet[0] = MC.Foc.Ud;							
-				}
-				
-			}
-			
-			if(MC.Identify.Flag == 2)
-			{
-					MC.Identify.WaitTim++;
-					if(MC.Identify.WaitTim > 4000)       // 0.2S µÈ´ıµçÁ÷ÎÈ¶¨
-					{
-						MC.Identify.CurSum += MC.Sample.IuReal;
-					}	
-					
-					if(MC.Identify.WaitTim >= 4100)      // ¼ÇÂ¼100´ÎµçÁ÷Öµ
-					{
-						MC.Identify.CurAverage[0] = MC.Identify.CurSum * 0.01f; //¼ÆËãÆ½¾ùµçÁ÷								
-						MC.Identify.WaitTim = 0;
-						MC.Identify.CurSum = 0;
-						MC.Identify.Flag = 3;
-					}						
-			}	
-		
-			if(MC.Identify.Flag == 3)
-			{				
-				if((MC.Sample.IuReal * MC.Foc.Ud * 1.5f) / MC.Sample.BusReal >= MC.Identify.CurMax) 
-				{						
-					MC.Identify.Flag = 4;
-				}
-				else
-				{
-					MC.Foc.Ud += 0.0001f;					    // Öğ½¥Ôö¼ÓµçÁ÷£¨¹ı´óµç»ú·¢ÈÈ£¬¹ıĞ¡²âÁ¿²»×¼£©
-					MC.Identify.VoltageSet[1] = MC.Foc.Ud;							
+void Motor_Identify(MOTORCONTROL_STRUCT *mc)
+	switch (mc->Identify.State)
+			if(mc->Identify.Flag == 0)           //Õ²
+				mc->Foc.Uq = 0;
+				mc->Foc.Ud = 0;	
+        mc->Identify.Count = 0;					
+				mc->Identify.WaitTim = 0;			
+				mc->Identify.Flag = 1;
+			if(mc->Identify.Flag == 1)           
+				if(( mc->Sample.IuReal * mc->Foc.Ud * 1.5f) / mc->Sample.BusReal >= 0.6f * mc->Identify.CurMax) 
+					mc->Identify.Flag = 2;
+					mc->Foc.Ud += 0.0001f;				   	     //ÓµÈ£Ğ¡×¼
+					mc->Identify.VoltageSet[0] = mc->Foc.Ud;							
+			if(mc->Identify.Flag == 2)
+					mc->Identify.WaitTim++;
+					if(mc->Identify.WaitTim > 4000)       // 0.2S È´È¶
+						mc->Identify.CurSum += mc->Sample.IuReal;
+					if(mc->Identify.WaitTim >= 4100)      // Â¼100ÎµÖµ
+						mc->Identify.CurAverage[0] = mc->Identify.CurSum * 0.01f; //Æ½								
+						mc->Identify.WaitTim = 0;
+						mc->Identify.CurSum = 0;
+						mc->Identify.Flag = 3;
+			if(mc->Identify.Flag == 3)
+				if((mc->Sample.IuReal * mc->Foc.Ud * 1.5f) / mc->Sample.BusReal >= mc->Identify.CurMax) 
+					mc->Identify.Flag = 4;
+					mc->Foc.Ud += 0.0001f;					    // ÓµÈ£Ğ¡×¼
+					mc->Identify.VoltageSet[1] = mc->Foc.Ud;							
+			if(mc->Identify.Flag == 4)
+					mc->Identify.WaitTim++;
+					if(mc->Identify.WaitTim > 4000)       // 0.2S È´È¶
+						mc->Identify.CurSum += mc->Sample.IuReal;
+					if(mc->Identify.WaitTim >= 4100)      // Â¼100ÎµÖµ
+						mc->Identify.CurAverage[1] = mc->Identify.CurSum * 0.01f; //Æ½
+						mc->Identify.WaitTim = 0;
+						mc->Identify.CurSum = 0;
+						mc->Identify.Flag = 5;
+			if(mc->Identify.Flag == 5)
+				mc->Identify.Rs = (mc->Identify.VoltageSet[1] - mc->Identify.VoltageSet[0]) / (mc->Identify.CurAverage[1] - mc->Identify.CurAverage[0]);
+				mc->Foc.Ud = 0;
+				mc->Identify.Flag = 0;
+				mc->Identify.State = INDUCTANCE_IDENTIFICATION;			
+		  mc->Foc.SinVal = 0;                  //Ç¶Îª0ÖµÎª0
+		  mc->Foc.CosVal = 1;           		 		//Ç¶Îª0ÖµÎª1	
+		  IPack_Transform(&mc->Foc);           //PACKä»»			
+			if(mc->Identify.Flag == 0)
+				mc->Foc.Uq = 0;
+				mc->Foc.Ud = 0;						
+				if(mc->Sample.IuReal >= -0.05f && mc->Sample.IuReal <= 0.05f)       
+					mc->Identify.Flag = 1;
+			if(mc->Identify.Flag == 1)
+				mc->Foc.Ud = mc->Identify.VoltageSet[1];
+				mc->Identify.WaitTim++;            						
+				if(mc->Sample.IuReal >= mc->Identify.CurAverage[1] * 0.95f)
+					mc->Identify.LsSum += mc->Identify.Rs * 0.334f * 0.00005f *  mc->Identify.WaitTim;
+					mc->Identify.WaitTim = 0;
+					mc->Identify.Count++;
+					mc->Identify.Flag = 0;
+					mc->Foc.Ud = 0;
+					if(mc->Identify.Count >= 100)
+						mc->Identify.Flag = 2;
+			if(mc->Identify.Flag == 2)
+				mc->Identify.Ls = mc->Identify.LsSum * 0.01f;
+				mc->Identify.Ld = mc->Identify.Ls;
+				mc->Identify.Lq = mc->Identify.Ls;		
+				mc->Identify.Flag = 0;
+				mc->Identify.LsSum = 0;
+				mc->Identify.WaitTim = 0;
+				mc->Identify.State = RESISTANCE_IDENTIFICATION;
+				mc->Identify.EndFlag = 1;
+			mc->Foc.SinVal = 0;                  //Ç¶Îª0ÖµÎª0
+			mc->Foc.CosVal = 1;           		 		//Ç¶Îª0ÖµÎª1	
+			IPack_Transform(&mc->Foc);           //PACKä»»
+	mc->Foc.Ubus = mc->Sample.BusReal;		
+	Calculate_Stepper_PWM(&mc->Foc);	          //stepper PWM				
 				}					
 			}
 			
 			if(MC.Identify.Flag == 4)
 			{
 					MC.Identify.WaitTim++;
-					if(MC.Identify.WaitTim > 4000)       // 0.2S µÈ´ıµçÁ÷ÎÈ¶¨
+					if(MC.Identify.WaitTim > 4000)       // 0.2S ç­‰å¾…ç”µæµç¨³å®š
 					{
 						MC.Identify.CurSum += MC.Sample.IuReal;
 					}	
 					
-					if(MC.Identify.WaitTim >= 4100)      // ¼ÇÂ¼100´ÎµçÁ÷Öµ
+					if(MC.Identify.WaitTim >= 4100)      // è®°å½•100æ¬¡ç”µæµå€¼
 					{
-						MC.Identify.CurAverage[1] = MC.Identify.CurSum * 0.01f; //¼ÆËãÆ½¾ùµçÁ÷
+						MC.Identify.CurAverage[1] = MC.Identify.CurSum * 0.01f; //è®¡ç®—å¹³å‡ç”µæµ
 						MC.Identify.WaitTim = 0;
 						MC.Identify.CurSum = 0;
 						MC.Identify.Flag = 5;
@@ -102,12 +102,12 @@ void Motor_Identify()
 				MC.Identify.State = INDUCTANCE_IDENTIFICATION;			
 			}	
 
-		  MC.Foc.SinVal = 0;                  //µç½Ç¶ÈÎª0£¬ÕıÏÒÖµÎª0
-		  MC.Foc.CosVal = 1;           		 		//µç½Ç¶ÈÎª0£¬ÓàÏÒÖµÎª1	
-		  IPack_Transform(&MC.Foc);           //·´PACK±ä»»			
+		  MC.Foc.SinVal = 0;                  //ç”µè§’åº¦ä¸º0ï¼Œæ­£å¼¦å€¼ä¸º0
+		  MC.Foc.CosVal = 1;           		 		//ç”µè§’åº¦ä¸º0ï¼Œä½™å¼¦å€¼ä¸º1	
+		  IPack_Transform(&MC.Foc);           //åPACKå˜æ¢			
 		}break;	
 
-		case INDUCTANCE_IDENTIFICATION:          //µç¸ĞÊ¶±ğ             
+		case INDUCTANCE_IDENTIFICATION:          //ç”µæ„Ÿè¯†åˆ«             
 		{
 			if(MC.Identify.Flag == 0)
 			{
@@ -150,9 +150,9 @@ void Motor_Identify()
 				MC.Identify.EndFlag = 1;
 			}
 			
-			MC.Foc.SinVal = 0;                  //µç½Ç¶ÈÎª0£¬ÕıÏÒÖµÎª0
-			MC.Foc.CosVal = 1;           		 		//µç½Ç¶ÈÎª0£¬ÓàÏÒÖµÎª1	
-			IPack_Transform(&MC.Foc);           //·´PACK±ä»»
+			MC.Foc.SinVal = 0;                  //ç”µè§’åº¦ä¸º0ï¼Œæ­£å¼¦å€¼ä¸º0
+			MC.Foc.CosVal = 1;           		 		//ç”µè§’åº¦ä¸º0ï¼Œä½™å¼¦å€¼ä¸º1	
+			IPack_Transform(&MC.Foc);           //åPACKå˜æ¢
 		}break;	
 	}	
 	
