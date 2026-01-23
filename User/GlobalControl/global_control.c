@@ -93,14 +93,12 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 	
 	MC.Sample.IuRaw = ADC2->JDR1;          	  // Stepper: IA sample (Phase A)
 	MC.Sample.IwRaw = ADC2->JDR2;              // Stepper: IB sample (Phase B)
-	MC.Sample.BusRaw = ADC2->JDR3;          	 //????
-	MC.Encoder.EncoderVal = TIM3->CNT;         //??		
+	MC.Sample.BusRaw = ADC2->JDR3;          	 //
+	MC.Encoder.EncoderVal = TIM3->CNT;         //		
 	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;// Stepper: electrical speed command (ADC input)
-	MC.Position.MechanicalPosSet = -ADC2->JDR4;//?¨°?¦Ë?¦Ë?¦Ë?????
+	MC.Position.MechanicalPosSet = -ADC2->JDR4;//
 	
-	
- 	Motor_System_Run();                        //??
-
+ 	Motor_System_Run();                        //
 	
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     // Stepper: A+
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     // Stepper: A-

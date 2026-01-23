@@ -70,13 +70,7 @@ void Sensoruse_Control()
 		{						
 			MC.Foc.Iu = MC.Sample.IuReal;
 			MC.Foc.Iw = MC.Sample.IwReal;
-#if MOTOR_TWO_PHASE_STEPPER
-			TwoPhase_CurrentToAlphaBeta(&MC.Foc);                           // Stepper: IA/IB -> Ialpha/Ibeta
-#else
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        // Clark任
-#endif
-		
+			TwoPhase_CurrentToAlphaBeta(&MC.Foc);
 			Pack_Transform(&MC.Foc);                                         //??任
 			
 			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Id??
@@ -101,7 +95,7 @@ void Sensoruse_Control()
 				MC.Speed.SpeedCalculateCnt = 0;
 				MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //???
 				Calculate_Speed(&MC.Speed);                                  	 //?????ε???
-@@ -97,52 +108,57 @@ void Sensoruse_Control()
+				Sensoruse_Control();	
 				if(MC.Speed.MechanicalSpeedSet != MC.Speed.MechanicalSpeedSetLast)               //???
 				{                                                      						
 					MC.TAccDec.StartSpeed = MC.Speed.MechanicalSpeedSetLast * MC.Encoder.PolePairs;//ó?
@@ -128,12 +122,7 @@ void Sensoruse_Control()
 			}
 			MC.Foc.Iu = MC.Sample.IuReal;
 			MC.Foc.Iw = MC.Sample.IwReal;
-#if MOTOR_TWO_PHASE_STEPPER
-			TwoPhase_CurrentToAlphaBeta(&MC.Foc);                           // Stepper: IA/IB -> Ialpha/Ibeta
-#else
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        // Clark任
-#endif
+			TwoPhase_CurrentToAlphaBeta(&MC.Foc);   
 	
 			Pack_Transform(&MC.Foc);             														 //??任
 
@@ -159,7 +148,7 @@ void Sensoruse_Control()
 			{											
 				MC.Position.PosCalculateCnt = 0;			
 				MC.Position.ElectricalPosThis = MC.Encoder.ElectricalVal;			 //??λ
-@@ -154,53 +170,60 @@ void Sensoruse_Control()
+				Sensoruse_Control();	
 			}
 					
 			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)					 //SPEED_DIVISION_FACTOR ?????
@@ -186,13 +175,7 @@ void Sensoruse_Control()
 			}                                                   
 			MC.Foc.Iu = MC.Sample.IuReal;
 			MC.Foc.Iw = MC.Sample.IwReal;
-#if MOTOR_TWO_PHASE_STEPPER
 			TwoPhase_CurrentToAlphaBeta(&MC.Foc);                           // Stepper: IA/IB -> Ialpha/Ibeta
-#else
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        // Clark任
-#endif
-	
 			Pack_Transform(&MC.Foc);                                         //??任
 
 			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Id?? 
@@ -209,10 +192,6 @@ void Sensoruse_Control()
 		}break;	
 	}
 	
-	MC.Foc.Ubus = MC.Sample.BusReal;									
-#if MOTOR_TWO_PHASE_STEPPER
-  Calculate_HBridgePWM(&MC.Foc);								
-#else
-  Calculate_SVPWM(&MC.Foc);								
-#endif
+	MC.Foc.Ubus = MC.Sample.BusReal;
+  Calculate_HBridgePWM(&MC.Foc);
 }
