@@ -11,7 +11,7 @@
 #include "lcd_task.h"
 #include "lcd_drv.h"
 
-volatile u16 LcdTaskId = 20;
+volatile u16 LcdTaskId = 10;
 volatile u16 LcdTaskTim = 0;
 
 

@@ -41,8 +41,6 @@ void Usart_Task(void)
 //			printf("%0.3f,%0.3f\n",(float)MC.Sample.IuRaw,(float)MC.Sample.IwRaw);                               //采样原始值			
 //		  printf("%0.3f,%0.3f,%0.3f\n",MC.Sample.IuReal,MC.Sample.IvReal,MC.Sample.IwReal);                    //三相电流值（正弦波）
 //			printf("%0.3f,%0.3f\n",MC.Foc.Ialpha,MC.Foc.Ibeta);                                                  //α轴和β轴电流值（正弦波）			
-//			printf("Id=%0.3f,Iq=%0.3f,Ualpha=%0.3f,Ubeta=%0.3f,theta=%0.3f\n",
-//			       MC.Foc.Id,MC.Foc.Iq,MC.Foc.Ualpha,MC.Foc.Ubeta,MC.Encoder.ElectricalValSet); // Stepper log
 //		  printf("%0.3f,%0.3f,%0.3f\n",(float)MC.Foc.Channel1,(float)MC.Foc.Channel2,(float)MC.Foc.Channel3);  //三相占空比（马鞍波）		
 //			printf("%0.3f,%0.3f\n",MC.IdPid.Ref,MC.IdPid.Fbk);                                                   //D轴电流目标值和反馈值	
 //			printf("%0.3f,%0.3f\n",MC.IqPid.Ref,MC.IqPid.Fbk);                                                   //Q轴电流目标值和反馈值				

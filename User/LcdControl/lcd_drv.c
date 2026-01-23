@@ -753,8 +753,8 @@ void LCD_Init(void)
 	LCD_WR_REG(0x29);     //Display on
 
 	
-	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
-//	LCD_ShowPicture(40,0,80,80,gImage_hs_logo);
+	LCD_Fill(0,0,LCD_W,LCD_H,BLACK);
+	LCD_ShowPicture(40,0,80,80,gImage_hs_logo);
 }
 
 

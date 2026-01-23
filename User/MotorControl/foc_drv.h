@@ -32,16 +32,12 @@ typedef struct
 	u16   DutyCycleA;    // A相占空比
 	u16   DutyCycleB;    // B相占空比
 	u16   DutyCycleC;    // C相占空比	
-  	u16   DutyCycleD;    // D?? (Stepper: B-)
 }FOC_STRUCT;
 
 void Clark_Transform(FOC_STRUCT *p);
-void TwoPhase_CurrentToAlphaBeta(FOC_STRUCT *p);  // Stepper: IA/IB -> Ialpha/Ibeta
 void Pack_Transform(FOC_STRUCT *p); 
 void IPack_Transform(FOC_STRUCT *p);
-void IPack_Transform(FOC_STRUCT *p);
 void Calculate_SVPWM(FOC_STRUCT *p);
-void Calculate_HBridgePWM(FOC_STRUCT *p);         // Stepper: Ualpha/Ubeta -> A+/A-/B+/B-
 
 
 #endif 

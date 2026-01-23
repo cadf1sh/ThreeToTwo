@@ -34,19 +34,6 @@ void Pack_Transform(FOC_STRUCT *p)
 	p->Iq = (-p->Ialpha * p->SinVal) + (p->Ibeta * p->CosVal);	
 }
 
-
-
-/**
-  * : -> Ialpha/Ibeta (Stepper)
-  * ?    : IA->Ialpha, IB->Ibeta
-  */
-void TwoPhase_CurrentToAlphaBeta(FOC_STRUCT *p)
-{
-	p->Ialpha = p->Iu;
-	p->Ibeta  = p->Iw;
-}
-
-
 /**
   * 函数功能:反Pack变换 
   * 输入参数:
@@ -67,129 +54,91 @@ void IPack_Transform(FOC_STRUCT *p)
   */
 void Calculate_SVPWM(FOC_STRUCT *p)
 {
-//  float U1,U2,U3 = 0;
-//	float X ,Y ,Z = 0;
-//  float T1,T2,T1Temp,T2Temp = 0;	
-//	u8 A,B,C,N = 0;
-//	u16 Ta,Tb,Tc = 0;
-//	
-//	U1 = p->Ubeta;
-//	U2 = (0.866f * p->Ualpha) - (0.5f * p->Ubeta);
-//  U3 = (-0.866f * p->Ualpha) - (0.5f * p->Ubeta);
-//	
-//	if(U1 > 0){A = 1;} else{A = 0;}
-//	if(U2 > 0){B = 1;} else{B = 0;}
-//	if(U3 > 0){C = 1;} else{C = 0;}
-//	N = 4 * C + 2 * B + A;
-//	
-//	X = (1.732f * p->PwmCycle * p->Ubeta) / p->Ubus;
-//	Y = (1.5f * p->Ualpha * p->PwmCycle + 0.866f * p->Ubeta * p->PwmCycle) / p->Ubus;
-//	Z = (-1.5f * p->Ualpha * p->PwmCycle + 0.866f * p->Ubeta * p->PwmCycle) / p->Ubus;
-//			
-//	switch(N)
-//	{
-//	  case 3: {T1 = -Z; T2 =  X;} break;
-//	  case 1: {T1 =  Z; T2 =  Y;} break;
-//	  case 5: {T1 =  X; T2 = -Y;} break;
-//	  case 4: {T1 = -X; T2 =  Z;} break;
-//	  case 6: {T1 = -Y; T2 = -Z;} break;
-//	  case 2: {T1 =  Y; T2 = -X;} break;
-//    default:{T1 = 0;  T2=0;}    break;
-//	}
-//	
-//	T1Temp = T1;
-//	T2Temp = T2;
-//	if(T1+T2 > p->PwmLimit)
-//	{
-//	  T1 = p->PwmLimit * T1Temp / (T1Temp + T2Temp);
-//    T2 = p->PwmLimit * T2Temp / (T1Temp + T2Temp);
-//	}
-//	
-//	Ta = (p->PwmCycle - T1 - T2) * 0.25f;
-//	Tb = Ta + T1 * 0.5f;
-//	Tc = Tb + T2 * 0.5f;
-//	
-//	switch(N)
-//	{
-//	  case 3: 
-//      {
-//      p->DutyCycleA = Ta;
-//      p->DutyCycleB = Tb;
-//      p->DutyCycleC = Tc;
-//	  } break;
-//	  case 1: 
-//    {
-//      p->DutyCycleA = Tb;
-//      p->DutyCycleB = Ta;
-//      p->DutyCycleC = Tc;
-//		} break;
-//	  case 5: 
-//    {
-//      p->DutyCycleA = Tc;
-//      p->DutyCycleB = Ta;
-//      p->DutyCycleC = Tb;
-//		} break;
-//	  case 4: 
-//    {
-//      p->DutyCycleA = Tc;
-//      p->DutyCycleB = Tb;
-//      p->DutyCycleC = Ta;
-//		} break;
-//	  case 6: 
-//    {
-//      p->DutyCycleA = Tb;
-//      p->DutyCycleB = Tc;
-//      p->DutyCycleC = Ta;
-//		} break;
-//	  case 2: 
-//    {
-//      p->DutyCycleA = Ta;
-//      p->DutyCycleB = Tc;
-//      p->DutyCycleC = Tb;
-//		} break;
-//    default:
-//		{			
-//	    p->DutyCycleA = Ta;
-//      p->DutyCycleB = Tb;
-//      p->DutyCycleC = Tc;
-//		}break;
-//	}
-}
-
-
-/**
-  * :HPWM (Stepper)
-  * ?    : Ualpha/Ubeta -> A+/A-/B+/B- (TIM1 CH1-4)
-  */
-void Calculate_HBridgePWM(FOC_STRUCT *p)
-{
-  float ua = p->Ualpha;
-  float ub = p->Ubeta;
-  float ulimit = p->Ubus * ((float)p->PwmLimit / (float)p->PwmCycle);
-  if(ua > ulimit) ua = ulimit;
-  if(ua < -ulimit) ua = -ulimit;
-  if(ub > ulimit) ub = ulimit;
-  if(ub < -ulimit) ub = -ulimit;
-
-  if(p->Ubus <= 0.01f)
-  {
-    p->DutyCycleA = 0;
-    p->DutyCycleB = 0;
-    p->DutyCycleC = 0;
-    p->DutyCycleD = 0;
-    return;
-  }
-
-  float dutyA = (ua / p->Ubus * 0.5f + 0.5f) * p->PwmCycle;
-  float dutyB = (ub / p->Ubus * 0.5f + 0.5f) * p->PwmCycle;
-
-  if(dutyA < 0) dutyA = 0;
-  if(dutyA > p->PwmCycle) dutyA = p->PwmCycle;
-  if(dutyB < 0) dutyB = 0;
-  if(dutyB > p->PwmCycle) dutyB = p->PwmCycle;
-
-  p->DutyCycleA = (u16)dutyA;
-  p->DutyCycleB = (u16)(p->PwmCycle - dutyA);
-  p->DutyCycleC = (u16)dutyB;
-  p->DutyCycleD = (u16)(p->PwmCycle - dutyB);
+  float U1,U2,U3 = 0;
+	float X ,Y ,Z = 0;
+  float T1,T2,T1Temp,T2Temp = 0;	
+	u8 A,B,C,N = 0;
+	u16 Ta,Tb,Tc = 0;
+	
+	U1 = p->Ubeta;
+	U2 = (0.866f * p->Ualpha) - (0.5f * p->Ubeta);
+  U3 = (-0.866f * p->Ualpha) - (0.5f * p->Ubeta);
+	
+	if(U1 > 0){A = 1;} else{A = 0;}
+	if(U2 > 0){B = 1;} else{B = 0;}
+	if(U3 > 0){C = 1;} else{C = 0;}
+	N = 4 * C + 2 * B + A;
+	
+	X = (1.732f * p->PwmCycle * p->Ubeta) / p->Ubus;
+	Y = (1.5f * p->Ualpha * p->PwmCycle + 0.866f * p->Ubeta * p->PwmCycle) / p->Ubus;
+	Z = (-1.5f * p->Ualpha * p->PwmCycle + 0.866f * p->Ubeta * p->PwmCycle) / p->Ubus;
+			
+	switch(N)
+	{
+	  case 3: {T1 = -Z; T2 =  X;} break;
+	  case 1: {T1 =  Z; T2 =  Y;} break;
+	  case 5: {T1 =  X; T2 = -Y;} break;
+	  case 4: {T1 = -X; T2 =  Z;} break;
+	  case 6: {T1 = -Y; T2 = -Z;} break;
+	  case 2: {T1 =  Y; T2 = -X;} break;
+    default:{T1 = 0;  T2=0;}    break;
+	}
+	
+	T1Temp = T1;
+	T2Temp = T2;
+	if(T1+T2 > p->PwmLimit)
+	{
+	  T1 = p->PwmLimit * T1Temp / (T1Temp + T2Temp);
+    T2 = p->PwmLimit * T2Temp / (T1Temp + T2Temp);
+	}
+	
+	Ta = (p->PwmCycle - T1 - T2) * 0.25f;
+	Tb = Ta + T1 * 0.5f;
+	Tc = Tb + T2 * 0.5f;
+	
+	switch(N)
+	{
+	  case 3: 
+      {
+      p->DutyCycleA = Ta;
+      p->DutyCycleB = Tb;
+      p->DutyCycleC = Tc;
+	  } break;
+	  case 1: 
+    {
+      p->DutyCycleA = Tb;
+      p->DutyCycleB = Ta;
+      p->DutyCycleC = Tc;
+		} break;
+	  case 5: 
+    {
+      p->DutyCycleA = Tc;
+      p->DutyCycleB = Ta;
+      p->DutyCycleC = Tb;
+		} break;
+	  case 4: 
+    {
+      p->DutyCycleA = Tc;
+      p->DutyCycleB = Tb;
+      p->DutyCycleC = Ta;
+		} break;
+	  case 6: 
+    {
+      p->DutyCycleA = Tb;
+      p->DutyCycleB = Tc;
+      p->DutyCycleC = Ta;
+		} break;
+	  case 2: 
+    {
+      p->DutyCycleA = Ta;
+      p->DutyCycleB = Tc;
+      p->DutyCycleC = Tb;
+		} break;
+    default:
+		{			
+	    p->DutyCycleA = Ta;
+      p->DutyCycleB = Tb;
+      p->DutyCycleC = Tc;
+		}break;
+	}
 }
