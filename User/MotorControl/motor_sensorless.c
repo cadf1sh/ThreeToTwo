@@ -44,8 +44,9 @@ void Sensorless_Control()
 			Electrical_Angle_Generator(&MC.Encoder); //根据设定的电角速度实时计算电角度
 			Calculate_Sin_Cos(MC.Encoder.ElectricalValSet,&MC.Foc.SinVal,&MC.Foc.CosVal); //计算正余弦值		
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);           		 //克拉克变换
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
 			
 			Pack_Transform(&MC.Foc);                 //派克变换
 
@@ -176,8 +177,9 @@ void Sensorless_Control()
 			}	
 			
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);              //克拉克变换
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
 		
 			Pack_Transform(&MC.Foc);               //派克变换
 
@@ -191,7 +193,7 @@ void Sensorless_Control()
 
 			MC.Foc.Uq = MC.IqPid.Out;			
 			MC.Foc.Ud = MC.IdPid.Out;
-	    IPack_Transform(&MC.Foc);             //反PACK变换				
+	    	IPack_Transform(&MC.Foc);             //反PACK变换				
       
 			
 			MC.SMO.Rs = MC.Identify.Rs;
@@ -211,9 +213,9 @@ void Sensorless_Control()
 		case HFI_CURRENT_CLOSE:                    //单电流闭环高频注入 （纯HFI不可高速运行，需要用手捏住电机控速）        
 		{						
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                //克拉克变换		
-
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
       Calculate_Sin_Cos(MC.HPLL.ETheta,&MC.Foc.SinVal,&MC.Foc.CosVal);		
 			Pack_Transform(&MC.Foc);                 //派克变换
 			
@@ -285,8 +287,9 @@ void Sensorless_Control()
 			}			
 		
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        //克拉克变换		
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;	
 
       Calculate_Sin_Cos(MC.HPLL.ETheta,&MC.Foc.SinVal,&MC.Foc.CosVal);		
 			Pack_Transform(&MC.Foc);                                         //派克变换
@@ -366,8 +369,9 @@ void Sensorless_Control()
 			}			
 		
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        //克拉克变换		
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
 
       Calculate_Sin_Cos(MC.HPLL.ETheta,&MC.Foc.SinVal,&MC.Foc.CosVal);		
 			Pack_Transform(&MC.Foc);                                         //派克变换
@@ -407,7 +411,7 @@ void Sensorless_Control()
 		
 	}				
 	MC.Foc.Ubus = MC.Sample.BusReal;		
-	Calculate_SVPWM(&MC.Foc);	                                            //SVPWM	
+	Calculate_Stepper_PWM(&MC.Foc);	    
 }	
 
 

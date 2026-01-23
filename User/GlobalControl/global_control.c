@@ -102,7 +102,7 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //更新PWM比较值             
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     //更新PWM比较值
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MC.Foc.DutyCycleC); 		 //更新PWM比较值
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,2149);		               //更新PWM比较值
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,MC.Foc.DutyCycleD);         //更新PWM比较值
 }
 
 

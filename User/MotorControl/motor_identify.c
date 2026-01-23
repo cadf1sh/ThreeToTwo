@@ -157,7 +157,7 @@ void Motor_Identify()
 	}	
 	
 	MC.Foc.Ubus = MC.Sample.BusReal;		
-	Calculate_SVPWM(&MC.Foc);	          //SVPWM				
+	Calculate_Stepper_PWM(&MC.Foc);	          //stepper PWM				
 }
 
 

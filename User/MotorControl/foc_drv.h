@@ -32,12 +32,12 @@ typedef struct
 	u16   DutyCycleA;    // A相占空比
 	u16   DutyCycleB;    // B相占空比
 	u16   DutyCycleC;    // C相占空比	
+	u16   DutyCycleD;    // D duty
 }FOC_STRUCT;
 
-void Clark_Transform(FOC_STRUCT *p);
 void Pack_Transform(FOC_STRUCT *p); 
 void IPack_Transform(FOC_STRUCT *p);
-void Calculate_SVPWM(FOC_STRUCT *p);
+void Calculate_Stepper_PWM(FOC_STRUCT *p);
 
 
 #endif 

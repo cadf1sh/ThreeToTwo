@@ -63,8 +63,9 @@ void Sensoruse_Control()
 		case CURRENT_CLOSE_LOOP:                                           //电流闭环，给定Iq_ref电机转动
 		{						
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        //克拉克变换
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
 		
 			Pack_Transform(&MC.Foc);                                         //派克变换
 			
@@ -119,9 +120,10 @@ void Sensoruse_Control()
 				MC.IqPid.Ref = MC.SpdPid.Out;	
 			}
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);            														 //克拉克变换
-	
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
+
 			Pack_Transform(&MC.Foc);             														 //派克变换
 
 			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Id低通滤波
@@ -176,8 +178,9 @@ void Sensoruse_Control()
 				MC.IqPid.Ref = MC.SpdPid.Out;										
 			}                                                   
 			MC.Foc.Iu = MC.Sample.IuReal;
-			MC.Foc.Iv = MC.Sample.IvReal;			
-			Clark_Transform(&MC.Foc);                                        //克拉克变换
+			MC.Foc.Iw = MC.Sample.IwReal;			
+			MC.Foc.Ialpha = MC.Foc.Iu;
+			MC.Foc.Ibeta = MC.Foc.Iw;
 	
 			Pack_Transform(&MC.Foc);                                         //派克变换
 
@@ -196,7 +199,7 @@ void Sensoruse_Control()
 	}
 	
 	MC.Foc.Ubus = MC.Sample.BusReal;						
-  Calculate_SVPWM(&MC.Foc);						
+  	Calculate_Stepper_PWM(&MC.Foc);						
 }
 
 
