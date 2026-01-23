@@ -851,6 +851,16 @@
               <FileType>1</FileType>
               <FilePath>..\User\MotorControl\pid_drv.c</FilePath>
             </File>
+            <File>
+              <FileName>stepper_foc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\stepper_foc.h</FilePath>
+            </File>
+            <File>
+              <FileName>stepper_foc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\stepper_foc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

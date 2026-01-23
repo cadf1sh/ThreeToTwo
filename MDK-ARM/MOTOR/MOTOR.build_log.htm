@@ -27,11 +27,21 @@ Project File Date:  01/23/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\Version5.06\Bin'
 Build target 'MOTOR'
-compiling usart_task.c...
+compiling motor_sensorless.c...
+compiling motor_identify.c...
+..\User\MotorControl\motor_identify.h(6): warning:  #1295-D: Deprecated declaration Motor_Identify - give arg types
+  void Motor_Identify();
+..\User\MotorControl\motor_identify.c: 1 warning, 0 errors
+compiling stepper_foc.c...
+stepper_foc.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+stepper_foc.c(72): warning:  #1-D: last line of file ends without a newline
+  }
+stepper_foc.c: 2 warnings, 0 errors
 linking...
 Program Size: Code=19992 RO-data=1080 RW-data=48 ZI-data=2376  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 0 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +64,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:09
 </pre>
 </body>
 </html>

@@ -22,9 +22,9 @@ void Motor_Identify()
 {
 	switch (MC.Identify.State)
 	{		
-		case RESISTANCE_IDENTIFICATION:       //电阻识别                 
+		case RESISTANCE_IDENTIFICATION:       //?                 
 		{
-			if(MC.Identify.Flag == 0)           //清空参数
+			if(MC.Identify.Flag == 0)           //?
 			{
 				MC.Foc.Uq = 0;
 				MC.Foc.Ud = 0;	
@@ -41,7 +41,7 @@ void Motor_Identify()
 				}
 				else
 				{
-					MC.Foc.Ud += 0.0001f;				   	     //逐渐增加电流（过大电机发热，过小测量不准）
+					MC.Foc.Ud += 0.0001f;				   	     //??С?
 					MC.Identify.VoltageSet[0] = MC.Foc.Ud;							
 				}
 				
@@ -50,14 +50,14 @@ void Motor_Identify()
 			if(MC.Identify.Flag == 2)
 			{
 					MC.Identify.WaitTim++;
-					if(MC.Identify.WaitTim > 4000)       // 0.2S 等待电流稳定
+					if(MC.Identify.WaitTim > 4000)       // 0.2S ??
 					{
 						MC.Identify.CurSum += MC.Sample.IuReal;
 					}	
 					
-					if(MC.Identify.WaitTim >= 4100)      // 记录100次电流值
+					if(MC.Identify.WaitTim >= 4100)      // ?100ε?
 					{
-						MC.Identify.CurAverage[0] = MC.Identify.CurSum * 0.01f; //计算平均电流								
+						MC.Identify.CurAverage[0] = MC.Identify.CurSum * 0.01f; //?								
 						MC.Identify.WaitTim = 0;
 						MC.Identify.CurSum = 0;
 						MC.Identify.Flag = 3;
@@ -72,7 +72,7 @@ void Motor_Identify()
 				}
 				else
 				{
-					MC.Foc.Ud += 0.0001f;					    // 逐渐增加电流（过大电机发热，过小测量不准）
+					MC.Foc.Ud += 0.0001f;					    // ??С?
 					MC.Identify.VoltageSet[1] = MC.Foc.Ud;							
 				}					
 			}
@@ -80,14 +80,14 @@ void Motor_Identify()
 			if(MC.Identify.Flag == 4)
 			{
 					MC.Identify.WaitTim++;
-					if(MC.Identify.WaitTim > 4000)       // 0.2S 等待电流稳定
+					if(MC.Identify.WaitTim > 4000)       // 0.2S ??
 					{
 						MC.Identify.CurSum += MC.Sample.IuReal;
 					}	
 					
-					if(MC.Identify.WaitTim >= 4100)      // 记录100次电流值
+					if(MC.Identify.WaitTim >= 4100)      // ?100ε?
 					{
-						MC.Identify.CurAverage[1] = MC.Identify.CurSum * 0.01f; //计算平均电流
+						MC.Identify.CurAverage[1] = MC.Identify.CurSum * 0.01f; //?
 						MC.Identify.WaitTim = 0;
 						MC.Identify.CurSum = 0;
 						MC.Identify.Flag = 5;
@@ -102,12 +102,12 @@ void Motor_Identify()
 				MC.Identify.State = INDUCTANCE_IDENTIFICATION;			
 			}	
 
-		  MC.Foc.SinVal = 0;                  //电角度为0，正弦值为0
-		  MC.Foc.CosVal = 1;           		 		//电角度为0，余弦值为1	
-		  IPack_Transform(&MC.Foc);           //反PACK变换			
+		  MC.Foc.SinVal = 0;                  //??0??0
+		  MC.Foc.CosVal = 1;           		 		//??0??1	
+		  IPack_Transform(&MC.Foc);           //PACK任			
 		}break;	
 
-		case INDUCTANCE_IDENTIFICATION:          //电感识别             
+		case INDUCTANCE_IDENTIFICATION:          //?             
 		{
 			if(MC.Identify.Flag == 0)
 			{
@@ -150,16 +150,15 @@ void Motor_Identify()
 				MC.Identify.EndFlag = 1;
 			}
 			
-			MC.Foc.SinVal = 0;                  //电角度为0，正弦值为0
-			MC.Foc.CosVal = 1;           		 		//电角度为0，余弦值为1	
-			IPack_Transform(&MC.Foc);           //反PACK变换
+			MC.Foc.SinVal = 0;                  //??0??0
+			MC.Foc.CosVal = 1;           		 		//??0??1	
+			IPack_Transform(&MC.Foc);           //PACK任
 		}break;	
 	}	
 	
 	MC.Foc.Ubus = MC.Sample.BusReal;		
 	Calculate_Stepper_PWM(&MC.Foc);	          //stepper PWM				
 }
-
 
 
 

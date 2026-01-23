@@ -44,6 +44,7 @@
 "motor\math_drv.o"
 "motor\foc_drv.o"
 "motor\pid_drv.o"
+"motor\stepper_foc.o"
 "motor\global_control.o"
 --library_type=microlib --strict --scatter "MOTOR\MOTOR.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
