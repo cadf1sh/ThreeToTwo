@@ -55,7 +55,6 @@ void Calculate_Phase_Current(SAMPLE_STRUCT *p)
 {
   p->IuReal =   p->CurrentDir * (p->IuRaw - p->IuOffset) * p->CurrentFactor;
   p->IwReal =   p->CurrentDir * (p->IwRaw - p->IwOffset) * p->CurrentFactor;
-	p->IvReal = - p->IuReal - p->IwReal; 
 }
 
 /**
@@ -66,8 +65,8 @@ void Calculate_Phase_Current(SAMPLE_STRUCT *p)
   */
 void Calculate_Bus_Voltage(SAMPLE_STRUCT *p)
 {
-  p->BusReal   = p->BusRaw  * p->BusFactor;
-	p->BusChange = p->BusReal - p->BusCalibReal;
+  p->BusReal   = p->BusRaw  * p->BusFactor +1;
+	p->BusChange = p->BusReal - p->BusCalibReal - 1;
 }
 
 

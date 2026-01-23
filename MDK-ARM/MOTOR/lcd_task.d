@@ -39,3 +39,12 @@ motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
 motor\lcd_task.o: ..\User\LcdControl\lcd_drv.h
+motor\lcd_task.o: ../User/MotorControl/motor_publicdata.h
+motor\lcd_task.o: ../User/MotorControl/foc_drv.h
+motor\lcd_task.o: ../User/MotorControl/pid_drv.h
+motor\lcd_task.o: ../User/MotorControl/math_drv.h
+motor\lcd_task.o: ../User/MotorControl/speed_drv.h
+motor\lcd_task.o: ../User/MotorControl/sample_drv.h
+motor\lcd_task.o: ../User/MotorControl/encoder_drv.h
+motor\lcd_task.o: ../User/MotorControl/position_drv.h
+motor\lcd_task.o: ../User/MotorControl/observer_drv.h

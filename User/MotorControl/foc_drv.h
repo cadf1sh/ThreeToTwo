@@ -6,7 +6,6 @@
 typedef struct
 {		
 	float Iu;            // U相电流  
-	float Iv;            // V相电流 
 	float Iw;            // W相电流 	
 	float Ialpha;        // alpha轴电流 
 	float Ibeta;	       // beta轴电流 

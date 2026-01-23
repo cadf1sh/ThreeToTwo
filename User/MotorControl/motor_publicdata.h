@@ -10,6 +10,7 @@
 #include "encoder_drv.h"
 #include "position_drv.h"
 #include "observer_drv.h"
+#include "lcd_task.h"
 
 #define LOW_RESITOR        4.7f     //母线电压检测下端电阻
 #define HIGH_RESITOR       100.0f   //母线电压检测上端电阻

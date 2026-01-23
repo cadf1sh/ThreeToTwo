@@ -38,7 +38,7 @@ void Usart_Task(void)
 		
 		case 20:
 		{ 
-//			printf("%0.3f,%0.3f\n",(float)MC.Sample.IuRaw,(float)MC.Sample.IwRaw);                               //采样原始值			
+		printf("%0.3f,%0.3f\n",(float)MC.Sample.IuRaw,(float)MC.Sample.IwRaw);                               //采样原始值			
 //		  printf("%0.3f,%0.3f,%0.3f\n",MC.Sample.IuReal,MC.Sample.IvReal,MC.Sample.IwReal);                    //三相电流值（正弦波）
 //			printf("%0.3f,%0.3f\n",MC.Foc.Ialpha,MC.Foc.Ibeta);                                                  //α轴和β轴电流值（正弦波）			
 //		  printf("%0.3f,%0.3f,%0.3f\n",(float)MC.Foc.Channel1,(float)MC.Foc.Channel2,(float)MC.Foc.Channel3);  //三相占空比（马鞍波）		

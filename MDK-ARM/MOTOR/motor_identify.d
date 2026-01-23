@@ -47,3 +47,4 @@ motor\motor_identify.o: ..\User\MotorControl\sample_drv.h
 motor\motor_identify.o: ..\User\MotorControl\encoder_drv.h
 motor\motor_identify.o: ..\User\MotorControl\position_drv.h
 motor\motor_identify.o: ..\User\MotorControl\observer_drv.h
+motor\motor_identify.o: ../User/LcdControl/lcd_task.h

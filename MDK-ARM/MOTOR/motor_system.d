@@ -48,3 +48,4 @@ motor\motor_system.o: ..\User\MotorControl\sample_drv.h
 motor\motor_system.o: ..\User\MotorControl\encoder_drv.h
 motor\motor_system.o: ..\User\MotorControl\position_drv.h
 motor\motor_system.o: ..\User\MotorControl\observer_drv.h
+motor\motor_system.o: ../User/LcdControl/lcd_task.h

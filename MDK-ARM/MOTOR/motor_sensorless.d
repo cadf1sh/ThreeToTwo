@@ -47,3 +47,4 @@ motor\motor_sensorless.o: ..\User\MotorControl\sample_drv.h
 motor\motor_sensorless.o: ..\User\MotorControl\encoder_drv.h
 motor\motor_sensorless.o: ..\User\MotorControl\position_drv.h
 motor\motor_sensorless.o: ..\User\MotorControl\observer_drv.h
+motor\motor_sensorless.o: ../User/LcdControl/lcd_task.h
