@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>STM32G431xx,__FPU_PRESENT=1U,__TARGET_FPU_VFP,ARM_MATH_CM4,__CC_ARM,USE_HAL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32G4xx/Include;../Drivers/CMSIS/Include;../User/MotorControl;../User/GlobalControl;../User/LedControl;../User/LcdControl;../User/UsartControl</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32G4xx/Include;../Drivers/CMSIS/Include;../User/MotorControl;../User/GlobalControl;../User/LedControl;../User/LcdControl;../User/UsartControl;.\MOTOR;..\MDK-ARM</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

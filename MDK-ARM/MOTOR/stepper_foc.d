@@ -41,3 +41,10 @@ motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
 motor\stepper_foc.o: ../User/MotorControl/pid_drv.h
 motor\stepper_foc.o: ../User/MotorControl/math_drv.h
+motor\stepper_foc.o: ../User/MotorControl/motor_publicdata.h
+motor\stepper_foc.o: ../User/MotorControl/speed_drv.h
+motor\stepper_foc.o: ../User/MotorControl/sample_drv.h
+motor\stepper_foc.o: ../User/MotorControl/encoder_drv.h
+motor\stepper_foc.o: ../User/MotorControl/position_drv.h
+motor\stepper_foc.o: ../User/MotorControl/observer_drv.h
+motor\stepper_foc.o: ../User/LcdControl/lcd_task.h

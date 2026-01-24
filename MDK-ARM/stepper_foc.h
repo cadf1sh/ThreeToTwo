@@ -4,6 +4,7 @@
 #include "foc_drv.h"
 #include "pid_drv.h"
 #include "math_drv.h"
+#include "motor_publicdata.h"
 
 typedef struct
 {
