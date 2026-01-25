@@ -3,7 +3,7 @@
 <title>Static Call Graph - [MOTOR\MOTOR.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image MOTOR\MOTOR.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun Jan 25 23:00:09 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sun Jan 25 23:19:46 2026
 <BR><P>
 <H3>Maximum Stack Usage =        360 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -355,14 +355,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
+<P><STRONG><a name="[fb]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+
+<P><STRONG><a name="[e6]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
+</UL>
+
+<P><STRONG><a name="[fc]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+
 <P><STRONG><a name="[59]"></a>__aeabi_memset</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_memset$wrapper
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 
-<P><STRONG><a name="[fb]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[fd]"></a>__aeabi_memset4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
-<P><STRONG><a name="[fc]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[fe]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
 <P><STRONG><a name="[58]"></a>__aeabi_memclr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
@@ -381,7 +389,7 @@ Global Symbols
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_ADC2_Init
 </UL>
 
-<P><STRONG><a name="[fd]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<P><STRONG><a name="[ff]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
 
 <P><STRONG><a name="[5a]"></a>_memset$wrapper</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, memseta.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
@@ -391,13 +399,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[fe]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
+<P><STRONG><a name="[100]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
 
 <P><STRONG><a name="[56]"></a>__aeabi_llsr</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, llushr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[ff]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
+<P><STRONG><a name="[101]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
 
 <P><STRONG><a name="[54]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
@@ -405,10 +413,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[100]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[102]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
 <P><STRONG><a name="[1b]"></a>ADC1_2_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.ADC1_2_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = ADC1_2_IRQHandler &rArr; HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Sensoruse_Control &rArr; Calculate_Sin_Cos
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ADC1_2_IRQHandler &rArr; HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_IRQHandler
 </UL>
@@ -434,24 +442,20 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e0]"></a>Calculate_Adc_Offset</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, sample_drv.o(i.Calculate_Adc_Offset))
+<P><STRONG><a name="[e1]"></a>Calculate_Adc_Offset</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, sample_drv.o(i.Calculate_Adc_Offset))
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
 
-<P><STRONG><a name="[de]"></a>Calculate_Bus_Voltage</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, sample_drv.o(i.Calculate_Bus_Voltage))
+<P><STRONG><a name="[df]"></a>Calculate_Bus_Voltage</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, sample_drv.o(i.Calculate_Bus_Voltage))
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
 
-<P><STRONG><a name="[e3]"></a>Calculate_Encoder_Data</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, encoder_drv.o(i.Calculate_Encoder_Data))
+<P><STRONG><a name="[e4]"></a>Calculate_Encoder_Data</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, encoder_drv.o(i.Calculate_Encoder_Data))
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
 
-<P><STRONG><a name="[df]"></a>Calculate_Phase_Current</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, sample_drv.o(i.Calculate_Phase_Current))
+<P><STRONG><a name="[e0]"></a>Calculate_Phase_Current</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, sample_drv.o(i.Calculate_Phase_Current))
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
-</UL>
-
-<P><STRONG><a name="[ec]"></a>Calculate_Position</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, position_drv.o(i.Calculate_Position))
-<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
 </UL>
 
 <P><STRONG><a name="[60]"></a>Calculate_Sin_Cos</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, math_drv.o(i.Calculate_Sin_Cos))
@@ -459,19 +463,15 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Amplitude_Limit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
+<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Run
 </UL>
 
-<P><STRONG><a name="[e8]"></a>Calculate_Speed</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, speed_drv.o(i.Calculate_Speed))
-<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
-</UL>
-
-<P><STRONG><a name="[62]"></a>Calculate_Stepper_PWM</STRONG> (Thumb, 206 bytes, Stack size 16 bytes, foc_drv.o(i.Calculate_Stepper_PWM))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Calculate_Stepper_PWM
+<P><STRONG><a name="[62]"></a>Calculate_Stepper_PWM</STRONG> (Thumb, 328 bytes, Stack size 32 bytes, foc_drv.o(i.Calculate_Stepper_PWM))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clamp_Float
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
+<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Run
 </UL>
 
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.DebugMon_Handler))
@@ -524,7 +524,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[77]"></a>HAL_ADCEx_InjectedConvCpltCallback</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, global_control.o(i.HAL_ADCEx_InjectedConvCpltCallback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Sensoruse_Control &rArr; Calculate_Sin_Cos
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
@@ -574,7 +574,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[5c]"></a>HAL_ADC_IRQHandler</STRONG> (Thumb, 612 bytes, Stack size 40 bytes, stm32g4xx_hal_adc.o(i.HAL_ADC_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Sensoruse_Control &rArr; Calculate_Sin_Cos
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_LevelOutOfWindowCallback
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_ErrorCallback
@@ -639,7 +639,7 @@ Global Symbols
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
-<P><STRONG><a name="[e2]"></a>HAL_GPIO_TogglePin</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, stm32g4xx_hal_gpio.o(i.HAL_GPIO_TogglePin))
+<P><STRONG><a name="[e3]"></a>HAL_GPIO_TogglePin</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, stm32g4xx_hal_gpio.o(i.HAL_GPIO_TogglePin))
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
 
@@ -657,11 +657,11 @@ Global Symbols
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFifoStateUntilTimeout
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_CheckIdleState
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFifoStateUntilTimeout
 </UL>
 
 <P><STRONG><a name="[ed]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32g4xx_hal.o(i.HAL_IncTick))
@@ -863,12 +863,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a1]"></a>HAL_TIM_ConfigClockSource</STRONG> (Thumb, 246 bytes, Stack size 16 bytes, stm32g4xx_hal_tim.o(i.HAL_TIM_ConfigClockSource))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_TIM_ConfigClockSource &rArr; TIM_TI2_ConfigInputStage
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_TIM_ConfigClockSource &rArr; TIM_ETR_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI2_ConfigInputStage
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETR_SetConfig
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI2_ConfigInputStage
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI1_ConfigInputStage
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITRx_SetConfig
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETR_SetConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM1_Init
 </UL>
@@ -938,12 +938,12 @@ Global Symbols
 <P><STRONG><a name="[b7]"></a>HAL_TIM_PWM_ConfigChannel</STRONG> (Thumb, 292 bytes, Stack size 16 bytes, stm32g4xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = HAL_TIM_PWM_ConfigChannel &rArr; TIM_OC1_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC6_SetConfig
+<BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2_SetConfig
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC6_SetConfig
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC5_SetConfig
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4_SetConfig
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3_SetConfig
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1_SetConfig
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2_SetConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM1_Init
 </UL>
@@ -1034,8 +1034,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e7]"></a>IPack_Transform</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, foc_drv.o(i.IPack_Transform))
-<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
+<P><STRONG><a name="[eb]"></a>IPack_Transform</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, foc_drv.o(i.IPack_Transform))
+<BR><BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Run
 </UL>
 
 <P><STRONG><a name="[c8]"></a>LCD_Address_Set</STRONG> (Thumb, 62 bytes, Stack size 24 bytes, lcd_drv.o(i.LCD_Address_Set))
@@ -1164,26 +1164,29 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
-<P><STRONG><a name="[67]"></a>Motor_System_Init</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, motor_system.o(i.Motor_System_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Motor_System_Init
+<P><STRONG><a name="[67]"></a>Motor_System_Init</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, motor_system.o(i.Motor_System_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Motor_System_Init &rArr; Stepper_Foc_SetCurrentRef
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentRef
+<BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentRef
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentLimit
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Init
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Struct_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Global_Init
 </UL>
 
-<P><STRONG><a name="[78]"></a>Motor_System_Run</STRONG> (Thumb, 120 bytes, Stack size 16 bytes, motor_system.o(i.Motor_System_Run))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Motor_System_Run &rArr; Sensoruse_Control &rArr; Calculate_Sin_Cos
+<P><STRONG><a name="[78]"></a>Motor_System_Run</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, motor_system.o(i.Motor_System_Run))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Phase_Current
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Encoder_Data
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Bus_Voltage
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Adc_Offset
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_StopOutput
+<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentRef
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Run
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Phase_Current
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Encoder_Data
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Bus_Voltage
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Adc_Offset
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_StopOutput
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADCEx_InjectedConvCpltCallback
 </UL>
@@ -1196,11 +1199,11 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
 <P><STRONG><a name="[ea]"></a>PID_Control</STRONG> (Thumb, 140 bytes, Stack size 0 bytes, pid_drv.o(i.PID_Control))
-<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
+<BR><BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Run
 </UL>
 
-<P><STRONG><a name="[eb]"></a>Pack_Transform</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, foc_drv.o(i.Pack_Transform))
-<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
+<P><STRONG><a name="[e9]"></a>Pack_Transform</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, foc_drv.o(i.Pack_Transform))
+<BR><BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Run
 </UL>
 
 <P><STRONG><a name="[8]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.PendSV_Handler))
@@ -1209,27 +1212,33 @@ Global Symbols
 <P><STRONG><a name="[6]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e4]"></a>Sensoruse_Control</STRONG> (Thumb, 782 bytes, Stack size 48 bytes, motor_sensoruse.o(i.Sensoruse_Control))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = Sensoruse_Control &rArr; Calculate_Sin_Cos
+<P><STRONG><a name="[dc]"></a>Stepper_Foc_Init</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;T_Shaped_Acc_Dec
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pack_Transform
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Control
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Speed
+
+<P><STRONG><a name="[e5]"></a>Stepper_Foc_Run</STRONG> (Thumb, 184 bytes, Stack size 8 bytes, stepper_foc.o(i.Stepper_Foc_Run))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Control
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pack_Transform
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Sin_Cos
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Position
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IPack_Transform
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IPack_Transform
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Stepper_PWM
 </UL>
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
 
-<P><STRONG><a name="[dc]"></a>Stepper_Foc_Init</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_Init))
+<P><STRONG><a name="[dd]"></a>Stepper_Foc_SetCurrentLimit</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_SetCurrentLimit))
 <BR><BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
-<P><STRONG><a name="[dd]"></a>Stepper_Foc_SetCurrentRef</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_SetCurrentRef))
-<BR><BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
+<P><STRONG><a name="[de]"></a>Stepper_Foc_SetCurrentRef</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, stepper_foc.o(i.Stepper_Foc_SetCurrentRef))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Stepper_Foc_SetCurrentRef
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Clamp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
 <P><STRONG><a name="[9]"></a>SysTick_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.SysTick_Handler))
@@ -1285,10 +1294,6 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_ConfigChannel
 </UL>
 
-<P><STRONG><a name="[e9]"></a>T_Shaped_Acc_Dec</STRONG> (Thumb, 138 bytes, Stack size 0 bytes, speed_drv.o(i.T_Shaped_Acc_Dec))
-<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sensoruse_Control
-</UL>
-
 <P><STRONG><a name="[c5]"></a>UART_AdvFeatureConfig</STRONG> (Thumb, 200 bytes, Stack size 0 bytes, stm32g4xx_hal_uart.o(i.UART_AdvFeatureConfig))
 <BR><BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
 </UL>
@@ -1333,11 +1338,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Global_Loop
 </UL>
 
-<P><STRONG><a name="[101]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[103]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[102]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[104]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[103]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[105]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
 <P><STRONG><a name="[50]"></a>main</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = main &rArr; Global_Loop &rArr; Lcd_Task &rArr; LCD_ShowFloatNum1 &rArr; LCD_ShowChar &rArr; LCD_DrawPoint &rArr; LCD_Address_Set &rArr; LCD_WR_REG &rArr; LCD_Writ_Bus &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFifoStateUntilTimeout
@@ -1499,13 +1504,13 @@ Local Symbols
 <P><STRONG><a name="[9d]"></a>SPI_EndRxTxTransaction</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, stm32g4xx_hal_spi.o(i.SPI_EndRxTxTransaction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = SPI_EndRxTxTransaction &rArr; SPI_WaitFifoStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFifoStateUntilTimeout
+<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFifoStateUntilTimeout
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 </UL>
 
-<P><STRONG><a name="[e5]"></a>SPI_WaitFifoStateUntilTimeout</STRONG> (Thumb, 214 bytes, Stack size 48 bytes, stm32g4xx_hal_spi.o(i.SPI_WaitFifoStateUntilTimeout))
+<P><STRONG><a name="[e7]"></a>SPI_WaitFifoStateUntilTimeout</STRONG> (Thumb, 214 bytes, Stack size 48 bytes, stm32g4xx_hal_spi.o(i.SPI_WaitFifoStateUntilTimeout))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = SPI_WaitFifoStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
@@ -1513,7 +1518,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
 </UL>
 
-<P><STRONG><a name="[e6]"></a>SPI_WaitFlagStateUntilTimeout</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, stm32g4xx_hal_spi.o(i.SPI_WaitFlagStateUntilTimeout))
+<P><STRONG><a name="[e8]"></a>SPI_WaitFlagStateUntilTimeout</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, stm32g4xx_hal_spi.o(i.SPI_WaitFlagStateUntilTimeout))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
@@ -1580,12 +1585,16 @@ Local Symbols
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_SetRxFifoThreshold
 </UL>
 
-<P><STRONG><a name="[e1]"></a>Motor_System_StopOutput</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, motor_system.o(i.Motor_System_StopOutput))
+<P><STRONG><a name="[e2]"></a>Motor_System_StopOutput</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, motor_system.o(i.Motor_System_StopOutput))
 <BR><BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
 
 <P><STRONG><a name="[63]"></a>Clamp_Float</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, foc_drv.o(i.Clamp_Float))
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Stepper_PWM
+</UL>
+
+<P><STRONG><a name="[ec]"></a>Stepper_Foc_Clamp</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_Clamp))
+<BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentRef
 </UL>
 <P>
 <H3>

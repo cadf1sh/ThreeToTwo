@@ -1,6 +1,5 @@
 motor\motor_system.o: ..\User\MotorControl\motor_system.c
 motor\motor_system.o: ..\User\MotorControl\motor_system.h
-motor\motor_system.o: ..\User\MotorControl\motor_sensoruse.h
 motor\motor_system.o: ..\User\MotorControl\motor_publicdata.h
 motor\motor_system.o: ../Core/Inc/main.h
 motor\motor_system.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h

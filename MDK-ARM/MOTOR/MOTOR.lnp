@@ -33,7 +33,6 @@
 "motor\usart_drv.o"
 "motor\motor_system.o"
 "motor\motor_identify.o"
-"motor\motor_sensoruse.o"
 "motor\motor_publicdata.o"
 "motor\position_drv.o"
 "motor\encoder_drv.o"

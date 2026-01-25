@@ -41,13 +41,23 @@ void Calculate_Stepper_PWM(FOC_STRUCT *p)
   float ratio_a = Clamp_Float(p->Ualpha / p->Ubus, -1.0f, 1.0f);
   float ratio_b = Clamp_Float(p->Ubeta / p->Ubus, -1.0f, 1.0f);
 
-  float dutya = ratio_a * 1500;
-  float dutyb = ratio_b * 1500;
+  float pwm_center = p->PwmCycle * 0.5f;
+  float pwm_amplitude = p->PwmLimit * 0.5f;
 
-	p->DutyCycleA = 8500/2+dutya/2;
-	p->DutyCycleB = 8500/2-dutya/2;
-	p->DutyCycleC = 8500/2+dutyb/2;
-	p->DutyCycleD = 8500/2-dutyb/2;
+  float duty_a = pwm_center + ratio_a * pwm_amplitude;
+  float duty_b = pwm_center - ratio_a * pwm_amplitude;
+  float duty_c = pwm_center + ratio_b * pwm_amplitude;
+  float duty_d = pwm_center - ratio_b * pwm_amplitude;
+
+  duty_a = Clamp_Float(duty_a, 0.0f, p->PwmCycle);
+  duty_b = Clamp_Float(duty_b, 0.0f, p->PwmCycle);
+  duty_c = Clamp_Float(duty_c, 0.0f, p->PwmCycle);
+  duty_d = Clamp_Float(duty_d, 0.0f, p->PwmCycle);
+
+	p->DutyCycleA = (u16)duty_a;
+	p->DutyCycleB = (u16)duty_b;
+	p->DutyCycleC = (u16)duty_c;
+	p->DutyCycleD = (u16)duty_d;
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,p->DutyCycleA);     //更新PWM比较值             
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,p->DutyCycleB);     //更新PWM比较值
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,p->DutyCycleC); 		 //更新PWM比较值
