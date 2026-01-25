@@ -27,6 +27,7 @@ void IPack_Transform(FOC_STRUCT *p)
   p->Ubeta = p->Uq * p->CosVal + p->Ud * p->SinVal;
 }
 
+float xiata = 0;
 void Calculate_Stepper_PWM(FOC_STRUCT *p)
 {
   if (p->Ubus <= 0.0f)
@@ -37,7 +38,6 @@ void Calculate_Stepper_PWM(FOC_STRUCT *p)
     p->DutyCycleD = 0;
     return;
   }
-
   float ratio_a = Clamp_Float(p->Ualpha / p->Ubus, -1.0f, 1.0f);
   float ratio_b = Clamp_Float(p->Ubeta / p->Ubus, -1.0f, 1.0f);
 

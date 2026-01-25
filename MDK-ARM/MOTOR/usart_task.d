@@ -44,6 +44,7 @@ motor\usart_task.o: ../User/MotorControl/motor_system.h
 motor\usart_task.o: ../User/MotorControl/motor_sensoruse.h
 motor\usart_task.o: ../User/MotorControl/motor_publicdata.h
 motor\usart_task.o: ../User/MotorControl/foc_drv.h
+motor\usart_task.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
 motor\usart_task.o: ../User/MotorControl/pid_drv.h
 motor\usart_task.o: ../User/MotorControl/math_drv.h
 motor\usart_task.o: ../User/MotorControl/speed_drv.h

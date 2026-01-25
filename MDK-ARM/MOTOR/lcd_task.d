@@ -42,6 +42,7 @@ motor\lcd_task.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
 motor\lcd_task.o: ..\User\LcdControl\lcd_drv.h
 motor\lcd_task.o: ../User/MotorControl/motor_publicdata.h
 motor\lcd_task.o: ../User/MotorControl/foc_drv.h
+motor\lcd_task.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
 motor\lcd_task.o: ../User/MotorControl/pid_drv.h
 motor\lcd_task.o: ../User/MotorControl/math_drv.h
 motor\lcd_task.o: ../User/MotorControl/speed_drv.h

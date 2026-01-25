@@ -27,7 +27,7 @@ void Sensoruse_Control()
 			if(MC.Encoder.CalibFlag == 0)                                    //第一次定位到90度
 			{
 				MC.Foc.Ud += 0.0001f;
-				MC.Foc.Uq = 0;
+				MC.Foc.Uq = MC.Foc.Ud;
 				MC.Foc.SinVal = 1;                                             //电角度给90度，对应正弦值为1
 				MC.Foc.CosVal = 0;                                             //电角度给90度，对应余弦值为0		 								
 				if(MC.Foc.Ud >= MC.Identify.VoltageSet[1])                     //校准用的电压与参数识别时一致
@@ -40,7 +40,7 @@ void Sensoruse_Control()
 			if(MC.Encoder.CalibFlag == 1)                                    //第二次定位到0度
 			{
 				MC.Foc.Ud += 0.0001f;
-				MC.Foc.Uq = 0;
+				MC.Foc.Uq = MC.Foc.Ud;
 				MC.Foc.SinVal = 0;                                             //电角度给0，对应正弦值为0
 				MC.Foc.CosVal = 1;                                             //电角度给0，对应余弦值为1		 				                  
 				
@@ -57,8 +57,8 @@ void Sensoruse_Control()
 		
 		case CURRENT_OPEN_LOOP:                                            //电流开环，给定Uq值电机转动
 		{   	
-			MC.Foc.Uq = 0.0f;  // 示例
-			MC.Foc.Ud =(MC.Speed.MechanicalSpeedSet/4095)*12.0f;
+			MC.Foc.Uq = 0;  // 示例
+			MC.Foc.Ud = (MC.Speed.MechanicalSpeedSet/4095)*12.0;
 			IPack_Transform(&MC.Foc);                                        //反PACK变换
 		}break;	
 		

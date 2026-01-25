@@ -43,6 +43,7 @@ motor\global_control.o: ../User/MotorControl/motor_system.h
 motor\global_control.o: ../User/MotorControl/motor_sensoruse.h
 motor\global_control.o: ../User/MotorControl/motor_publicdata.h
 motor\global_control.o: ../User/MotorControl/foc_drv.h
+motor\global_control.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
 motor\global_control.o: ../User/MotorControl/pid_drv.h
 motor\global_control.o: ../User/MotorControl/math_drv.h
 motor\global_control.o: ../User/MotorControl/speed_drv.h
@@ -54,4 +55,3 @@ motor\global_control.o: ..\MDK-ARM\stepper_foc.h
 motor\global_control.o: ../User/LedControl/led_task.h
 motor\global_control.o: ../User/LcdControl/lcd_drv.h
 motor\global_control.o: ../User/UsartControl/usart_task.h
-motor\global_control.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h

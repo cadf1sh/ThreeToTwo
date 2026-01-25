@@ -2,7 +2,7 @@
 #define __FOC_DRV_H
 
 #include "main.h"
-
+#include "math.h"
 typedef struct
 {		
 	float Iu;            // UÏàµçÁ÷  
