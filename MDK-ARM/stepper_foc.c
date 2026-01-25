@@ -40,7 +40,7 @@ void Stepper_Foc_Init(STEPPER_FOC_STRUCT *ctrl, float pwm_cycle, float pwm_limit
   ctrl->iq_pid.OutMin = -6.0f;
 
   ctrl->id_ref = 0.0f;
-  ctrl->iq_ref = 0.0f;
+  ctrl->iq_ref = 1.0f;
   ctrl->id_ref_limit = 3.0f;
   ctrl->iq_ref_limit = 3.0f;
 }

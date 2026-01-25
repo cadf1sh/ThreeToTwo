@@ -11,7 +11,7 @@
 #include "usart_task.h"
 #include "usart_drv.h"
 #include "motor_system.h"
-
+#include "motor_publicdata.h"
 
 volatile u16 UsartTaskId = 10;
 volatile u16 UsartTaskTim = 0;
@@ -47,7 +47,7 @@ void Usart_Task(void)
 //	    printf("%0.3f\n",(float)MC.Encoder.EncoderVal);                                                   //电角度值
 //			printf("%0.3f,%0.3f\n",MC.TShapedAccDec.SpeedOut/7,MC.Speed.MechanicalSpeed);                        //目标速度与实际速度（机械速度，单位RPM）	
 //      printf("%0.3f\n",MC.SPLL.ETheta);                                                                    //滑膜观测器计算得到的电角度			
-//      printf("%0.3f\n",MC.HPLL.ETheta); 			//高频注入计算得到的电角度	
+//      printf("%d,%d\n",MC.Encoder.EncoderVal,MC.Encoder.ElectricalVal); 			//高频注入计算得到的电角度	
 //    	printf("%0.3d,%0.3d,%0.3d,%0.3d\n",MC.Foc.DutyCycleA,MC.Foc.DutyCycleB,MC.Foc.DutyCycleC,MC.Foc.DutyCycleD); 
 			UsartTaskId = 10; 
 		}

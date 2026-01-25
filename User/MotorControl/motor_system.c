@@ -51,7 +51,7 @@ void Motor_System_Run()
 
 	if (MC.Sample.EndFlag == 1)
 	{
-		if (MC.Sample.BusReal <= 12 || MC.Sample.BusReal >= 40)
+		if ((MC.Sample.BusReal >= 3 && MC.Sample.BusReal <= 12) || MC.Sample.BusReal >= 24)
 		{
 			MC.Motor.RunState = MOTOR_ERROR;
 		}

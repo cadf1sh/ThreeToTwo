@@ -1017,7 +1017,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
 I (..\User\LcdControl\font_drv.h)(0x68AED01D)
-F (..\User\LcdControl\lcd_task.c)(0x697621FF)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\lcd_task.o --omf_browse motor\lcd_task.crf --depend motor\lcd_task.d)
+F (..\User\LcdControl\lcd_task.c)(0x697638E6)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\lcd_task.o --omf_browse motor\lcd_task.crf --depend motor\lcd_task.d)
 I (..\User\LcdControl\lcd_task.h)(0x69749938)
 I (../Core/Inc/main.h)(0x6974AEDD)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x67524F24)
@@ -1058,7 +1058,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
 I (..\User\LcdControl\lcd_drv.h)(0x68664438)
-I (../User/MotorControl/motor_publicdata.h)(0x69761838)
+I (../User/MotorControl/motor_publicdata.h)(0x69763A11)
 I (../User/MotorControl/foc_drv.h)(0x69762C5F)
 I (D:\Keil_v5\ARM\Version5.06\include\math.h)(0x5E8E3CC2)
 I (../User/MotorControl/pid_drv.h)(0x6914CCC7)
@@ -1067,7 +1067,7 @@ I (../User/MotorControl/speed_drv.h)(0x68CFC82C)
 I (../User/MotorControl/sample_drv.h)(0x69737A83)
 I (../User/MotorControl/encoder_drv.h)(0x69170060)
 I (../User/MotorControl/position_drv.h)(0x68D03229)
-F (..\User\UsartControl\usart_task.c)(0x6974AEE0)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\usart_task.o --omf_browse motor\usart_task.crf --depend motor\usart_task.d)
+F (..\User\UsartControl\usart_task.c)(0x69763C06)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\usart_task.o --omf_browse motor\usart_task.crf --depend motor\usart_task.d)
 I (..\User\UsartControl\usart_task.h)(0x6867399D)
 I (../Core/Inc/main.h)(0x6974AEDD)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x67524F24)
@@ -1109,7 +1109,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
 I (..\User\UsartControl\usart_drv.h)(0x6974AED9)
 I (../User/MotorControl/motor_system.h)(0x6976348E)
-I (../User/MotorControl/motor_publicdata.h)(0x69761838)
+I (../User/MotorControl/motor_publicdata.h)(0x69763A11)
 I (../User/MotorControl/foc_drv.h)(0x69762C5F)
 I (D:\Keil_v5\ARM\Version5.06\include\math.h)(0x5E8E3CC2)
 I (../User/MotorControl/pid_drv.h)(0x6914CCC7)
@@ -1160,9 +1160,9 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
-F (..\User\MotorControl\motor_system.c)(0x6976348E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\motor_system.o --omf_browse motor\motor_system.crf --depend motor\motor_system.d)
+F (..\User\MotorControl\motor_system.c)(0x69763AF9)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\motor_system.o --omf_browse motor\motor_system.crf --depend motor\motor_system.d)
 I (..\User\MotorControl\motor_system.h)(0x6976348E)
-I (..\User\MotorControl\motor_publicdata.h)(0x69761838)
+I (..\User\MotorControl\motor_publicdata.h)(0x69763A11)
 I (../Core/Inc/main.h)(0x6974AEDD)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x67524F24)
 I (../Core/Inc/stm32g4xx_hal_conf.h)(0x686737CC)
@@ -1213,7 +1213,7 @@ I (../User/LcdControl/lcd_task.h)(0x69749938)
 I (..\MDK-ARM\stepper_foc.h)(0x697633EC)
 F (..\User\MotorControl\motor_identify.c)(0x6973918C)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\motor_identify.o --omf_browse motor\motor_identify.crf --depend motor\motor_identify.d)
 I (..\User\MotorControl\motor_identify.h)(0x69739177)
-I (..\User\MotorControl\motor_publicdata.h)(0x69761838)
+I (..\User\MotorControl\motor_publicdata.h)(0x69763A11)
 I (../Core/Inc/main.h)(0x6974AEDD)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x67524F24)
 I (../Core/Inc/stm32g4xx_hal_conf.h)(0x686737CC)
@@ -1262,7 +1262,7 @@ I (..\User\MotorControl\encoder_drv.h)(0x69170060)
 I (..\User\MotorControl\position_drv.h)(0x68D03229)
 I (../User/LcdControl/lcd_task.h)(0x69749938)
 F (..\User\MotorControl\motor_publicdata.c)(0x69761838)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\motor_publicdata.o --omf_browse motor\motor_publicdata.crf --depend motor\motor_publicdata.d)
-I (..\User\MotorControl\motor_publicdata.h)(0x69761838)
+I (..\User\MotorControl\motor_publicdata.h)(0x69763A11)
 I (../Core/Inc/main.h)(0x6974AEDD)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x67524F24)
 I (../Core/Inc/stm32g4xx_hal_conf.h)(0x686737CC)
@@ -1350,7 +1350,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
-F (..\User\MotorControl\encoder_drv.c)(0x69154988)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\encoder_drv.o --omf_browse motor\encoder_drv.crf --depend motor\encoder_drv.d)
+F (..\User\MotorControl\encoder_drv.c)(0x69763C45)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\encoder_drv.o --omf_browse motor\encoder_drv.crf --depend motor\encoder_drv.d)
 I (..\User\MotorControl\encoder_drv.h)(0x69170060)
 I (../Core/Inc/main.h)(0x6974AEDD)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h)(0x67524F24)
@@ -1592,7 +1592,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
 F (.\stepper_foc.h)(0x697633EC)()
-F (.\stepper_foc.c)(0x697633DD)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\stepper_foc.o --omf_browse motor\stepper_foc.crf --depend motor\stepper_foc.d)
+F (.\stepper_foc.c)(0x697638E6)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../User/MotorControl -I ../User/GlobalControl -I ../User/LedControl -I ../User/LcdControl -I ../User/UsartControl -I .\MOTOR -I ..\MDK-ARM-I.\RTE\_MOTOR-ID:\Keil_v5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G431xx -D_RTE_ -DSTM32G431xx -D__FPU_PRESENT="1U" -D__TARGET_FPU_VFP -DARM_MATH_CM4 -D__CC_ARM -DUSE_HAL_DRIVER-o motor\stepper_foc.o --omf_browse motor\stepper_foc.crf --depend motor\stepper_foc.d)
 I (stepper_foc.h)(0x697633EC)
 I (../User/MotorControl/foc_drv.h)(0x69762C5F)
 I (../Core/Inc/main.h)(0x6974AEDD)
@@ -1636,7 +1636,7 @@ I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
 I (D:\Keil_v5\ARM\Version5.06\include\math.h)(0x5E8E3CC2)
 I (../User/MotorControl/pid_drv.h)(0x6914CCC7)
 I (../User/MotorControl/math_drv.h)(0x6911FF3D)
-I (../User/MotorControl/motor_publicdata.h)(0x69761838)
+I (../User/MotorControl/motor_publicdata.h)(0x69763A11)
 I (../User/MotorControl/speed_drv.h)(0x68CFC82C)
 I (../User/MotorControl/sample_drv.h)(0x69737A83)
 I (../User/MotorControl/encoder_drv.h)(0x69170060)
@@ -1683,7 +1683,7 @@ I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h)(0x67524F24)
 I (../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h)(0x67524F24)
 I (D:\Keil_v5\ARM\Version5.06\include\stdio.h)(0x5E8E3CC2)
 I (../User/MotorControl/motor_system.h)(0x6976348E)
-I (../User/MotorControl/motor_publicdata.h)(0x69761838)
+I (../User/MotorControl/motor_publicdata.h)(0x69763A11)
 I (../User/MotorControl/foc_drv.h)(0x69762C5F)
 I (D:\Keil_v5\ARM\Version5.06\include\math.h)(0x5E8E3CC2)
 I (../User/MotorControl/pid_drv.h)(0x6914CCC7)

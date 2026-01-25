@@ -48,6 +48,7 @@ void Lcd_Task(void)
 		LCD_ShowFloatNum1(0,16*2,MC.Sample.IuReal,5,BLACK,WHITE,16);
 		LCD_ShowFloatNum1(0,16*3,MC.Sample.IwReal,5,BLACK,WHITE,16);
 		LCD_ShowIntNum(0,16*4,MC.Encoder.EncoderVal,5,BLACK,WHITE,16);
+		LCD_ShowIntNum(80,16*4,MC.Encoder.ElectricalVal,5,BLACK,WHITE,16);
 			LcdTaskId = 10; 
 		}
 		break;
