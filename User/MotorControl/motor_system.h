@@ -7,6 +7,4 @@
 
 void Motor_System_Init(void);
 void Motor_System_Run(void);
-void Motor_System_SetCurrentRef(float id_ref, float iq_ref);
-
 #endif

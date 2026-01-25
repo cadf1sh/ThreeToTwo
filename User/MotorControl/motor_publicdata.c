@@ -33,8 +33,8 @@ void Motor_Struct_Init()
 	MC.Encoder.PolePairs = POLEPAIRS;								 //设置电机的极对数（磁铁数除以2）
 	MC.Encoder.EncoderValMax = PUL_MAX;  					   //设置编码器单圈脉冲的最大值
 	
-	MC.Foc.IdLPFFactor = 0.1f;	                     //设置d轴电流低通滤波系数
-	MC.Foc.IqLPFFactor = 0.1f;	                     //设置q轴电流低通滤波系数
+	MC.Foc.IdLPFFactor = 0.9f;	                     //设置d轴电流低通滤波系数
+	MC.Foc.IqLPFFactor = 0.9f;	                     //设置q轴电流低通滤波系数
 	MC.Foc.PwmCycle = PWM_CYCLE;									   //设置PWM周期
 	MC.Foc.PwmLimit = PWM_LIMLT;									   //设置PWM限幅值
 	
@@ -47,8 +47,8 @@ void Motor_Struct_Init()
 	MC.Speed.ElectricalSpeedFactor = 146.5f;         //设置速度计算系数
 
 	MC.Identify.CurMax = 0.6f;                       //设置电阻电感识别时的最大母线电流（单位：安）
-	MC.Identify.VoltageSet[0] = 0.0f;
-	MC.Identify.VoltageSet[1] = 1.0f;                //编码器校准用的电压目标（需按硬件调整）
+	MC.Identify.VoltageSet[0] = 12.0f;
+	MC.Identify.VoltageSet[1] = 12.0f;                //编码器校准用的电压目标（需按硬件调整）
 	
 	MC.IqPid.Kp = 0.2f;                              //设置q轴PID比例系数
 	MC.IqPid.Ki = 0.002f;                            //设置q轴PID比例系数

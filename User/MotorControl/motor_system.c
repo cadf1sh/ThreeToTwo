@@ -33,21 +33,18 @@ void Motor_System_Init(void)
 	Stepper_Foc_Init(&stepper_foc_ctrl, MC.Foc.PwmCycle, MC.Foc.PwmLimit);
 	Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, 0.0f, 0.0f);
 	MC.IdPid.Ref = 0.0f;
-	MC.IqPid.Ref = 0.0f;
+	MC.IqPid.Ref = 1.0f;
 }
 
-void Motor_System_SetCurrentRef(float id_ref, float iq_ref)
-{
-	Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, id_ref, iq_ref);
-	MC.IdPid.Ref = id_ref;
-	MC.IqPid.Ref = iq_ref;
-}
+
 
 
 
 
 void Motor_System_Run()
 {
+	Calculate_Bus_Voltage(&MC.Sample);
+	Calculate_Phase_Current(&MC.Sample);
 	if (MC.Motor.RunState == ADC_CALIB)
 	{
 		Calculate_Adc_Offset(&MC.Sample);
@@ -61,8 +58,6 @@ void Motor_System_Run()
 
 	if (MC.Sample.EndFlag == 1)
 	{
-		Calculate_Bus_Voltage(&MC.Sample);
-		Calculate_Phase_Current(&MC.Sample);
 		if (MC.Sample.BusReal <= 12 || MC.Sample.BusReal >= 40)
 		{
 			MC.Motor.RunState = MOTOR_ERROR;
