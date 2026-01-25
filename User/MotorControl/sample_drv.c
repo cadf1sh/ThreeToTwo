@@ -48,7 +48,7 @@ void Calculate_Adc_Offset(SAMPLE_STRUCT *p)
 }
 
 /**
-  * 函数功能:计算三相电流值 
+  * 函数功能:计算电流值 
   * 输入参数:
   * 返回参数:
   * 说    明:以流入中性点的方向为正

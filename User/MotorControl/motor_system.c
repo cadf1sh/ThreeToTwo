@@ -28,7 +28,7 @@ void Motor_System_Init(void)
 	Stepper_Foc_SetCurrentLimit(&stepper_foc_ctrl, 3.0f, 3.0f);
 	Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, 0.0f, 0.0f);
 	MC.IdPid.Ref = 0.0f;
-	MC.IqPid.Ref = 1.0f;
+	MC.IqPid.Ref = 2.0f;
 }
 
 
