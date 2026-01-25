@@ -16,8 +16,8 @@ volatile u16 LcdTaskId = 10;
 volatile u16 LcdTaskTim = 0;
 
 float machinebutton = 0;
-s32 IIA = 0;
-s32 IIB = 0;
+u16 IIA = 0;
+u16 IIB = 0;
 s32 Encod = 0;
 s32  Volt = 0;
 /**
@@ -32,7 +32,7 @@ void Lcd_Task(void)
 	{
 		case 10:
 		{
-			if(LcdTaskTim>=2000)        //100ms
+			if(LcdTaskTim>=20)        //1ms
 			{
 				LcdTaskTim = 0;
 				LcdTaskId = 20;
@@ -42,7 +42,11 @@ void Lcd_Task(void)
 		
 		case 20:
 		{ 
-
+		LCD_ShowIntNum(0,16*0,machinebutton,5,BLACK,WHITE,16);
+		LCD_ShowIntNum(0,16*1,IIA,5,BLACK,WHITE,16);
+		LCD_ShowIntNum(0,16*2,IIB,5,BLACK,WHITE,16);
+		LCD_ShowIntNum(0,16*3,MC.Sample.BusRaw,5,BLACK,WHITE,16);
+		LCD_ShowIntNum(0,16*4,Encod,5,BLACK,WHITE,16);
 			LcdTaskId = 10; 
 		}
 		break;
@@ -50,11 +54,6 @@ void Lcd_Task(void)
     default:
       break;			
 	}
-//	LCD_ShowFloatNum1(0,16*0,machinebutton,5,BLACK,WHITE,16);
-//	LCD_ShowFloatNum1(0,16*1,MC.Sample.IuReal,5,BLACK,WHITE,16);
-//	LCD_ShowFloatNum1(0,16*2,MC.Sample.IwReal,5,BLACK,WHITE,16);
-//	LCD_ShowFloatNum1(0,16*3,MC.Sample.BusReal,5,BLACK,WHITE,16);
-//	LCD_ShowIntNum(0,16*4,Encod,5,BLACK,WHITE,16);
 }
 
 

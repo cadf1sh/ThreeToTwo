@@ -39,6 +39,7 @@ motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+motor\stepper_foc.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
 motor\stepper_foc.o: ../User/MotorControl/pid_drv.h
 motor\stepper_foc.o: ../User/MotorControl/math_drv.h
 motor\stepper_foc.o: ../User/MotorControl/motor_publicdata.h

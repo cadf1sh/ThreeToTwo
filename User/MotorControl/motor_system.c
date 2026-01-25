@@ -69,6 +69,7 @@ void Motor_System_Run()
 	{
 		case MOTOR_SENSORUSE:
 		{
+			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);	
 			Calculate_Encoder_Data(&MC.Encoder);
 			Stepper_Foc_Run(&stepper_foc_ctrl,
 							MC.Sample.IuReal,

@@ -38,6 +38,7 @@ motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h
 motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\lcd_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+motor\lcd_task.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
 motor\lcd_task.o: ..\User\LcdControl\lcd_drv.h
 motor\lcd_task.o: ../User/MotorControl/motor_publicdata.h
 motor\lcd_task.o: ../User/MotorControl/foc_drv.h

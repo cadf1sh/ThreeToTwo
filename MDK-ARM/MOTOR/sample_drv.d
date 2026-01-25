@@ -38,3 +38,4 @@ motor\sample_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h
 motor\sample_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\sample_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\sample_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+motor\sample_drv.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h

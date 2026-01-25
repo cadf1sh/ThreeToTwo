@@ -772,14 +772,14 @@
           <GroupName>UsartControl</GroupName>
           <Files>
             <File>
-              <FileName>usart_drv.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\UsartControl\usart_drv.c</FilePath>
-            </File>
-            <File>
               <FileName>usart_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\UsartControl\usart_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\UsartControl\usart_drv.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -802,14 +802,14 @@
               <FilePath>..\User\MotorControl\motor_sensoruse.c</FilePath>
             </File>
             <File>
-              <FileName>motor_sensorless.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\MotorControl\motor_sensorless.c</FilePath>
-            </File>
-            <File>
               <FileName>motor_publicdata.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\MotorControl\motor_publicdata.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor_sensorless.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\MotorControl\motor_sensorless.c</FilePath>
             </File>
             <File>
               <FileName>position_drv.c</FileName>

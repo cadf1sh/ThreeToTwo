@@ -5,8 +5,8 @@
 #include "main.h"
 
 extern float machinebutton;
-extern s32 IIA;
-extern s32 IIB;
+extern u16 IIA;
+extern u16 IIB;
 extern s32 Encod;
 extern s32  Volt;
 void Lcd_Task(void);

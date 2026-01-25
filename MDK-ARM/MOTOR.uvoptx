@@ -642,8 +642,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\UsartControl\usart_drv.c</PathWithFileName>
-      <FilenameWithoutPath>usart_drv.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\UsartControl\usart_task.c</PathWithFileName>
+      <FilenameWithoutPath>usart_task.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -654,8 +654,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\UsartControl\usart_task.c</PathWithFileName>
-      <FilenameWithoutPath>usart_task.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\UsartControl\usart_drv.c</PathWithFileName>
+      <FilenameWithoutPath>usart_drv.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -710,8 +710,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\MotorControl\motor_sensorless.c</PathWithFileName>
-      <FilenameWithoutPath>motor_sensorless.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\MotorControl\motor_publicdata.c</PathWithFileName>
+      <FilenameWithoutPath>motor_publicdata.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -722,8 +722,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\MotorControl\motor_publicdata.c</PathWithFileName>
-      <FilenameWithoutPath>motor_publicdata.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\MotorControl\motor_sensorless.c</PathWithFileName>
+      <FilenameWithoutPath>motor_sensorless.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

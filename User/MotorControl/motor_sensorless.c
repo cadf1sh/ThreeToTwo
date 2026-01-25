@@ -309,7 +309,7 @@ void Sensorless_Control()
 				MC.HPLL.ThetaFore += ONE_PI;
 				if(MC.HPLL.ThetaFore > TWO_PI) 
 				{
-					MC.HPLL.ThetaFore -= TWO_PI;  	                             //???  0-2
+					MC.HPLL.ThetaFore -= TWO_PI;  	                             //
 				}				
 			}				
       Calculate_Sin_Cos(MC.HPLL.ETheta,&MC.HPLL.SinVal,&MC.HPLL.CosVal);				
@@ -319,8 +319,8 @@ void Sensorless_Control()
 			
 			MC.IqPid.Fbk = MC.HFI.IqBase;
 			MC.IdPid.Fbk = MC.HFI.IdBase;			
-			PID_Control(&MC.IqPid);                                          //Iq?
-			PID_Control(&MC.IdPid);                                          //Id?			
+			PID_Control(&MC.IqPid);                                          //Iq
+			PID_Control(&MC.IdPid);                                          //Id		
 			
 			MC.Foc.Uq = MC.IqPid.Out;			
 			MC.Foc.Ud = MC.IdPid.Out + MC.HFI.Uin;			

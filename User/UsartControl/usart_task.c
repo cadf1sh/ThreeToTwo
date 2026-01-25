@@ -44,10 +44,11 @@ void Usart_Task(void)
 //		  printf("%0.3f,%0.3f,%0.3f\n",(float)MC.Foc.Channel1,(float)MC.Foc.Channel2,(float)MC.Foc.Channel3);  //三相占空比（马鞍波）		
 //			printf("%0.3f,%0.3f\n",MC.IdPid.Ref,MC.IdPid.Fbk);                                                   //D轴电流目标值和反馈值	
 //			printf("%0.3f,%0.3f\n",MC.IqPid.Ref,MC.IqPid.Fbk);                                                   //Q轴电流目标值和反馈值				
-//	    printf("%0.3f\n",(float)MC.Encoder.ElectricalVal);                                                   //电角度值
+//	    printf("%0.3f\n",(float)MC.Encoder.EncoderVal);                                                   //电角度值
 //			printf("%0.3f,%0.3f\n",MC.TShapedAccDec.SpeedOut/7,MC.Speed.MechanicalSpeed);                        //目标速度与实际速度（机械速度，单位RPM）	
 //      printf("%0.3f\n",MC.SPLL.ETheta);                                                                    //滑膜观测器计算得到的电角度			
-//      printf("%0.3f\n",MC.HPLL.ETheta);                                                                    //高频注入计算得到的电角度	                                                     
+//      printf("%0.3f\n",MC.HPLL.ETheta); 			//高频注入计算得到的电角度	
+//    	printf("%0.3d,%0.3d,%0.3d,%0.3d\n",MC.Foc.DutyCycleA,MC.Foc.DutyCycleB,MC.Foc.DutyCycleC,MC.Foc.DutyCycleD); 
 			UsartTaskId = 10; 
 		}
 		break;

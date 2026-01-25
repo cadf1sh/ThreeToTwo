@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "math.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -109,7 +109,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   Global_Init();	
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -118,6 +117,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		Global_Loop();
+
   }
   /* USER CODE END 3 */
 }
@@ -520,7 +520,6 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
-
 }
 
 /**

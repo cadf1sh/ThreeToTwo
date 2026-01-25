@@ -42,15 +42,38 @@ void Calculate_Stepper_PWM(FOC_STRUCT *p)
   float ratio_a = Clamp_Float(p->Ualpha / p->Ubus, -1.0f, 1.0f);
   float ratio_b = Clamp_Float(p->Ubeta / p->Ubus, -1.0f, 1.0f);
 
-  float duty_a = (0.5f + 0.5f * ratio_a) * p->PwmCycle;
-  float duty_b = (0.5f + 0.5f * ratio_b) * p->PwmCycle;
+  float dutya = ratio_a * 2000;
+  float dutyb = ratio_b * 2000;
 
-  duty_a = Clamp_Float(duty_a, 0.0f, limit);
-  duty_b = Clamp_Float(duty_b, 0.0f, limit);
-
-  p->DutyCycleA = (u16)duty_a;                 // A+
-  p->DutyCycleB = (u16)(p->PwmCycle - duty_a); // A-
-  p->DutyCycleC = (u16)duty_b;                 // B+
-  p->DutyCycleD = (u16)(p->PwmCycle - duty_b); // B-
+  dutya = Clamp_Float(dutya, 0.0f, limit);
+  dutyb = Clamp_Float(dutyb, 0.0f, limit);
+	if(dutya >= 0)
+	{
+	p->DutyCycleA = 8500-(u16)dutya;
+	p->DutyCycleB = 8500;
+	}
+	else if(dutya < 0)
+	{
+	p->DutyCycleA = 8500;
+	p->DutyCycleB = 8500-(u16)-dutya;
+	}
+	if(dutyb >= 0)
+	{
+	p->DutyCycleC = 8500-(u16)dutyb;
+	p->DutyCycleD = 8500;
+	}
+	else if(dutyb < 0)
+	{
+	p->DutyCycleC = 8500;
+	p->DutyCycleD = 8500-(u16)-dutyb;
+	}
+//  p->DutyCycleA = 8500-(u16)duty_a;                 // A+
+//  p->DutyCycleB = (u16)8500; // A-
+//  p->DutyCycleC = 8500-(u16)duty_b;                 // B+
+//  p->DutyCycleD = (u16)8500; // B-
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,p->DutyCycleA);     //更新PWM比较值             
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,p->DutyCycleB);     //更新PWM比较值
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,p->DutyCycleC); 		 //更新PWM比较值
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,p->DutyCycleD);     //更新PWM比较值
 	
 }

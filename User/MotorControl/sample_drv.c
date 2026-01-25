@@ -41,7 +41,9 @@ void Calculate_Adc_Offset(SAMPLE_STRUCT *p)
 		p->BusOffset = p->BusOffset >> 10;
 		p->BusCalibReal = p->BusOffset * p->BusFactor;
 		p->OffsetCnt = 0;                                
-		p->EndFlag = 1;                                  
+		p->EndFlag = 1;    
+
+			
 	}		
 }
 

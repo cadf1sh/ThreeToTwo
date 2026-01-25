@@ -37,4 +37,6 @@ motor\main.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h
 motor\main.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\main.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\main.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
+motor\main.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
+motor\main.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
 motor\main.o: ../User/GlobalControl/global_control.h

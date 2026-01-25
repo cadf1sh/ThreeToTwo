@@ -38,8 +38,8 @@ motor\usart_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h
 motor\usart_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\usart_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\usart_task.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
-motor\usart_task.o: ..\User\UsartControl\usart_drv.h
 motor\usart_task.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
+motor\usart_task.o: ..\User\UsartControl\usart_drv.h
 motor\usart_task.o: ../User/MotorControl/motor_system.h
 motor\usart_task.o: ../User/MotorControl/motor_sensoruse.h
 motor\usart_task.o: ../User/MotorControl/motor_publicdata.h

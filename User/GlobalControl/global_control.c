@@ -16,7 +16,7 @@
 #include "lcd_task.h"
 #include "lcd_drv.h"
 #include "usart_task.h"
-
+#include "math.h"
 extern volatile u16 LedTaskTim;
 extern volatile u16 LcdTaskTim;
 extern volatile u16 UsartTaskTim;
@@ -88,6 +88,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   * 返回参数:
   * 说    明: 20KHZ频率即50US执行一次
   */
+float xita = 0;
+float dutyA = 0;
+float dutyB = 0;
+#define Pi 3.141592653589
 void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 {		
 	MC.Sample.IuRaw = ADC2->JDR1;          	   //获取相电流
@@ -95,18 +99,21 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 	MC.Sample.BusRaw = ADC2->JDR3;          	 //获取母线电压
 	MC.Encoder.EncoderVal = TIM3->CNT;         //获取编码器值		
  	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;//使用波轮电位器给电机目标转速（速度闭环模式下）
-	MC.Position.MechanicalPosSet = -ADC2->JDR4;//使用波轮电位器给电机目标位置（位置闭环模式下）
-	machinebutton = MC.Speed.MechanicalSpeedSet;
-	IIA = MC.Sample.IuRaw;
-	IIB = MC.Sample.IwRaw;
-	Encod = MC.Encoder.EncoderVal;
-	Volt = MC.Sample.BusRaw;
- 	Motor_System_Run();                        //电机系统运行
-            
+	MC.Position.MechanicalPosSet = -ADC2->JDR4;//使用波轮电位器给电机目标位置（位置闭环模式下）        
+	//电机系统运行
+// 	Motor_System_Run();                
+	xita=(MC.Speed.MechanicalSpeedSet/10)*Pi;//位置控制
+//  xita+=(MC.Speed.MechanicalSpeedSet/100000)*Pi;//速度控制
+	dutyA = (6000 * sin(xita)) ;
+	dutyB = (6000 * cos(xita)) ;
+	MC.Foc.DutyCycleA = PWM_CYCLE/2+dutyA/2;
+	MC.Foc.DutyCycleB = PWM_CYCLE/2-dutyA/2;
+	MC.Foc.DutyCycleC = PWM_CYCLE/2+dutyB/2;
+	MC.Foc.DutyCycleD = PWM_CYCLE/2-dutyB/2;
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //更新PWM比较值             
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     //更新PWM比较值
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MC.Foc.DutyCycleC); 		 //更新PWM比较值
-	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,MC.Foc.DutyCycleD);         //更新PWM比较值
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,MC.Foc.DutyCycleD);     //更新PWM比较值
 }
 
 
