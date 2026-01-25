@@ -47,7 +47,7 @@ void Usart_Task(void)
 //	    printf("%0.3f\n",(float)MC.Encoder.EncoderVal);                                                   //电角度值
 //			printf("%0.3f,%0.3f\n",MC.TShapedAccDec.SpeedOut/7,MC.Speed.MechanicalSpeed);                        //目标速度与实际速度（机械速度，单位RPM）	
 //      printf("%0.3f\n",MC.SPLL.ETheta);                                                                    //滑膜观测器计算得到的电角度			
-      printf("%0.3f,%0.3f,%0.3f,%0.3f\n",MC.Sample.IuReal,MC.Sample.IwReal,MC.Foc.Ud,MC.Foc.Uq); 			//高频注入计算得到的电角度	
+      printf("%0.3f,%0.3f,%0.3f,%0.3f,%0.3f\n",MC.IqPid.Ref,stepper_foc_ctrl.foc.IqLPF,MC.Foc.Uq,MC.Sample.IuReal, MC.Sample.IwReal); 			
 //    	printf("%0.3d,%0.3d,%0.3d,%0.3d\n",MC.Foc.DutyCycleA,MC.Foc.DutyCycleB,MC.Foc.DutyCycleC,MC.Foc.DutyCycleD); 
 			UsartTaskId = 10; 
 		}

@@ -27,17 +27,17 @@ void Stepper_Foc_Init(STEPPER_FOC_STRUCT *ctrl, float pwm_cycle, float pwm_limit
   ctrl->foc.IdLPF = 0.0f;
   ctrl->foc.IqLPF = 0.0f;
 
-  ctrl->id_pid.Kp = 0.5f;
-  ctrl->id_pid.Ki = 0.003f;
+  ctrl->id_pid.Kp = 0.2f;
+  ctrl->id_pid.Ki = 0.002f;
   ctrl->id_pid.Kd = 0.0f;
-  ctrl->id_pid.OutMax = 3.0f;
-  ctrl->id_pid.OutMin = -3.0f;
+  ctrl->id_pid.OutMax = 6.0f;
+  ctrl->id_pid.OutMin = -6.0f;
 
-  ctrl->iq_pid.Kp = 0.5f;
-  ctrl->iq_pid.Ki = 0.003f;
+  ctrl->iq_pid.Kp = 0.001f;
+  ctrl->iq_pid.Ki = 0.001f;
   ctrl->iq_pid.Kd = 0.0f;
-  ctrl->iq_pid.OutMax = 3.0f;
-  ctrl->iq_pid.OutMin = -3.0f;
+  ctrl->iq_pid.OutMax = 6.0f;
+  ctrl->iq_pid.OutMin = -6.0f;
 
   ctrl->id_ref = 0.0f;
   ctrl->iq_ref = 1.0f;
@@ -85,6 +85,8 @@ void Stepper_Foc_Run(STEPPER_FOC_STRUCT *ctrl, float iu, float iw, float elec_an
 
   ctrl->foc.IdLPF = ctrl->foc.Id * ctrl->foc.IdLPFFactor + ctrl->foc.IdLPF * (1.0f - ctrl->foc.IdLPFFactor);
   ctrl->foc.IqLPF = ctrl->foc.Iq * ctrl->foc.IqLPFFactor + ctrl->foc.IqLPF * (1.0f - ctrl->foc.IqLPFFactor);
+//  ctrl->foc.IdLPF = ctrl->foc.Id ;
+//  ctrl->foc.IqLPF = ctrl->foc.Iq ;
 
   ctrl->id_pid.Ref = ctrl->id_ref;
   ctrl->id_pid.Fbk = ctrl->foc.IdLPF;
