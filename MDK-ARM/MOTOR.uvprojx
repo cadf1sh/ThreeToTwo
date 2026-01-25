@@ -807,19 +807,9 @@
               <FilePath>..\User\MotorControl\motor_publicdata.c</FilePath>
             </File>
             <File>
-              <FileName>motor_sensorless.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\MotorControl\motor_sensorless.c</FilePath>
-            </File>
-            <File>
               <FileName>position_drv.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\MotorControl\position_drv.c</FilePath>
-            </File>
-            <File>
-              <FileName>observer_drv.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\MotorControl\observer_drv.c</FilePath>
             </File>
             <File>
               <FileName>encoder_drv.c</FileName>

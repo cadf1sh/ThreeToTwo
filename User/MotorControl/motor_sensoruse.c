@@ -49,7 +49,7 @@ void Sensoruse_Control()
 					MC.Encoder.CalibOffset = MC.Encoder.EncoderVal;              //获得偏置值
 					MC.Encoder.CalibFlag = 0;
 					MC.Foc.Ud = 0;
-					MC.Motor.RunMode = POS_SPEED_CURRENT_LOOP;                   //完成转子校准，进入控制模式
+					MC.Motor.RunMode = SPEED_CURRENT_LOOP;                   //完成转子校准，进入控制模式
 				}	  
 			}
 	  IPack_Transform(&MC.Foc);                                          //反PACK变换			
@@ -165,7 +165,8 @@ void Sensoruse_Control()
 				MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / POLEPAIRS;	
 				
 				MC.SpdPid.Ref = MC.PosPid.Out;					
-				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
+//				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
+				MC.SpdPid.Fbk = 100;	 					       //反馈速度值	
 				if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 				{
 					MC.SpdPid.Kp = MC.SpdPid.KpMax;

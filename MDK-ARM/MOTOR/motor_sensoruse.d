@@ -47,5 +47,4 @@ motor\motor_sensoruse.o: ..\User\MotorControl\speed_drv.h
 motor\motor_sensoruse.o: ..\User\MotorControl\sample_drv.h
 motor\motor_sensoruse.o: ..\User\MotorControl\encoder_drv.h
 motor\motor_sensoruse.o: ..\User\MotorControl\position_drv.h
-motor\motor_sensoruse.o: ..\User\MotorControl\observer_drv.h
 motor\motor_sensoruse.o: ../User/LcdControl/lcd_task.h

@@ -41,13 +41,13 @@ void Calculate_Stepper_PWM(FOC_STRUCT *p)
   float ratio_a = Clamp_Float(p->Ualpha / p->Ubus, -1.0f, 1.0f);
   float ratio_b = Clamp_Float(p->Ubeta / p->Ubus, -1.0f, 1.0f);
 
-  float dutya = ratio_a * 6000;
-  float dutyb = ratio_b * 6000;
+  float dutya = ratio_a * p->PwmLimit;
+  float dutyb = ratio_b * p->PwmLimit;
 
-	p->DutyCycleA = 8500/2+dutya/2;
-	p->DutyCycleB = 8500/2-dutya/2;
-	p->DutyCycleC = 8500/2+dutyb/2;
-	p->DutyCycleD = 8500/2-dutyb/2;
+	p->DutyCycleA = p->PwmCycle/2+dutya/2;
+	p->DutyCycleB = p->PwmCycle/2-dutya/2;
+	p->DutyCycleC = p->PwmCycle/2+dutyb/2;
+	p->DutyCycleD = p->PwmCycle/2-dutyb/2;
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,p->DutyCycleA);     //更新PWM比较值             
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,p->DutyCycleB);     //更新PWM比较值
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,p->DutyCycleC); 		 //更新PWM比较值

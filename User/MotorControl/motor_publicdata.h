@@ -9,7 +9,6 @@
 #include "sample_drv.h"
 #include "encoder_drv.h"
 #include "position_drv.h"
-#include "observer_drv.h"
 #include "lcd_task.h"
 
 #define LOW_RESITOR        4.7f     //母线电压检测下端电阻
@@ -35,7 +34,7 @@
 #define MOTOR_ERROR                         0X02  // 故障报错
 #define MOTOR_IDENTIFY                      0X03  // 参数辨识
 #define MOTOR_SENSORUSE                     0X04  // 有感控制
-#define MOTOR_SENSORLESS                    0X05  // 无感控制
+#define MOTOR_SENSORLESS                    0X05  // 无感控制（已弃用）
 
 /****************有感运行模式*******************/
 #define ENCODER_CALIB                       0X00  // 编码器校准
@@ -43,15 +42,6 @@
 #define CURRENT_CLOSE_LOOP	                0X02  // 电流闭环
 #define SPEED_CURRENT_LOOP                  0X03  // 速度闭环
 #define POS_SPEED_CURRENT_LOOP	            0X04  // 位置闭环
-
-/****************无感运行模式*******************/
-#define STRONG_DRAG_CURRENT_OPEN            0X05  // 电流开环强拖
-#define STRONG_DRAG_CURRENT_CLOSE		        0X06  // 电流闭环强拖
-#define STRONG_DRAG_SMO_SPEED_CURRENT_LOOP  0X07  // 强拖切滑膜速度电流闭环
-#define HFI_CURRENT_CLOSE                   0X08  // 电流闭环高频注入（测试HFI角度收敛效果）
-#define HFI_SPEED_CURRENT_CLOSE             0X09  // 高频注入速度电流闭环
-#define HFI_POS_SPEED_CURRENT_CLOSE         0X0A  // 高频注入位置速度电流闭环
-
 
 #define HALF_PI  1.5707963f
 #define ONE_PI   3.1415926f
@@ -110,10 +100,6 @@ typedef struct
 	SPEED_STRUCT  					  Speed; 
 	TSHAPEDACCDEC_STRUCT      TAccDec;		
 	POSITION_STRUCT 				 	Position;      		
-	SMO_STRUCT                SMO;
-	HFI_STRUCT                HFI;
-  PLL_STRUCT	              SPLL;	         
-  PLL_STRUCT	              HPLL;          
 }MOTORCONTROL_STRUCT;
 
 extern MOTORCONTROL_STRUCT MC;
@@ -132,5 +118,4 @@ void Motor_Struct_Init(void);
 //typedef  signed long long s64;
 
 #endif 
-
 

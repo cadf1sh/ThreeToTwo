@@ -47,5 +47,4 @@ motor\stepper_foc.o: ../User/MotorControl/speed_drv.h
 motor\stepper_foc.o: ../User/MotorControl/sample_drv.h
 motor\stepper_foc.o: ../User/MotorControl/encoder_drv.h
 motor\stepper_foc.o: ../User/MotorControl/position_drv.h
-motor\stepper_foc.o: ../User/MotorControl/observer_drv.h
 motor\stepper_foc.o: ../User/LcdControl/lcd_task.h

@@ -46,5 +46,4 @@ motor\motor_publicdata.o: ..\User\MotorControl\speed_drv.h
 motor\motor_publicdata.o: ..\User\MotorControl\sample_drv.h
 motor\motor_publicdata.o: ..\User\MotorControl\encoder_drv.h
 motor\motor_publicdata.o: ..\User\MotorControl\position_drv.h
-motor\motor_publicdata.o: ..\User\MotorControl\observer_drv.h
 motor\motor_publicdata.o: ../User/LcdControl/lcd_task.h

@@ -47,22 +47,8 @@ void Motor_Struct_Init()
 	MC.Speed.ElectricalSpeedFactor = 146.5f;         //设置速度计算系数
 
 	MC.Identify.CurMax = 0.6f;                       //设置电阻电感识别时的最大母线电流（单位：安）
-	
-	MC.SMO.Gain = 14.0f;                             //设置滑膜观测器增益
-	MC.SMO.Ts = TS;                                  //设置滑膜观测器运行时间间隔
-  MC.SMO.EabForeLPFFactor = 0.1f;                  //设置预估反电动势低通滤波系数
-	
-	MC.SPLL.Ts = TS;                                 //设置锁相环运行时间间隔
-	MC.SPLL.Kp = 80.0f;                              //设置锁相环比例系数
-	MC.SPLL.Ki = 0.5f;                               //设置锁相环积分系数
-	MC.SPLL.WeForeLPFFactor = 0.01f;	               //设置观测电角速度低通滤波系数
-	
-	MC.HFI.Uin = 1.4f;	                             //设置高频注入的电压幅值
-	MC.HPLL.Dir = 1;                                 //设置锁相环输入方向
-	MC.HPLL.Kp = 900.0f;                             //设置锁相环比例系数
-	MC.HPLL.Ki = 20.0f;                              //设置锁相环积分系数
-	MC.HPLL.Ts = TS;                                 //设置锁相环运行时间间隔
-	MC.HPLL.WeForeLPFFactor = 0.01f;                 //设置观测电角速度低通滤波系数
+	MC.Identify.VoltageSet[0] = 0.0f;
+	MC.Identify.VoltageSet[1] = 1.0f;                //编码器校准用的电压目标（需按硬件调整）
 	
 	MC.IqPid.Kp = 0.2f;                              //设置q轴PID比例系数
 	MC.IqPid.Ki = 0.002f;                            //设置q轴PID比例系数
@@ -86,5 +72,4 @@ void Motor_Struct_Init()
 	MC.PosPid.Kd = 0;                                //设置位置PID微分系数
 	MC.PosPid.OutMax = 14000;                        //设置位置PID输出上限
 	MC.PosPid.OutMin = -14000;                       //设置位置PID输出下限
-}                                                  
-
+}  

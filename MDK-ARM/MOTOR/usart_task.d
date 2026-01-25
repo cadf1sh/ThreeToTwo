@@ -50,6 +50,5 @@ motor\usart_task.o: ../User/MotorControl/speed_drv.h
 motor\usart_task.o: ../User/MotorControl/sample_drv.h
 motor\usart_task.o: ../User/MotorControl/encoder_drv.h
 motor\usart_task.o: ../User/MotorControl/position_drv.h
-motor\usart_task.o: ../User/MotorControl/observer_drv.h
 motor\usart_task.o: ../User/LcdControl/lcd_task.h
 motor\usart_task.o: ..\MDK-ARM\stepper_foc.h

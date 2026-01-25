@@ -49,7 +49,6 @@ motor\global_control.o: ../User/MotorControl/speed_drv.h
 motor\global_control.o: ../User/MotorControl/sample_drv.h
 motor\global_control.o: ../User/MotorControl/encoder_drv.h
 motor\global_control.o: ../User/MotorControl/position_drv.h
-motor\global_control.o: ../User/MotorControl/observer_drv.h
 motor\global_control.o: ../User/LcdControl/lcd_task.h
 motor\global_control.o: ..\MDK-ARM\stepper_foc.h
 motor\global_control.o: ../User/LedControl/led_task.h

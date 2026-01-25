@@ -32,11 +32,15 @@ void Motor_System_Init(void)
 	Motor_Struct_Init();                       //??
 	Stepper_Foc_Init(&stepper_foc_ctrl, MC.Foc.PwmCycle, MC.Foc.PwmLimit);
 	Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, 0.0f, 0.0f);
+	MC.IdPid.Ref = 0.0f;
+	MC.IqPid.Ref = 0.0f;
 }
 
 void Motor_System_SetCurrentRef(float id_ref, float iq_ref)
 {
 	Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, id_ref, iq_ref);
+	MC.IdPid.Ref = id_ref;
+	MC.IqPid.Ref = iq_ref;
 }
 
 
@@ -71,12 +75,7 @@ void Motor_System_Run()
 		{
 			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);	
 			Calculate_Encoder_Data(&MC.Encoder);
-			Stepper_Foc_Run(&stepper_foc_ctrl,
-							MC.Sample.IuReal,
-							MC.Sample.IwReal,
-							MC.Encoder.ElectricalVal,
-							MC.Sample.BusReal);
-			MC.Foc = stepper_foc_ctrl.foc;
+			Sensoruse_Control();
 		}break;
 
 		case MOTOR_STOP:
@@ -86,6 +85,3 @@ void Motor_System_Run()
 			break;
 	}
 }
-
-
-
