@@ -792,11 +792,6 @@
               <FilePath>..\User\MotorControl\motor_system.c</FilePath>
             </File>
             <File>
-              <FileName>motor_identify.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\MotorControl\motor_identify.c</FilePath>
-            </File>
-            <File>
               <FileName>motor_publicdata.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\MotorControl\motor_publicdata.c</FilePath>

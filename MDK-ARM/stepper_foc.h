@@ -1,11 +1,9 @@
-
 #ifndef __STEPPER_FOC_H
 #define __STEPPER_FOC_H
 
 #include "foc_drv.h"
 #include "pid_drv.h"
 #include "math_drv.h"
-#include "motor_publicdata.h"
 
 
 typedef struct
@@ -27,4 +25,3 @@ void Stepper_Foc_Run(STEPPER_FOC_STRUCT *ctrl, float iu, float iw, float elec_an
 
 
 #endif
-

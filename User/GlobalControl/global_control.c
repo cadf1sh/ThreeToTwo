@@ -1,4 +1,3 @@
-
 /**
   ******************************************************************************
   * 文件名程: 
@@ -98,26 +97,18 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 	MC.Sample.IwRaw = ADC2->JDR2;              //获取相电流
 	MC.Sample.BusRaw = ADC2->JDR3;          	 //获取母线电压
 	MC.Encoder.EncoderVal = TIM3->CNT;         //获取编码器值		
- 	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;//使用波轮电位器给电机目标转速（速度闭环模式下）
-	MC.Position.MechanicalPosSet = -ADC2->JDR4;//使用波轮电位器给电机目标位置（位置闭环模式下）        
 	//电机系统运行
- 	Motor_System_Run();                
-
-//	xita=(MC.Speed.MechanicalSpeedSet/10)*Pi;//位置控制
-////  xita+=(MC.Speed.MechanicalSpeedSet/100000)*Pi;//速度控制
+ 	Motor_System_Run();   
+//	xita=(MC.Speed.MechanicalSpeedSet/10)*Pi;//λ?
+////  xita+=(MC.Speed.MechanicalSpeedSet/100000)*Pi;//??
 //	dutyA = (6000 * sin(xita)) ;
 //	dutyB = (6000 * cos(xita)) ;
 //	MC.Foc.DutyCycleA = PWM_CYCLE/2+dutyA/2;
 //	MC.Foc.DutyCycleB = PWM_CYCLE/2-dutyA/2;
 //	MC.Foc.DutyCycleC = PWM_CYCLE/2+dutyB/2;
 //	MC.Foc.DutyCycleD = PWM_CYCLE/2-dutyB/2;
-//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //更新PWM比较值             
-//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     //更新PWM比较值
-//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MC.Foc.DutyCycleC); 		 //更新PWM比较值
-//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,MC.Foc.DutyCycleD);     //更新PWM比较值
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,MC.Foc.DutyCycleA);     //PWM??             
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,MC.Foc.DutyCycleB);     //PWM??
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,MC.Foc.DutyCycleC); 		 //PWM??
+//	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_4,MC.Foc.DutyCycleD);     //PWM??	
 }
-
-
-
-
-

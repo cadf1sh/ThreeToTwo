@@ -22,16 +22,31 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 D:\ThreeToTwo\MDK-ARM\MOTOR.uvprojx
-Project File Date:  01/25/2026
+Project File Date:  01/26/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\Version5.06\Bin'
 Build target 'MOTOR'
-compiling stepper_foc.c...
+compiling motor_publicdata.c...
+..\User\MotorControl\math_drv.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\User\MotorControl\encoder_drv.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\User\MotorControl\motor_publicdata.c(75): warning:  #1-D: last line of file ends without a newline
+  }  
+..\User\MotorControl\motor_publicdata.c: 3 warnings, 0 errors
+compiling motor_system.c...
+..\User\MotorControl\math_drv.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\User\MotorControl\encoder_drv.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\MDK-ARM\stepper_foc.h(27): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\MotorControl\motor_system.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=23606 RO-data=15626 RW-data=32 ZI-data=2296  
+Program Size: Code=23558 RO-data=15626 RW-data=32 ZI-data=2288  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 0 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +69,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

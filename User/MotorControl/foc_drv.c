@@ -27,7 +27,7 @@ void IPack_Transform(FOC_STRUCT *p)
   p->Ubeta = p->Uq * p->CosVal + p->Ud * p->SinVal;
 }
 
-float xiata = 0;
+
 void Calculate_Stepper_PWM(FOC_STRUCT *p)
 {
   if (p->Ubus <= 0.0f)
@@ -49,15 +49,11 @@ void Calculate_Stepper_PWM(FOC_STRUCT *p)
   float duty_c = pwm_center + ratio_b * pwm_amplitude;
   float duty_d = pwm_center - ratio_b * pwm_amplitude;
 
-  duty_a = Clamp_Float(duty_a, 0.0f, p->PwmCycle);
-  duty_b = Clamp_Float(duty_b, 0.0f, p->PwmCycle);
-  duty_c = Clamp_Float(duty_c, 0.0f, p->PwmCycle);
-  duty_d = Clamp_Float(duty_d, 0.0f, p->PwmCycle);
+  p->DutyCycleA = (u16)Clamp_Float(duty_a, 0.0f, p->PwmCycle);
+  p->DutyCycleB = (u16)Clamp_Float(duty_b, 0.0f, p->PwmCycle);
+  p->DutyCycleC = (u16)Clamp_Float(duty_c, 0.0f, p->PwmCycle);
+  p->DutyCycleD = (u16)Clamp_Float(duty_d, 0.0f, p->PwmCycle);
 
-	p->DutyCycleA = (u16)duty_a;
-	p->DutyCycleB = (u16)duty_b;
-	p->DutyCycleC = (u16)duty_c;
-	p->DutyCycleD = (u16)duty_d;
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,p->DutyCycleA);     //更新PWM比较值             
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_2,p->DutyCycleB);     //更新PWM比较值
 	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_3,p->DutyCycleC); 		 //更新PWM比较值

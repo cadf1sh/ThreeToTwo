@@ -43,9 +43,3 @@ motor\stepper_foc.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
 motor\stepper_foc.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
 motor\stepper_foc.o: ../User/MotorControl/pid_drv.h
 motor\stepper_foc.o: ../User/MotorControl/math_drv.h
-motor\stepper_foc.o: ../User/MotorControl/motor_publicdata.h
-motor\stepper_foc.o: ../User/MotorControl/speed_drv.h
-motor\stepper_foc.o: ../User/MotorControl/sample_drv.h
-motor\stepper_foc.o: ../User/MotorControl/encoder_drv.h
-motor\stepper_foc.o: ../User/MotorControl/position_drv.h
-motor\stepper_foc.o: ../User/LcdControl/lcd_task.h
