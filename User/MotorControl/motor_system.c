@@ -22,7 +22,6 @@ static void Motor_System_StopOutput(void)
 void Motor_System_Init(void)
 {
 	Motor_Struct_Init();                       //??
-	Stepper_Foc_Init();
 	Stepper_Foc_SetCurrentLimit();
 	Stepper_Foc_SetCurrentRef();
 }
@@ -55,7 +54,6 @@ void Motor_System_Run()
 	{
 		case MOTOR_SENSORUSE:
 		{
-			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);	
 			Calculate_Encoder_Data(&MC.Encoder);
 			Stepper_Foc_SetCurrentRef();
 			Stepper_Foc_Run();

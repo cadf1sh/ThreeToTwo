@@ -16,9 +16,6 @@
 #include "lcd_drv.h"
 #include "usart_task.h"
 #include "math.h"
-extern volatile u16 LedTaskTim;
-extern volatile u16 LcdTaskTim;
-extern volatile u16 UsartTaskTim;
 
 /**
   * 函数功能: 全局初始化
@@ -75,7 +72,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == htim1.Instance)                      //20KHZ   50US
 	{	
 	  HAL_ADCEx_InjectedStart_IT(&hadc2);	                  	//开启ADC注入通道中断
-		LedTaskTim++;                                           //LED任务计时
 		LcdTaskTim++;	                                          //LCD任务计时
 		UsartTaskTim++;		                                      //串口任务计时
 	}	

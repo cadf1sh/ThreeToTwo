@@ -33,15 +33,5 @@ void Calculate_Encoder_Data(ENCODER_STRUCT *p)
 	}
 }
 
-/**
-  * 函数功能:计算速度
-  * 输入参数: 
-  * 返 回 值: 
-  * 说    明:
-  */
-void Calculate_Speed(ENCODER_STRUCT *p)
-{
-	return;
-}
 
 

@@ -55,7 +55,7 @@
 
 #define PUL_ANGLE_FACTOR (4095.0f/PUL_MAX)  //角度系数
 
-#define POLEPAIRS   7                //默认极对数
+#define POLEPAIRS   8                //默认极对数
 #define ACCELERATION 3               //默认加速度
 
 #define SPEED_DIVISION_FACTOR  2     //速度环分频系数
@@ -97,12 +97,14 @@ typedef struct
 	PID_STRUCT    					  IdPid;
 	PID_STRUCT      					SpdPid; 
 	PID_STRUCT     					  PosPid;	
-	SPEED_STRUCT  					  Speed; 
-	TSHAPEDACCDEC_STRUCT      TAccDec;		
+	SPEED_STRUCT  					  Speed; 	
 	POSITION_STRUCT 				 	Position;      		
 }MOTORCONTROL_STRUCT;
 
 extern MOTORCONTROL_STRUCT MC;
+extern volatile u16 LedTaskTim;
+extern volatile u16 LcdTaskTim;
+extern volatile u16 UsartTaskTim;
 
 void Motor_Struct_Init(void);
 

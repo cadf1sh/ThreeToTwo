@@ -42,32 +42,38 @@ void Motor_Struct_Init()
 	
 	MC.Position.ElectricalValMax = PUL_MAX; 			   //设置电度角的最大值
 	
-	MC.TAccDec.AccSpeed = ACCELERATION;              //设置速度模式下的加速度	
-	
 	MC.Speed.ElectricalValMax = PUL_MAX; 					   //设置编码器单圈脉冲的最大值	
 	MC.Speed.ElectricalSpeedLPFFactor = 0.2f;       //设置速度低通滤波系数
 	MC.Speed.ElectricalSpeedFactor = 146.5f;         //设置速度计算系数
 
-	MC.Identify.CurMax = 0.6f;                       //设置电阻电感识别时的最大母线电流（单位：安）
-	MC.Identify.VoltageSet[0] = 1.0f;
-	MC.Identify.VoltageSet[1] = 1.0f;                //编码器校准用的电压目标（需按硬件调整）
+
+	MC.Foc.IdLPFFactor = 0.1f;
+  MC.Foc.IqLPFFactor = 0.1f;
+  MC.Foc.IdLPF = 0.0f;
+  MC.Foc.IqLPF = 0.0f;
+
+  MC.IdPid.Ref = 0.0f;
+  MC.IqPid.Ref = 0.0f;
+  MC.IdPid.Ref_lim = 3.0f;
 	
-	MC.IqPid.Kp = 0.2f;                              //设置q轴PID比例系数
-	MC.IqPid.Ki = 0.002f;                            //设置q轴PID比例系数
-	MC.IqPid.OutMax = 6;                             //设置q轴PID输出上限
-	MC.IqPid.OutMin = -6;                            //设置q轴PID输出下限
+  MC.IdPid.Kp = 0.001f;
+  MC.IdPid.Ki = 0.001f;
+  MC.IdPid.Kd = 0.0f;
+  MC.IdPid.OutMax = 10.0f;
+  MC.IdPid.OutMin = -10.0f;
 
-	MC.IdPid.Kp = 0.2f;                              //设置d轴PID比例系数
-	MC.IdPid.Ki = 0.002f;                            //设置d轴PID比例系数
-	MC.IdPid.OutMax = 6;                             //设置d轴PID输出上限
-	MC.IdPid.OutMin = -6;                            //设置d轴PID输出下限
+  MC.IqPid.Kp = 0.001f;
+  MC.IqPid.Ki = 0.001f;
+  MC.IqPid.Kd = 0.0f;
+  MC.IqPid.OutMax = 10.0f;
+  MC.IqPid.OutMin = -10.0f;
 
-	MC.SpdPid.Kp = 0.001f;                           //设置速度PID比例系数
-	MC.SpdPid.KpMax = 0.002f;                        //设置速度PID比例系数最大值（用于分段或模糊PID）
-	MC.SpdPid.KpMin = 0.001f;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
-	MC.SpdPid.Ki = 0.000002f;                        //设置速度PID积分系数
-	MC.SpdPid.OutMax = 2;                            //设置速度PID输出上限  
-	MC.SpdPid.OutMin = -2;	                         //设置速度PID输出下限
+	MC.SpdPid.Kp = 0.01f;                           //设置速度PID比例系数
+	MC.SpdPid.KpMax = 0.03f;                       //设置速度PID比例系数最大值（用于分段或模糊PID）
+	MC.SpdPid.KpMin = 0;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
+	MC.SpdPid.Ki = 0.0002f;                        //设置速度PID积分系数
+	MC.SpdPid.OutMax = 3;                            //设置速度PID输出上限  
+	MC.SpdPid.OutMin = -3;	                         //设置速度PID输出下限
 
   MC.PosPid.Kp = 0.5f;                             //设置位置PID比例系数
 	MC.PosPid.Ki = 0;                                //设置位置PID积分系数

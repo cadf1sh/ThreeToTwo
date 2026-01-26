@@ -1,13 +1,16 @@
 #include "stepper_foc.h"
 #include "math.h"
 
-//电流开环
-#define STEPPER_FOC_OPEN_LOOP_TEST 1 //电流闭环是否开启步进角验证
-#define STEPPER_FOC_OPEN_LOOP_STEP 5.0f//电流闭环步数/可正负
 #if STEPPER_FOC_OPEN_LOOP_TEST
 static float stepper_open_loop_electrical = 0.0f;
 #endif
 
+#define VF_EXIT_SPEED_LOOP_AIM      (500.0f)   // 真实速度阈值：按你的单位调（先给200）
+#define VF_EXIT_CNT_TH        (50)      // 连续满足阈值次数：约等于稳定时间（按速度环执行频率调）
+static uint16_t vf_exit_cnt = 0;
+u8 VF_open_finish = 0;
+float VF_xita = 0;
+float VF_xita_rate = 300;
 
 static float Stepper_Foc_Clamp(float value, float min_val, float max_val)
 {
@@ -52,26 +55,7 @@ static float Stepper_Foc_ElectricalDiff(float a, float b, float max_val)
 
 void Stepper_Foc_Init(void)
 {
-  MC.Foc.IdLPFFactor = 0.1f;
-  MC.Foc.IqLPFFactor = 0.1f;
-  MC.Foc.IdLPF = 0.0f;
-  MC.Foc.IqLPF = 0.0f;
 
-  MC.IdPid.Kp = 0.001f;
-  MC.IdPid.Ki = 0.001f;
-  MC.IdPid.Kd = 0.0f;
-  MC.IdPid.OutMax = 3.0f;
-  MC.IdPid.OutMin = -3.0f;
-
-  MC.IqPid.Kp = 0.001f;
-  MC.IqPid.Ki = 0.001f;
-  MC.IqPid.Kd = 0.0f;
-  MC.IqPid.OutMax = 3.0f;
-  MC.IqPid.OutMin = -3.0f;
-
-  MC.IdPid.Ref = 0.0f;
-  MC.IqPid.Ref = 0.0f;
-  MC.IdPid.Ref_lim = 2.0f;
 }
 
 void Stepper_Foc_SetCurrentRef(void)
@@ -163,11 +147,13 @@ void Stepper_Foc_Run(void)
 			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
 			{
 			MC.Speed.SpeedCalculateCnt=0;
+			MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //获取当前电角度
+			Calculate_Speed(&MC.Speed);                                  	 //根据当前电角度和上次电角度计算电角速度
 			MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
 				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
 //			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
 				
-			MC.SpdPid.Ref = 1000;					                 //获得目标值   
+			MC.SpdPid.Ref = VF_EXIT_SPEED_LOOP_AIM/1000.000f;					                 //获得目标值   
 			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
 			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 			{
@@ -176,11 +162,54 @@ void Stepper_Foc_Run(void)
 			else
 			{
 				MC.SpdPid.Kp = MC.SpdPid.KpMin;
-			}			
-			PID_Control(&MC.SpdPid); 
-			MC.IqPid.Ref = MC.SpdPid.Out;
+			}	
+					
+			float error = MC.SpdPid.Ref - MC.SpdPid.Fbk;
+			// 1) 强托阶段：加速旋转磁场把电机拉起来
+			if (!VF_open_finish)
+			{
+					MC.IqPid.Ref = 1.0f;
+					VF_xita_rate+=0.1; 
+					VF_xita+=VF_xita_rate*0.01; 
+					if (VF_xita >= MC.Encoder.EncoderValMax) 
+					{ VF_xita -= MC.Encoder.EncoderValMax; } 
+					if (VF_xita < 0.0f) 
+					{ VF_xita += MC.Encoder.EncoderValMax; } 
+					MC.Encoder.ElectricalVal = VF_xita;
+					// 退出条件：真实速度达到一定值并稳定（你原先那套阈值计数逻辑也可以放这里）
+					if (fabsf(MC.SpdPid.Fbk) > VF_EXIT_SPEED_LOOP_AIM)
+					{
+							vf_exit_cnt++;
+							if (vf_exit_cnt >= VF_EXIT_CNT_TH)
+							{
+									// 进入“过渡锁相”阶段：不再加速VF_xita_rate，但仍继续推进VF_xita
+									VF_open_finish = 1;
+									vf_exit_cnt = 0;
+							}
+					}
+					else
+					{
+							vf_exit_cnt = 0;
+					}
 			}
-			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
+			// 2) 过渡锁相阶段（关键）：继续推进VF_xita，不要停磁场
+			else
+			{
+					// 速度PID调扭矩Iq（但先禁止负扭矩，避免刹停）
+					MC.SpdPid.Fbk/=1000.000f;
+					PID_Control(&MC.SpdPid);
+					MC.IqPid.Ref = MC.SpdPid.Out;
+
+					// 继续用上一次的VF_xita_rate推进磁场（不要停）
+					VF_xita+=VF_xita_rate*0.01; 
+					if (VF_xita >= MC.Encoder.EncoderValMax) 
+					{ VF_xita -= MC.Encoder.EncoderValMax; } 
+					if (VF_xita < 0.0f) 
+					{ VF_xita += MC.Encoder.EncoderValMax; } 
+			}
+//			printf("%d,%0.3f,%d,%f,%f\n",VF_open_finish,VF_xita,MC.Encoder.ElectricalVal,MC.SpdPid.Fbk,MC.SpdPid.Out);  
+			}
+			Calculate_Sin_Cos(VF_xita, &MC.Foc.SinVal, &MC.Foc.CosVal);
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
       Pack_Transform(&MC.Foc);
@@ -222,5 +251,5 @@ void Stepper_Foc_Run(void)
   }
 
 	IPack_Transform(&MC.Foc);
-//  Calculate_Stepper_PWM(&MC.Foc);
+  Calculate_Stepper_PWM(&MC.Foc);
 	}

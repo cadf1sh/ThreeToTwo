@@ -22,17 +22,9 @@ typedef struct
   float MechanicalSpeedSetLast;     // 上次目标机械速度		
 }SPEED_STRUCT;
 
-typedef struct
-{  
-  float StartSpeed;   //初始速度    
-	float EndSpeed;     //末速度
-	float AccSpeed;     //加速度
-	float SumSpeed;     //速度增量
-	float DecSpeed;     //减速度
-	float SpeedOut;     //输出目标速度
-	u8    FinishFlag;   //加减速完成标志
-}TSHAPEDACCDEC_STRUCT;
 
+
+void Calculate_Speed(SPEED_STRUCT *p);
 #endif 
 
 
