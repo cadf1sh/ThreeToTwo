@@ -117,7 +117,7 @@ void Stepper_Foc_Run(void)
 						MC.Encoder.CalibFlag = 0;
 						MC.Foc.Ud = 0.0f;
 						MC.Foc.CosVal = 0;
-						MC.Motor.RunMode = CURRENT_CLOSE_LOOP;
+						MC.Motor.RunMode = SPEED_CURRENT_LOOP;
 					}
 				}
 			}break;
@@ -159,7 +159,27 @@ void Stepper_Foc_Run(void)
 			
 			case SPEED_CURRENT_LOOP:
 			{
-      MC.IqPid.Ref = 0.0f;
+			MC.Speed.SpeedCalculateCnt++;  			
+			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
+			{
+			MC.Speed.SpeedCalculateCnt=0;
+			MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
+				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
+//			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
+				
+			MC.SpdPid.Ref = 1000;					                 //获得目标值   
+			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
+			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
+			{
+				MC.SpdPid.Kp = MC.SpdPid.KpMax;
+			}
+			else
+			{
+				MC.SpdPid.Kp = MC.SpdPid.KpMin;
+			}			
+			PID_Control(&MC.SpdPid); 
+			MC.IqPid.Ref = MC.SpdPid.Out;
+			}
 			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
@@ -202,5 +222,5 @@ void Stepper_Foc_Run(void)
   }
 
 	IPack_Transform(&MC.Foc);
-  Calculate_Stepper_PWM(&MC.Foc);
+//  Calculate_Stepper_PWM(&MC.Foc);
 	}
