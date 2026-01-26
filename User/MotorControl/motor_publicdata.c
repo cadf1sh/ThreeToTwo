@@ -68,10 +68,10 @@ void Motor_Struct_Init()
   MC.IqPid.OutMax = 10.0f;
   MC.IqPid.OutMin = -10.0f;
 
-	MC.SpdPid.Kp = 0.01f;                           //设置速度PID比例系数
-	MC.SpdPid.KpMax = 0.03f;                       //设置速度PID比例系数最大值（用于分段或模糊PID）
+	MC.SpdPid.Kp = 0.003f;                           //设置速度PID比例系数
+	MC.SpdPid.KpMax = 0.009f;                       //设置速度PID比例系数最大值（用于分段或模糊PID）
 	MC.SpdPid.KpMin = 0;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
-	MC.SpdPid.Ki = 0.0002f;                        //设置速度PID积分系数
+	MC.SpdPid.Ki = 0.0003f;                        //设置速度PID积分系数
 	MC.SpdPid.OutMax = 3;                            //设置速度PID输出上限  
 	MC.SpdPid.OutMin = -3;	                         //设置速度PID输出下限
 

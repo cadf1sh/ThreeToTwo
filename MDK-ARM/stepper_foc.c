@@ -153,7 +153,7 @@ void Stepper_Foc_Run(void)
 				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
 //			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
 				
-			MC.SpdPid.Ref = VF_EXIT_SPEED_LOOP_AIM/1000.000f;					                 //获得目标值   
+			MC.SpdPid.Ref = VF_EXIT_SPEED_LOOP_AIM;					                 //获得目标值   
 			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
 			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 			{
@@ -196,16 +196,9 @@ void Stepper_Foc_Run(void)
 			else
 			{
 					// 速度PID调扭矩Iq（但先禁止负扭矩，避免刹停）
-					MC.SpdPid.Fbk/=1000.000f;
 					PID_Control(&MC.SpdPid);
 					MC.IqPid.Ref = MC.SpdPid.Out;
-
-					// 继续用上一次的VF_xita_rate推进磁场（不要停）
-					VF_xita+=VF_xita_rate*0.01; 
-					if (VF_xita >= MC.Encoder.EncoderValMax) 
-					{ VF_xita -= MC.Encoder.EncoderValMax; } 
-					if (VF_xita < 0.0f) 
-					{ VF_xita += MC.Encoder.EncoderValMax; } 
+					VF_xita = MC.Encoder.ElectricalVal;
 			}
 //			printf("%d,%0.3f,%d,%f,%f\n",VF_open_finish,VF_xita,MC.Encoder.ElectricalVal,MC.SpdPid.Fbk,MC.SpdPid.Out);  
 			}
