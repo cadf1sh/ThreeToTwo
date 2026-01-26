@@ -11,8 +11,6 @@
 
 #include "motor_system.h"
 
-STEPPER_FOC_STRUCT stepper_foc_ctrl;
-
 static void Motor_System_StopOutput(void)
 {
 	MC.Foc.DutyCycleA = 0;
@@ -24,13 +22,12 @@ static void Motor_System_StopOutput(void)
 void Motor_System_Init(void)
 {
 	Motor_Struct_Init();                       //??
-	Stepper_Foc_Init(&stepper_foc_ctrl, MC.Foc.PwmCycle, MC.Foc.PwmLimit);
-	Stepper_Foc_SetCurrentLimit(&stepper_foc_ctrl, 3.0f, 3.0f);
+	Stepper_Foc_Init();
+	Stepper_Foc_SetCurrentLimit();
 	MC.IdPid.Ref = 0.0f;
 	MC.IqPid.Ref = 0.5f;
-	Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, MC.IdPid.Ref, MC.IqPid.Ref);
+	Stepper_Foc_SetCurrentRef();
 }
-
 
 
 
@@ -63,9 +60,8 @@ void Motor_System_Run()
 		{
 			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);	
 			Calculate_Encoder_Data(&MC.Encoder);
-			Stepper_Foc_SetCurrentRef(&stepper_foc_ctrl, MC.IdPid.Ref, MC.IqPid.Ref);
-			Stepper_Foc_Run(&stepper_foc_ctrl, MC.Sample.IuReal, MC.Sample.IwReal, (float)MC.Encoder.ElectricalVal, MC.Sample.BusReal);
-			MC.Foc = stepper_foc_ctrl.foc;
+			Stepper_Foc_SetCurrentRef();
+			Stepper_Foc_Run();
 		}break;
 
 		case MOTOR_STOP:

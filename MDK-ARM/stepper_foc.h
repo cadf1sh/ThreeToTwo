@@ -1,27 +1,12 @@
 #ifndef __STEPPER_FOC_H
 #define __STEPPER_FOC_H
 
-#include "foc_drv.h"
-#include "pid_drv.h"
-#include "math_drv.h"
+#include "motor_publicdata.h"
 
-
-typedef struct
-{
-  FOC_STRUCT foc;
-  PID_STRUCT id_pid;
-  PID_STRUCT iq_pid;
-  float id_ref;
-  float iq_ref;
-  float id_ref_limit;
-  float iq_ref_limit;
-}STEPPER_FOC_STRUCT;
-
-
-void Stepper_Foc_Init(STEPPER_FOC_STRUCT *ctrl, float pwm_cycle, float pwm_limit);
-void Stepper_Foc_SetCurrentRef(STEPPER_FOC_STRUCT *ctrl, float id_ref, float iq_ref);
-void Stepper_Foc_SetCurrentLimit(STEPPER_FOC_STRUCT *ctrl, float id_limit, float iq_limit);
-void Stepper_Foc_Run(STEPPER_FOC_STRUCT *ctrl, float iu, float iw, float elec_angle, float bus_voltage);
+void Stepper_Foc_Init(void);
+void Stepper_Foc_SetCurrentRef(void);
+void Stepper_Foc_SetCurrentLimit(void);
+void Stepper_Foc_Run(void);
 
 
 #endif

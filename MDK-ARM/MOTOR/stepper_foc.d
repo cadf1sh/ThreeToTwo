@@ -1,6 +1,6 @@
 motor\stepper_foc.o: stepper_foc.c
 motor\stepper_foc.o: stepper_foc.h
-motor\stepper_foc.o: ../User/MotorControl/foc_drv.h
+motor\stepper_foc.o: ../User/MotorControl/motor_publicdata.h
 motor\stepper_foc.o: ../Core/Inc/main.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h
 motor\stepper_foc.o: ../Core/Inc/stm32g4xx_hal_conf.h
@@ -40,6 +40,12 @@ motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\stepper_foc.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
 motor\stepper_foc.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
+motor\stepper_foc.o: ../User/MotorControl/foc_drv.h
 motor\stepper_foc.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
 motor\stepper_foc.o: ../User/MotorControl/pid_drv.h
 motor\stepper_foc.o: ../User/MotorControl/math_drv.h
+motor\stepper_foc.o: ../User/MotorControl/speed_drv.h
+motor\stepper_foc.o: ../User/MotorControl/sample_drv.h
+motor\stepper_foc.o: ../User/MotorControl/encoder_drv.h
+motor\stepper_foc.o: ../User/MotorControl/position_drv.h
+motor\stepper_foc.o: ../User/LcdControl/lcd_task.h

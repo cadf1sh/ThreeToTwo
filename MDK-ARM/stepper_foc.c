@@ -1,5 +1,8 @@
 #include "stepper_foc.h"
 
+static float stepper_id_ref_limit = 3.0f;
+static float stepper_iq_ref_limit = 3.0f;
+
 static float Stepper_Foc_Clamp(float value, float min_val, float max_val)
 {
   if (value < min_val)
@@ -13,92 +16,68 @@ static float Stepper_Foc_Clamp(float value, float min_val, float max_val)
   return value;
 }
 
-void Stepper_Foc_Init(STEPPER_FOC_STRUCT *ctrl, float pwm_cycle, float pwm_limit)
+void Stepper_Foc_Init(void)
 {
-  if (!ctrl)
-  {
-    return;
-  }
+  MC.Foc.IdLPFFactor = 0.1f;
+  MC.Foc.IqLPFFactor = 0.1f;
+  MC.Foc.IdLPF = 0.0f;
+  MC.Foc.IqLPF = 0.0f;
 
-  ctrl->foc.PwmCycle = pwm_cycle;
-  ctrl->foc.PwmLimit = pwm_limit;
-  ctrl->foc.IdLPFFactor = 0.1f;
-  ctrl->foc.IqLPFFactor = 0.1f;
-  ctrl->foc.IdLPF = 0.0f;
-  ctrl->foc.IqLPF = 0.0f;
+  MC.IdPid.Kp = 0.2f;
+  MC.IdPid.Ki = 0.002f;
+  MC.IdPid.Kd = 0.0f;
+  MC.IdPid.OutMax = 6.0f;
+  MC.IdPid.OutMin = -6.0f;
 
-  ctrl->id_pid.Kp = 0.2f;
-  ctrl->id_pid.Ki = 0.002f;
-  ctrl->id_pid.Kd = 0.0f;
-  ctrl->id_pid.OutMax = 6.0f;
-  ctrl->id_pid.OutMin = -6.0f;
+  MC.IqPid.Kp = 0.001f;
+  MC.IqPid.Ki = 0.001f;
+  MC.IqPid.Kd = 0.0f;
+  MC.IqPid.OutMax = 6.0f;
+  MC.IqPid.OutMin = -6.0f;
 
-  ctrl->iq_pid.Kp = 0.001f;
-  ctrl->iq_pid.Ki = 0.001f;
-  ctrl->iq_pid.Kd = 0.0f;
-  ctrl->iq_pid.OutMax = 6.0f;
-  ctrl->iq_pid.OutMin = -6.0f;
-
-  ctrl->id_ref = 0.0f;
-  ctrl->iq_ref = 1.0f;
-  ctrl->id_ref_limit = 3.0f;
-  ctrl->iq_ref_limit = 3.0f;
+  MC.IdPid.Ref = 0.0f;
+  MC.IqPid.Ref = 1.0f;
+  stepper_id_ref_limit = 3.0f;
+  stepper_iq_ref_limit = 3.0f;
 }
 
-void Stepper_Foc_SetCurrentRef(STEPPER_FOC_STRUCT *ctrl, float id_ref, float iq_ref)
+void Stepper_Foc_SetCurrentRef(void)
 {
-  if (!ctrl)
-  {
-    return;
-  }
-
-  ctrl->id_ref = Stepper_Foc_Clamp(id_ref, -ctrl->id_ref_limit, ctrl->id_ref_limit);
-  ctrl->iq_ref = Stepper_Foc_Clamp(iq_ref, -ctrl->iq_ref_limit, ctrl->iq_ref_limit);
+  MC.IdPid.Ref = Stepper_Foc_Clamp(MC.IdPid.Ref, -stepper_id_ref_limit, stepper_id_ref_limit);
+  MC.IqPid.Ref = Stepper_Foc_Clamp(MC.IqPid.Ref, -stepper_iq_ref_limit, stepper_iq_ref_limit);
 }
 
-void Stepper_Foc_SetCurrentLimit(STEPPER_FOC_STRUCT *ctrl, float id_limit, float iq_limit)
+void Stepper_Foc_SetCurrentLimit(void)
 {
-  if (!ctrl)
-  {
-    return;
-  }
-
-  ctrl->id_ref_limit = (id_limit > 0.0f) ? id_limit : ctrl->id_ref_limit;
-  ctrl->iq_ref_limit = (iq_limit > 0.0f) ? iq_limit : ctrl->iq_ref_limit;
+return;
 }
 
-void Stepper_Foc_Run(STEPPER_FOC_STRUCT *ctrl, float iu, float iw, float elec_angle, float bus_voltage)
+void Stepper_Foc_Run(void)
 {
-  if (!ctrl)
-  {
-    return;
-  }
+  float i_alpha = MC.Sample.IuReal;
+  float i_beta = MC.Sample.IwReal;
 
-  ctrl->foc.Iu = iu;
-  ctrl->foc.Iw = iw;
-  ctrl->foc.Ialpha = iu;
-  ctrl->foc.Ibeta = iw;
-  ctrl->foc.Ubus = bus_voltage;
+  MC.Foc.Ialpha = i_alpha;
+  MC.Foc.Ibeta = i_beta;
+  MC.Foc.Ubus = MC.Sample.BusReal;
 
-  Calculate_Sin_Cos(elec_angle, &ctrl->foc.SinVal, &ctrl->foc.CosVal);
-  Pack_Transform(&ctrl->foc);
+  Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
+  Pack_Transform(&MC.Foc);
 
-  ctrl->foc.IdLPF = ctrl->foc.Id * ctrl->foc.IdLPFFactor + ctrl->foc.IdLPF * (1.0f - ctrl->foc.IdLPFFactor);
-  ctrl->foc.IqLPF = ctrl->foc.Iq * ctrl->foc.IqLPFFactor + ctrl->foc.IqLPF * (1.0f - ctrl->foc.IqLPFFactor);
-//  ctrl->foc.IdLPF = ctrl->foc.Id ;
-//  ctrl->foc.IqLPF = ctrl->foc.Iq ;
+  MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
+  MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
+//  MC.Foc.IdLPF = MC.Foc.Id ;
+//  MC.Foc.IqLPF = MC.Foc.Iq ;
 
-  ctrl->id_pid.Ref = ctrl->id_ref;
-  ctrl->id_pid.Fbk = ctrl->foc.IdLPF;
-  PID_Control(&ctrl->id_pid);
+  MC.IdPid.Fbk = MC.Foc.IdLPF;
+  PID_Control(&MC.IdPid);
 	
-  ctrl->iq_pid.Ref = ctrl->iq_ref;
-  ctrl->iq_pid.Fbk = ctrl->foc.IqLPF;
-  PID_Control(&ctrl->iq_pid);
+  MC.IqPid.Fbk = MC.Foc.IqLPF;
+  PID_Control(&MC.IqPid);
 
-  ctrl->foc.Ud = ctrl->id_pid.Out;
-  ctrl->foc.Uq = ctrl->iq_pid.Out;
-  IPack_Transform(&ctrl->foc);
+  MC.Foc.Ud = MC.IdPid.Out;
+  MC.Foc.Uq = MC.IqPid.Out;
+  IPack_Transform(&MC.Foc);
 
-  Calculate_Stepper_PWM(&ctrl->foc);
+  Calculate_Stepper_PWM(&MC.Foc);
 }
