@@ -3,7 +3,7 @@
 <title>Static Call Graph - [MOTOR\MOTOR.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image MOTOR\MOTOR.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 26 11:57:27 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 26 12:18:51 2026
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -491,7 +491,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b]"></a>ADC1_2_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.ADC1_2_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ADC1_2_IRQHandler &rArr; HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = ADC1_2_IRQHandler &rArr; HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_IRQHandler
 </UL>
@@ -600,7 +600,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[81]"></a>HAL_ADCEx_InjectedConvCpltCallback</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, global_control.o(i.HAL_ADCEx_InjectedConvCpltCallback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Run
 </UL>
@@ -650,7 +650,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[66]"></a>HAL_ADC_IRQHandler</STRONG> (Thumb, 612 bytes, Stack size 40 bytes, stm32g4xx_hal_adc.o(i.HAL_ADC_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = HAL_ADC_IRQHandler &rArr; HAL_ADCEx_InjectedConvCpltCallback &rArr; Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_LevelOutOfWindowCallback
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_ErrorCallback
@@ -1236,7 +1236,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e8]"></a>Motor_Struct_Init</STRONG> (Thumb, 254 bytes, Stack size 0 bytes, motor_publicdata.o(i.Motor_Struct_Init))
+<P><STRONG><a name="[e8]"></a>Motor_Struct_Init</STRONG> (Thumb, 256 bytes, Stack size 0 bytes, motor_publicdata.o(i.Motor_Struct_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
@@ -1252,7 +1252,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[82]"></a>Motor_System_Run</STRONG> (Thumb, 136 bytes, Stack size 16 bytes, motor_system.o(i.Motor_System_Run))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Motor_System_Run &rArr; Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentRef
@@ -1292,8 +1292,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
-<P><STRONG><a name="[f2]"></a>Stepper_Foc_Run</STRONG> (Thumb, 190 bytes, Stack size 16 bytes, stepper_foc.o(i.Stepper_Foc_Run))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
+<P><STRONG><a name="[f2]"></a>Stepper_Foc_Run</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, stepper_foc.o(i.Stepper_Foc_Run))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IPack_Transform
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Calculate_Stepper_PWM

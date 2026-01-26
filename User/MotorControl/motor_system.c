@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * 文件名程: 
-  * 作    者: 浩然
+  * 作    者: 
   * 版    本: V1.0
   * 编写日期: 
   * 功    能: 
@@ -25,7 +25,7 @@ void Motor_System_Init(void)
 	Stepper_Foc_Init();
 	Stepper_Foc_SetCurrentLimit();
 	MC.IdPid.Ref = 0.0f;
-	MC.IqPid.Ref = 1.0f;
+	MC.IqPid.Ref = 2.0f;
 	Stepper_Foc_SetCurrentRef();
 }
 
