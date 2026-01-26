@@ -11,6 +11,8 @@ static uint16_t vf_exit_cnt = 0;
 u8 VF_open_finish = 0;
 float VF_xita = 0;
 float VF_xita_rate = 300;
+static float foc_electrical = 0.0f;
+#define VF_ALIGN_STEP_MAX (50.0f)
 
 static float Stepper_Foc_Clamp(float value, float min_val, float max_val)
 {
@@ -168,14 +170,14 @@ void Stepper_Foc_Run(void)
 			// 1) 强托阶段：加速旋转磁场把电机拉起来
 			if (!VF_open_finish)
 			{
-					MC.IqPid.Ref = 1.0f;
+					MC.IqPid.Ref = 0.5f;
 					VF_xita_rate+=0.1; 
 					VF_xita+=VF_xita_rate*0.01; 
 					if (VF_xita >= MC.Encoder.EncoderValMax) 
 					{ VF_xita -= MC.Encoder.EncoderValMax; } 
 					if (VF_xita < 0.0f) 
 					{ VF_xita += MC.Encoder.EncoderValMax; } 
-					MC.Encoder.ElectricalVal = VF_xita;
+					foc_electrical = VF_xita;
 					// 退出条件：真实速度达到一定值并稳定（你原先那套阈值计数逻辑也可以放这里）
 					if (fabsf(MC.SpdPid.Fbk) > VF_EXIT_SPEED_LOOP_AIM)
 					{
@@ -198,11 +200,13 @@ void Stepper_Foc_Run(void)
 					// 速度PID调扭矩Iq（但先禁止负扭矩，避免刹停）
 					PID_Control(&MC.SpdPid);
 					MC.IqPid.Ref = MC.SpdPid.Out;
-					VF_xita = MC.Encoder.ElectricalVal;
+					float diff = Stepper_Foc_ElectricalDiff((float)MC.Encoder.ElectricalVal, foc_electrical, MC.Encoder.EncoderValMax);
+					float step = Stepper_Foc_Clamp(diff, -VF_ALIGN_STEP_MAX, VF_ALIGN_STEP_MAX);
+					foc_electrical = Stepper_Foc_AdvanceElectrical(foc_electrical, step, MC.Encoder.EncoderValMax);
 			}
 //			printf("%d,%0.3f,%d,%f,%f\n",VF_open_finish,VF_xita,MC.Encoder.ElectricalVal,MC.SpdPid.Fbk,MC.SpdPid.Out);  
 			}
-			Calculate_Sin_Cos(VF_xita, &MC.Foc.SinVal, &MC.Foc.CosVal);
+			Calculate_Sin_Cos(foc_electrical, &MC.Foc.SinVal, &MC.Foc.CosVal);
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
       Pack_Transform(&MC.Foc);
