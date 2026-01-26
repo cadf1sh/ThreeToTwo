@@ -54,14 +54,12 @@ return;
 
 void Stepper_Foc_Run(void)
 {
-		
-  float i_alpha = MC.Sample.IuReal;
-  float i_beta = MC.Sample.IwReal;
 
-  MC.Foc.Ialpha = i_alpha;
-  MC.Foc.Ibeta = i_beta;
+  MC.Foc.Ialpha = MC.Sample.IaReal;
+  MC.Foc.Ibeta = MC.Sample.IbReal;
   MC.Foc.Ubus = MC.Sample.BusReal;
-
+	
+	MC.Encoder.ElectricalVal += 10;
   Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
   Pack_Transform(&MC.Foc);
 

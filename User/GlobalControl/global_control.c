@@ -93,8 +93,8 @@ float dutyB = 0;
 #define Pi 3.141592653589
 void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 {		
-	MC.Sample.IuRaw = ADC2->JDR1;          	   //获取相电流
-	MC.Sample.IwRaw = ADC2->JDR2;              //获取相电流
+	MC.Sample.IaRaw = ADC2->JDR1;          	   //获取相电流
+	MC.Sample.IbRaw = ADC2->JDR2;              //获取相电流
 	MC.Sample.BusRaw = ADC2->JDR3;          	 //获取母线电压
 	MC.Encoder.EncoderVal = TIM3->CNT;         //获取编码器值		
 	//电机系统运行

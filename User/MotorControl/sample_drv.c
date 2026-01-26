@@ -22,22 +22,22 @@ void Calculate_Adc_Offset(SAMPLE_STRUCT *p)
 	if(p->OffsetCnt == 0)
 	{
 		p->EndFlag = 0;
-    p->IuOffset = 0;                                
-    p->IwOffset = 0;   
+    p->IaOffset = 0;                                
+    p->IbOffset = 0;   
     p->BusOffset = 0;		
 		p->OffsetCnt = 0;		
 	}
 	if(p->OffsetCnt < 1024)
 	{
-    p->IuOffset += p->IuRaw;              
-    p->IwOffset += p->IwRaw;
+    p->IaOffset += p->IaRaw;              
+    p->IbOffset += p->IbRaw;
     p->BusOffset += p->BusRaw;		
 		p->OffsetCnt++;                               
 	}
   else 
 	{
-		p->IuOffset = p->IuOffset >> 10;  
-		p->IwOffset = p->IwOffset >> 10;	
+		p->IaOffset = p->IaOffset >> 10;  
+		p->IbOffset = p->IbOffset >> 10;	
 		p->BusOffset = p->BusOffset >> 10;
 		p->BusCalibReal = p->BusOffset * p->BusFactor;
 		p->OffsetCnt = 0;                                
@@ -55,8 +55,8 @@ void Calculate_Adc_Offset(SAMPLE_STRUCT *p)
   */
 void Calculate_Phase_Current(SAMPLE_STRUCT *p)
 {
-  p->IuReal =   p->CurrentDir * (p->IuRaw - p->IuOffset) * p->CurrentFactor;
-  p->IwReal =   p->CurrentDir * (p->IwRaw - p->IwOffset) * p->CurrentFactor;
+  p->IaReal =   p->CurrentDir * (p->IaRaw - p->IaOffset) * p->CurrentFactor;
+  p->IbReal =   p->CurrentDir * (p->IbRaw - p->IbOffset) * p->CurrentFactor;
 }
 
 /**

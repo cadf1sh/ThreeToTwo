@@ -9,13 +9,13 @@ typedef struct
 	u8    EndFlag;                    // 计算完成标志	
 	u16   OffsetCnt;                  // 基准值计算次数
 	s32   BusOffset; 	                // 母线电压基准值	
-	s32   IuOffset;                   // U相电流偏置值
-	s32   IwOffset;                   // W相电流偏置值
+	s32   IaOffset;                   // U相电流偏置值
+	s32   IbOffset;                   // W相电流偏置值
 	s32   BusRaw; 	                  // 母线电压原始值
-	s32   IuRaw;                      // U相电流原始值
-	s32   IwRaw;                      // W相电流原始值	
-	float IuReal;                     // U相电流真实值   
-	float IwReal;                     // W相电流真实值 
+	s32   IaRaw;                      // U相电流原始值
+	s32   IbRaw;                      // W相电流原始值	
+	float IaReal;                     // U相电流真实值   
+	float IbReal;                     // W相电流真实值 
 	float BusReal;                    // 母线电压真实值(动态)
 	float BusCalibReal;               // 母线电压真实值(校准值，静态)
 	float BusChange;                  // 母线电压变化值
