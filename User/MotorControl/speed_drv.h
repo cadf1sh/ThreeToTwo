@@ -33,11 +33,6 @@ typedef struct
 	u8    FinishFlag;   //加减速完成标志
 }TSHAPEDACCDEC_STRUCT;
 
-
-void Calculate_Speed(SPEED_STRUCT *p);
-void T_Shaped_Acc_Dec(TSHAPEDACCDEC_STRUCT *p);
-
-
 #endif 
 
 

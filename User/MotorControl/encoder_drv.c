@@ -32,3 +32,16 @@ void Calculate_Encoder_Data(ENCODER_STRUCT *p)
 		p->ElectricalVal = p->ElectricalVal + p->EncoderValMax;			          //计算电角度
 	}
 }
+
+/**
+  * 函数功能:计算速度
+  * 输入参数: 
+  * 返 回 值: 
+  * 说    明:
+  */
+void Calculate_Speed(ENCODER_STRUCT *p)
+{
+	return;
+}
+
+

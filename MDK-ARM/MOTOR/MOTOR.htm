@@ -3,7 +3,7 @@
 <title>Static Call Graph - [MOTOR\MOTOR.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image MOTOR\MOTOR.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 26 16:32:21 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 26 17:57:30 2026
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1234,12 +1234,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e6]"></a>Motor_Struct_Init</STRONG> (Thumb, 244 bytes, Stack size 0 bytes, motor_publicdata.o(i.Motor_Struct_Init))
+<P><STRONG><a name="[e6]"></a>Motor_Struct_Init</STRONG> (Thumb, 248 bytes, Stack size 0 bytes, motor_publicdata.o(i.Motor_Struct_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
-<P><STRONG><a name="[71]"></a>Motor_System_Init</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, motor_system.o(i.Motor_System_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Motor_System_Init &rArr; Stepper_Foc_SetCurrentRef
+<P><STRONG><a name="[71]"></a>Motor_System_Init</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, motor_system.o(i.Motor_System_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Motor_System_Init &rArr; Stepper_Foc_SetCurrentRef
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentRef
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_SetCurrentLimit
@@ -1285,11 +1285,11 @@ Global Symbols
 <P><STRONG><a name="[6]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32g4xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g431xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e7]"></a>Stepper_Foc_Init</STRONG> (Thumb, 106 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_Init))
+<P><STRONG><a name="[e7]"></a>Stepper_Foc_Init</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, stepper_foc.o(i.Stepper_Foc_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
-<P><STRONG><a name="[f0]"></a>Stepper_Foc_Run</STRONG> (Thumb, 438 bytes, Stack size 32 bytes, stepper_foc.o(i.Stepper_Foc_Run))
+<P><STRONG><a name="[f0]"></a>Stepper_Foc_Run</STRONG> (Thumb, 426 bytes, Stack size 32 bytes, stepper_foc.o(i.Stepper_Foc_Run))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Stepper_Foc_Run &rArr; Calculate_Stepper_PWM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Control
@@ -1305,8 +1305,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_System_Init
 </UL>
 
-<P><STRONG><a name="[e9]"></a>Stepper_Foc_SetCurrentRef</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, stepper_foc.o(i.Stepper_Foc_SetCurrentRef))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Stepper_Foc_SetCurrentRef
+<P><STRONG><a name="[e9]"></a>Stepper_Foc_SetCurrentRef</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, stepper_foc.o(i.Stepper_Foc_SetCurrentRef))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Stepper_Foc_SetCurrentRef
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_Foc_Clamp
 </UL>

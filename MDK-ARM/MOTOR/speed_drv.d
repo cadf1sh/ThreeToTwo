@@ -39,3 +39,12 @@ motor\speed_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h
 motor\speed_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart.h
 motor\speed_drv.o: ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_uart_ex.h
 motor\speed_drv.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\stdio.h
+motor\speed_drv.o: ..\User\MotorControl\motor_publicdata.h
+motor\speed_drv.o: ..\User\MotorControl\foc_drv.h
+motor\speed_drv.o: D:\Keil_v5\ARM\Version5.06\Bin\..\include\math.h
+motor\speed_drv.o: ..\User\MotorControl\pid_drv.h
+motor\speed_drv.o: ..\User\MotorControl\math_drv.h
+motor\speed_drv.o: ..\User\MotorControl\sample_drv.h
+motor\speed_drv.o: ..\User\MotorControl\encoder_drv.h
+motor\speed_drv.o: ..\User\MotorControl\position_drv.h
+motor\speed_drv.o: ../User/LcdControl/lcd_task.h

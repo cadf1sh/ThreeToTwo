@@ -9,6 +9,7 @@ typedef struct
 	float Ki;	   		    //积分系数	
 	float Kd;           //微分系数
 	float Ref;	  		  //目标值
+	float Ref_lim;			//目标值限幅
 	float Fbk;	 		    //反馈值
 	float Out;	   	    //输出值
 	float Err;  		    //本次误差
