@@ -25,7 +25,7 @@ void Motor_System_Init(void)
 	Stepper_Foc_Init();
 	Stepper_Foc_SetCurrentLimit();
 	MC.IdPid.Ref = 0.0f;
-	MC.IqPid.Ref = 2.0f;
+	MC.IqPid.Ref = 0.25f;
 	Stepper_Foc_SetCurrentRef();
 }
 
@@ -95,10 +95,6 @@ void Motor_System_Run()
 		{
 			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);	
 			Calculate_Encoder_Data(&MC.Encoder);
-			if (Motor_System_CalibAlign() == 0)
-			{
-				break;
-			}
 			Stepper_Foc_SetCurrentRef();
 			Stepper_Foc_Run();
 		}break;
