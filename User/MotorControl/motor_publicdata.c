@@ -32,13 +32,15 @@ void Motor_Struct_Init()
 	MC.Encoder.Dir = CCW;              							 //设置编码器的方向（逆时针转动 角度从0向360度增加）
 	MC.Encoder.PolePairs = POLEPAIRS;								 //设置电机的极对数（磁铁数除以2）
 	MC.Encoder.EncoderValMax = PUL_MAX;  					   //设置编码器单圈脉冲的最大值
+		MC.Encoder.CalibOffset = 0;
+	MC.Encoder.CalibFlag = 0;
 	
 	MC.Foc.IdLPFFactor = 0.2f;	                     //设置d轴电流低通滤波系数
 	MC.Foc.IqLPFFactor = 0.2f;	                     //设置q轴电流低通滤波系数
 	MC.Foc.PwmCycle = PWM_CYCLE;									   //设置PWM周期
 	MC.Foc.PwmLimit = PWM_LIMLT;									   //设置PWM限幅值
 	
-	MC.Position.ElectricalValMax = PUL_MAX; 			   //设置编码器单圈脉冲的最大值
+	MC.Position.ElectricalValMax = PUL_MAX; 			   //设置电度角的最大值
 	
 	MC.TAccDec.AccSpeed = ACCELERATION;              //设置速度模式下的加速度	
 	

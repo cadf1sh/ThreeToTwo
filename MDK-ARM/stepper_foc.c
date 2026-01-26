@@ -54,6 +54,7 @@ return;
 
 void Stepper_Foc_Run(void)
 {
+		
   float i_alpha = MC.Sample.IuReal;
   float i_beta = MC.Sample.IwReal;
 
@@ -66,8 +67,6 @@ void Stepper_Foc_Run(void)
 
   MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
   MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
-//  MC.Foc.IdLPF = MC.Foc.Id ;
-//  MC.Foc.IqLPF = MC.Foc.Iq ;
 
   MC.IdPid.Fbk = MC.Foc.IdLPF;
   PID_Control(&MC.IdPid);

@@ -11,6 +11,7 @@ typedef struct
 	s32   EncoderValMax;              // 编码器最大原始值
 	s32   ElectricalVal;              // 电气角度
 	u16   CalibOffset;                // 转子零位偏差	
+	u8    CalibFlag;
 }ENCODER_STRUCT; 
 
 void Calculate_Encoder_Data(ENCODER_STRUCT *p);

@@ -25,7 +25,6 @@ void Calculate_Encoder_Data(ENCODER_STRUCT *p)
 	}
 	
 /**********************************计算电角度********************************/	
-	p->CalibOffset = 0;
 	p->ElectricalVal = ((p->EncoderVal - p->CalibOffset) * p->PolePairs) % p->EncoderValMax; 
 	p->ElectricalVal = p->EncoderValMax - p->ElectricalVal;
 	if(p->ElectricalVal < 0)                                                //处理校准可能带来的负值

@@ -30,15 +30,23 @@ Build target 'MOTOR'
 compiling usart_task.c...
 ../User/MotorControl/math_drv.h(15): warning:  #1-D: last line of file ends without a newline
   #endif 
-../User/MotorControl/encoder_drv.h(18): warning:  #1-D: last line of file ends without a newline
+../User/MotorControl/encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
 ..\MDK-ARM\stepper_foc.h(12): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\User\UsartControl\usart_task.c: 3 warnings, 0 errors
+compiling motor_system.c...
+..\User\MotorControl\math_drv.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\User\MotorControl\encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\MDK-ARM\stepper_foc.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\MotorControl\motor_system.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=23422 RO-data=15626 RW-data=40 ZI-data=2080  
+Program Size: Code=23606 RO-data=15626 RW-data=40 ZI-data=2080  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 3 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -61,7 +69,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
