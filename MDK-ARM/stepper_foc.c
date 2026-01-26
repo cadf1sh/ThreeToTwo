@@ -62,7 +62,6 @@ return;
 void Stepper_Foc_Run(void)
 {
   MC.Foc.Ubus = MC.Sample.BusReal;
-
   switch (MC.Motor.RunMode)
   {
 			case ENCODER_CALIB:
@@ -165,23 +164,22 @@ void Stepper_Foc_Run(void)
 				PID_Control(&MC.SpdPid);                            					 //速度闭环
 				MC.IqPid.Ref = MC.SpdPid.Out;	
 			}
+			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
 			MC.Foc.Ialpha = MC.Sample.IaReal;
-			MC.Foc.Ibeta = MC.Sample.IbReal;	
+      MC.Foc.Ibeta = MC.Sample.IbReal;
+      Pack_Transform(&MC.Foc);
 
-			Pack_Transform(&MC.Foc);             														 //派克变换
+      MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
+      MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
 
-			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Id低通滤波
-			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //Iq低通滤波 
+      MC.IdPid.Fbk = MC.Foc.IdLPF;
+      PID_Control(&MC.IdPid);
 
-			MC.IqPid.Fbk = MC.Foc.IqLPF;
-			MC.IdPid.Fbk = MC.Foc.IdLPF;		
-		
-			PID_Control(&MC.IqPid);               													 //Iq闭环
-			PID_Control(&MC.IdPid);              														 //Id闭环
+      MC.IqPid.Fbk = MC.Foc.IqLPF;
+      PID_Control(&MC.IqPid);
 
-			MC.Foc.Uq = MC.IqPid.Out;			
-			MC.Foc.Ud = MC.IdPid.Out;
-			
+      MC.Foc.Ud = MC.IdPid.Out;
+      MC.Foc.Uq = MC.IqPid.Out;
 			}break;
 			
 			case POS_SPEED_CURRENT_LOOP:
@@ -220,22 +218,23 @@ void Stepper_Foc_Run(void)
 				}							
 				PID_Control(&MC.SpdPid);                            					 //速度闭环
 				MC.IqPid.Ref = MC.SpdPid.Out;										
-			}                                                   
+			}        
+			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);			
 			MC.Foc.Ialpha = MC.Sample.IaReal;
-			MC.Foc.Ibeta = MC.Sample.IbReal;			
-	
-			Pack_Transform(&MC.Foc);                                         //派克变换
+      MC.Foc.Ibeta = MC.Sample.IbReal;
+      Pack_Transform(&MC.Foc);
 
-			MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1 - MC.Foc.IdLPFFactor); //Id低通滤波 
-			MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1 - MC.Foc.IqLPFFactor); //Iq低通滤波 
-			
-			MC.IqPid.Fbk = MC.Foc.IqLPF;
-			MC.IdPid.Fbk = MC.Foc.IdLPF;			
-			PID_Control(&MC.IqPid);                                          //Iq闭环
-			PID_Control(&MC.IdPid);                                          //Id闭环			
+      MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
+      MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
 
-			MC.Foc.Uq = MC.IqPid.Out;			
-			MC.Foc.Ud = MC.IdPid.Out;
+      MC.IdPid.Fbk = MC.Foc.IdLPF;
+      PID_Control(&MC.IdPid);
+
+      MC.IqPid.Fbk = MC.Foc.IqLPF;
+      PID_Control(&MC.IqPid);
+
+      MC.Foc.Ud = MC.IdPid.Out;
+      MC.Foc.Uq = MC.IqPid.Out;
 			}break;
 
   }
