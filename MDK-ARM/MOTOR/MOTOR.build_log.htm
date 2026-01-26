@@ -32,13 +32,23 @@ compiling stepper_foc.c...
   #endif 
 stepper_foc.h(12): warning:  #1-D: last line of file ends without a newline
   #endif
-stepper_foc.c(244): warning:  #1-D: last line of file ends without a newline
-  }
-stepper_foc.c: 3 warnings, 0 errors
+stepper_foc.c(223): warning:  #1-D: last line of file ends without a newline
+  	}
+stepper_foc.c(14): warning:  #550-D: variable "stepper_startup_electrical"  was set but never used
+  static float stepper_startup_electrical = 0.0f;
+stepper_foc.c(15): warning:  #550-D: variable "stepper_startup_lock_count"  was set but never used
+  static u16 stepper_startup_lock_count = 0;
+stepper_foc.c(16): warning:  #550-D: variable "stepper_startup_active"  was set but never used
+  static u8 stepper_startup_active = 0;
+stepper_foc.c(35): warning:  #177-D: function "Stepper_Foc_AdvanceElectrical"  was declared but never referenced
+  static float Stepper_Foc_AdvanceElectrical(float electrical, float step, float max_val)
+stepper_foc.c(49): warning:  #177-D: function "Stepper_Foc_ElectricalDiff"  was declared but never referenced
+  static float Stepper_Foc_ElectricalDiff(float a, float b, float max_val)
+stepper_foc.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=23990 RO-data=1082 RW-data=44 ZI-data=2068  
+Program Size: Code=23710 RO-data=15626 RW-data=52 ZI-data=2068  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 3 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 

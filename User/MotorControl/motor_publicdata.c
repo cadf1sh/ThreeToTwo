@@ -45,7 +45,7 @@ void Motor_Struct_Init()
 	MC.TAccDec.AccSpeed = ACCELERATION;              //设置速度模式下的加速度	
 	
 	MC.Speed.ElectricalValMax = PUL_MAX; 					   //设置编码器单圈脉冲的最大值	
-	MC.Speed.ElectricalSpeedLPFFactor = 0.05f;       //设置速度低通滤波系数
+	MC.Speed.ElectricalSpeedLPFFactor = 0.2f;       //设置速度低通滤波系数
 	MC.Speed.ElectricalSpeedFactor = 146.5f;         //设置速度计算系数
 
 	MC.Identify.CurMax = 0.6f;                       //设置电阻电感识别时的最大母线电流（单位：安）
@@ -63,7 +63,7 @@ void Motor_Struct_Init()
 	MC.IdPid.OutMin = -6;                            //设置d轴PID输出下限
 
 	MC.SpdPid.Kp = 0.001f;                           //设置速度PID比例系数
-	MC.SpdPid.KpMax = 0.005f;                        //设置速度PID比例系数最大值（用于分段或模糊PID）
+	MC.SpdPid.KpMax = 0.002f;                        //设置速度PID比例系数最大值（用于分段或模糊PID）
 	MC.SpdPid.KpMin = 0.001f;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
 	MC.SpdPid.Ki = 0.000002f;                        //设置速度PID积分系数
 	MC.SpdPid.OutMax = 3;                            //设置速度PID输出上限  

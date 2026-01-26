@@ -1,11 +1,20 @@
 #include "stepper_foc.h"
+#include "math.h"
 
 //电流开环
 #define STEPPER_FOC_OPEN_LOOP_TEST 1 //电流闭环是否开启步进角验证
 #define STEPPER_FOC_OPEN_LOOP_STEP 5.0f//电流闭环步数/可正负
+#define STEPPER_FOC_STARTUP_STEP 2.0f
+#define STEPPER_FOC_STARTUP_LOCK_THRESHOLD 16.0f
+#define STEPPER_FOC_STARTUP_LOCK_COUNT 200
 #if STEPPER_FOC_OPEN_LOOP_TEST
 static float stepper_open_loop_electrical = 0.0f;
 #endif
+
+static float stepper_startup_electrical = 0.0f;
+static u16 stepper_startup_lock_count = 0;
+static u8 stepper_startup_active = 0;
+static u8 stepper_last_run_mode = 0;
 
 static float stepper_id_ref_limit = 3.0f;
 static float stepper_iq_ref_limit = 3.0f;
@@ -21,6 +30,34 @@ static float Stepper_Foc_Clamp(float value, float min_val, float max_val)
     return max_val;
   }
   return value;
+}
+
+static float Stepper_Foc_AdvanceElectrical(float electrical, float step, float max_val)
+{
+  electrical += step;
+  if (electrical >= max_val)
+  {
+    electrical -= max_val;
+  }
+  if (electrical < 0.0f)
+  {
+    electrical += max_val;
+  }
+  return electrical;
+}
+
+static float Stepper_Foc_ElectricalDiff(float a, float b, float max_val)
+{
+  float diff = a - b;
+  if (diff > max_val * 0.5f)
+  {
+    diff -= max_val;
+  }
+  else if (diff < -max_val * 0.5f)
+  {
+    diff += max_val;
+  }
+  return diff;
 }
 
 void Stepper_Foc_Init(void)
@@ -62,6 +99,16 @@ return;
 void Stepper_Foc_Run(void)
 {
   MC.Foc.Ubus = MC.Sample.BusReal;
+  if (stepper_last_run_mode != MC.Motor.RunMode)
+  {
+    if (MC.Motor.RunMode == SPEED_CURRENT_LOOP)
+    {
+      stepper_startup_active = 1;
+      stepper_startup_lock_count = 0;
+      stepper_startup_electrical = (float)MC.Encoder.ElectricalVal;
+    }
+    stepper_last_run_mode = MC.Motor.RunMode;
+  }
   switch (MC.Motor.RunMode)
   {
 			case ENCODER_CALIB:
@@ -69,7 +116,7 @@ void Stepper_Foc_Run(void)
 				MC.Foc.Uq = 0.0f;
 				MC.Foc.SinVal = 0;
 				MC.Foc.CosVal = 0;
-				if (MC.Encoder.CalibFlag == 0)
+								if (MC.Encoder.CalibFlag == 0)
 				{
 					MC.Foc.Ud += 0.0001f;
 					MC.Foc.SinVal =1;
@@ -94,7 +141,7 @@ void Stepper_Foc_Run(void)
 					}
 				}
 			}break;
-
+						
 			case CURRENT_CLOSE_LOOP:
 			{
 			#if STEPPER_FOC_OPEN_LOOP_TEST
@@ -110,7 +157,7 @@ void Stepper_Foc_Run(void)
 				Calculate_Sin_Cos(stepper_open_loop_electrical, &MC.Foc.SinVal, &MC.Foc.CosVal);
 			#else
 				Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
-			#endif
+			#endif			
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
       Pack_Transform(&MC.Foc);
@@ -130,41 +177,7 @@ void Stepper_Foc_Run(void)
 			
 			case SPEED_CURRENT_LOOP:
 			{
-			MC.Speed.SpeedCalculateCnt++;  			
-			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
-			{
-				MC.Speed.SpeedCalculateCnt = 0;
-				MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //获取当前电角度
-				Calculate_Speed(&MC.Speed);                                  	 //根据当前电角度和上次电角度计算电角速度
-				MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
-				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
-				MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;				
-				
-				if(MC.Speed.MechanicalSpeedSet != MC.Speed.MechanicalSpeedSetLast)               //给定了新的目标速度
-				{                                                      						
-					MC.TAccDec.StartSpeed = MC.Speed.MechanicalSpeedSetLast * MC.Encoder.PolePairs;//设置初速度
-					MC.TAccDec.EndSpeed   = MC.Speed.MechanicalSpeedSet     * MC.Encoder.PolePairs;//设置末速度
-					T_Shaped_Acc_Dec(&MC.TAccDec);                                                 //T形加减速计算
-					if(MC.TAccDec.FinishFlag == 1)                                                 //执行完加减速
-					{
-						MC.Speed.MechanicalSpeedSetLast = MC.Speed.MechanicalSpeedSet;               //更新上次目标速度
-						MC.TAccDec.FinishFlag = 0;
-					}					
-				}		
-				MC.SpdPid.Ref = MC.TAccDec.SpeedOut;					                 //获得目标值   
-				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
-				if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
-				{
-					MC.SpdPid.Kp = MC.SpdPid.KpMax;
-				}
-				else
-				{
-					MC.SpdPid.Kp = MC.SpdPid.KpMin;
-				}			
-				PID_Control(&MC.SpdPid);                            					 //速度闭环
-				MC.IqPid.Ref = MC.SpdPid.Out;	
-			}
-			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
+
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
       Pack_Transform(&MC.Foc);
@@ -184,41 +197,7 @@ void Stepper_Foc_Run(void)
 			
 			case POS_SPEED_CURRENT_LOOP:
 			{
-			MC.Position.PosCalculateCnt++;
-			MC.Speed.SpeedCalculateCnt++;			
-			if(MC.Position.PosCalculateCnt >= POS_DIVISION_FACTOR)           //POS_DIVISION_FACTOR 执行一次位置闭环
-			{											
-				MC.Position.PosCalculateCnt = 0;			
-				MC.Position.ElectricalPosThis = MC.Encoder.ElectricalVal;			 //获取当前位置
-				Calculate_Position(&MC.Position);                              //计算总位置
-				MC.PosPid.Fbk = MC.Position.ElectricalPosSum;								   //反馈实际位置
-				MC.PosPid.Ref = MC.Position.MechanicalPosSet * POLEPAIRS;			 //给定目标位置
-				MC.Position.MechanicalPosRaw = MC.Position.ElectricalPosSum / POLEPAIRS;
-				PID_Control(&MC.PosPid);                                       //位置闭环
-			}
-					
-			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)					 //SPEED_DIVISION_FACTOR 执行一次速度闭环
-			{
-				MC.Speed.SpeedCalculateCnt = 0;
-				MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;
-				Calculate_Speed(&MC.Speed);                                    //计算速度
-				MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
-				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波
-				MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / POLEPAIRS;	
-				
-				MC.SpdPid.Ref = MC.PosPid.Out;					
-				MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
-				if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
-				{
-					MC.SpdPid.Kp = MC.SpdPid.KpMax;
-				}
-				else
-				{
-					MC.SpdPid.Kp = MC.SpdPid.KpMin;
-				}							
-				PID_Control(&MC.SpdPid);                            					 //速度闭环
-				MC.IqPid.Ref = MC.SpdPid.Out;										
-			}        
+      
 			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);			
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
@@ -241,4 +220,4 @@ void Stepper_Foc_Run(void)
 
 	IPack_Transform(&MC.Foc);
   Calculate_Stepper_PWM(&MC.Foc);
-}
+	}
