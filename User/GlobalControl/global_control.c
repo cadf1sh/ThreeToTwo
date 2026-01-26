@@ -97,6 +97,8 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 	MC.Sample.IbRaw = ADC2->JDR2;              //获取相电流
 	MC.Sample.BusRaw = ADC2->JDR3;          	 //获取母线电压
 	MC.Encoder.EncoderVal = TIM3->CNT;         //获取编码器值		
+ 	MC.Speed.MechanicalSpeedSet  =  ADC2->JDR4;//使用波轮电位器给电机目标转速（速度闭环模式下）
+	MC.Position.MechanicalPosSet = -ADC2->JDR4;//使用波轮电位器给电机目标位置（位置闭环模式下）   
 	//电机系统运行
  	Motor_System_Run();   
 //	xita=(MC.Speed.MechanicalSpeedSet/10)*Pi;//λ?

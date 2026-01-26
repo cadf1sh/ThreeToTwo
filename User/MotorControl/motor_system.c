@@ -29,42 +29,6 @@ void Motor_System_Init(void)
 	Stepper_Foc_SetCurrentRef();
 }
 
-static u8 Motor_System_CalibAlign(void)
-{
-	if (MC.Encoder.CalibFlag >= 2)
-	{
-		return 1;
-	}
-
-	MC.Foc.Uq = 0.0f;
-	if (MC.Encoder.CalibFlag == 0)
-	{
-		MC.Foc.Ud += 0.0001f;
-		MC.Foc.SinVal = 1.0f;
-		MC.Foc.CosVal = 0.0f;
-		if (MC.Foc.Ud >= MC.Identify.VoltageSet[1])
-		{
-			MC.Foc.Ud = 0.0f;
-			MC.Encoder.CalibFlag = 1;
-		}
-	}
-
-	if (MC.Encoder.CalibFlag == 1)
-	{
-		MC.Foc.Ud += 0.0001f;
-		MC.Foc.SinVal = 0.0f;
-		MC.Foc.CosVal = 1.0f;
-		if (MC.Foc.Ud >= MC.Identify.VoltageSet[1])
-		{
-			MC.Encoder.CalibOffset = MC.Encoder.EncoderVal;
-			MC.Encoder.CalibFlag = 2;
-			MC.Foc.Ud = 0.0f;
-		}
-	}
-	IPack_Transform(&MC.Foc);
-	Calculate_Stepper_PWM(&MC.Foc);
-	return (MC.Encoder.CalibFlag >= 2);
-}
 
 void Motor_System_Run()
 {

@@ -4,9 +4,7 @@
 #include "main.h"
 #include "math.h"
 typedef struct
-{		
-	float Iu;            // U相电流  
-	float Iw;            // W相电流 	
+{			
 	float Ialpha;        // alpha轴电流 
 	float Ibeta;	       // beta轴电流 
 	
