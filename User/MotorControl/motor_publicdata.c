@@ -43,7 +43,7 @@ void Motor_Struct_Init()
 	MC.Position.ElectricalValMax = PUL_MAX; 			   //设置电度角的最大值
 	
 	MC.Speed.ElectricalValMax = PUL_MAX; 					   //设置编码器单圈脉冲的最大值	
-	MC.Speed.ElectricalSpeedLPFFactor = 0.2f;       //设置速度低通滤波系数
+	MC.Speed.ElectricalSpeedLPFFactor = 0.05f;       //设置速度低通滤波系数
 	MC.Speed.ElectricalSpeedFactor = 146.5f;         //设置速度计算系数
 
 
@@ -54,27 +54,31 @@ void Motor_Struct_Init()
 
   MC.IdPid.Ref = 0.0f;
   MC.IqPid.Ref = 0.0f;
-  MC.IdPid.Ref_lim = 3.0f;
+  MC.IdPid.Ref_lim = 2.0f;
+  MC.IqPid.Ref_lim = 2.0f;
+	MC.IdPid.ErrLim = 5.0f;
+	MC.IqPid.ErrLim = 5.0f;
 	
   MC.IdPid.Kp = 0.001f;
   MC.IdPid.Ki = 0.001f;
   MC.IdPid.Kd = 0.0f;
-  MC.IdPid.OutMax = 10.0f;
-  MC.IdPid.OutMin = -10.0f;
+  MC.IdPid.OutMax = 6.0f;
+  MC.IdPid.OutMin = -6.0f;
 
-  MC.IqPid.Kp = 0.001f;
-  MC.IqPid.Ki = 0.001f;
+  MC.IqPid.Kp = 0.005f;
+  MC.IqPid.Ki = 0.005f;
   MC.IqPid.Kd = 0.0f;
-  MC.IqPid.OutMax = 10.0f;
-  MC.IqPid.OutMin = -10.0f;
+  MC.IqPid.OutMax = 6.0f;
+  MC.IqPid.OutMin = -6.0f;
 
-	MC.SpdPid.Kp = 0.003f;                           //设置速度PID比例系数
-	MC.SpdPid.KpMax = 0.009f;                       //设置速度PID比例系数最大值（用于分段或模糊PID）
-	MC.SpdPid.KpMin = 0;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
-	MC.SpdPid.Ki = 0.0003f;                        //设置速度PID积分系数
-	MC.SpdPid.OutMax = 3;                            //设置速度PID输出上限  
-	MC.SpdPid.OutMin = -3;	                         //设置速度PID输出下限
-
+	MC.SpdPid.Kp = 0.005;                           //设置速度PID比例系数
+	MC.SpdPid.KpMax = 0.005;                       //设置速度PID比例系数最大值（用于分段或模糊PID）
+	MC.SpdPid.KpMin = 0.005;	                       //设置速度PID比例系数最小值（用于分段或模糊PID）
+	MC.SpdPid.Ki = 0.0005f;                        //设置速度PID积分系数
+	MC.SpdPid.OutMax = 2;                            //设置速度PID输出上限  
+	MC.SpdPid.OutMin = -2;	                         //设置速度PID输出下限
+	MC.SpdPid.ErrLim = 200;
+	
   MC.PosPid.Kp = 0.5f;                             //设置位置PID比例系数
 	MC.PosPid.Ki = 0;                                //设置位置PID积分系数
 	MC.PosPid.Kd = 0;                                //设置位置PID微分系数

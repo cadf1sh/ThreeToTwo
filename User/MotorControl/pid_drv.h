@@ -14,10 +14,12 @@ typedef struct
 	float Out;	   	    //输出值
 	float Err;  		    //本次误差
 	float ErrLast;      //上次误差
+	float ErrLim;      //误差限幅
 	float AllowErr;     //允许误差
   float Integrate;	  //积分项
 	float OutMax; 		  //输出上限
 	float OutMin;		    //输出下限
+	float OutLast;		    //输出下限
 	float KpMax;        //比例系数上限（适用于分段式或模糊PID）
 	float KpMin;	      //比例系数下限（适用于分段式或模糊PID）
 }PID_STRUCT;

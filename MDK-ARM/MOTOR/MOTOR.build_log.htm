@@ -32,17 +32,21 @@ compiling stepper_foc.c...
   #endif 
 stepper_foc.h(15): warning:  #1-D: last line of file ends without a newline
   #endif
-stepper_foc.c(174): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  					VF_xita_rate+=0.1; 
-stepper_foc.c(175): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  					VF_xita+=VF_xita_rate*0.01; 
-stepper_foc.c(252): warning:  #1-D: last line of file ends without a newline
-  	}
-stepper_foc.c: 5 warnings, 0 errors
+stepper_foc.c(189): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  					VF_xita_rate+=3.1415926; 
+stepper_foc.c(190): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  					VF_xita+=VF_xita_rate*0.0005;
+stepper_foc.c(222): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  					VF_xita+=VF_xita_rate*0.0005;
+stepper_foc.c(29): warning:  #177-D: function "Stepper_Foc_AdvanceElectrical"  was declared but never referenced
+  static float Stepper_Foc_AdvanceElectrical(float electrical, float step, float max_val)
+stepper_foc.c(43): warning:  #177-D: function "Stepper_Foc_ElectricalDiff"  was declared but never referenced
+  static float Stepper_Foc_ElectricalDiff(float a, float b, float max_val)
+stepper_foc.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=24306 RO-data=15626 RW-data=52 ZI-data=2060  
+Program Size: Code=24446 RO-data=15626 RW-data=72 ZI-data=2088  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 5 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 

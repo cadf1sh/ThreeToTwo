@@ -6,13 +6,12 @@ static float stepper_open_loop_electrical = 0.0f;
 #endif
 
 #define VF_EXIT_SPEED_LOOP_AIM      (500.0f)   // 真实速度阈值：按你的单位调（先给200）
-#define VF_EXIT_CNT_TH        (50)      // 连续满足阈值次数：约等于稳定时间（按速度环执行频率调）
+#define VF_EXIT_CNT_TH        (20)      // 连续满足阈值次数：约等于稳定时间（按速度环执行频率调）
 static uint16_t vf_exit_cnt = 0;
 u8 VF_open_finish = 0;
 float VF_xita = 0;
 float VF_xita_rate = 300;
-static float foc_electrical = 0.0f;
-#define VF_ALIGN_STEP_MAX (50.0f)
+float VF_xita_rate_last = 300;
 
 static float Stepper_Foc_Clamp(float value, float min_val, float max_val)
 {
@@ -55,6 +54,20 @@ static float Stepper_Foc_ElectricalDiff(float a, float b, float max_val)
   return diff;
 }
 
+	float vxrp_error = 0;
+	float vxrp_offset = 0;
+	float vxrp_error_last = 0;
+	float vxrp_error_lim = 0;
+	float vxrp_addout = 0;
+	float vxrp_kp = 0.001f;
+	float vxrp_kd = 0.0005f;
+	static void VF_xita_rate_pid()
+	{
+		vxrp_error = MC.SpdPid.Out;
+		vxrp_addout = vxrp_kp*vxrp_error+vxrp_kd*(vxrp_error-vxrp_error_last);
+		vxrp_error_last =vxrp_error;
+	}
+	
 void Stepper_Foc_Init(void)
 {
 
@@ -110,7 +123,6 @@ void Stepper_Foc_Run(void)
 						
 			case CURRENT_CLOSE_LOOP:
 			{
-				
       MC.IqPid.Ref = 0.5f;
 			#if STEPPER_FOC_OPEN_LOOP_TEST
 				stepper_open_loop_electrical += STEPPER_FOC_OPEN_LOOP_STEP;
@@ -145,6 +157,7 @@ void Stepper_Foc_Run(void)
 			
 			case SPEED_CURRENT_LOOP:
 			{
+				HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);
 			MC.Speed.SpeedCalculateCnt++;  			
 			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
 			{
@@ -155,7 +168,9 @@ void Stepper_Foc_Run(void)
 				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
 //			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
 				
-			MC.SpdPid.Ref = VF_EXIT_SPEED_LOOP_AIM;					                 //获得目标值   
+			MC.SpdPid.Ref = VF_EXIT_SPEED_LOOP_AIM/1000.000f;					                 //获得目标值   
+				  
+				//MC.SpdPid.Ref = (MC.Speed.MechanicalSpeedSet/1.7/4096);
 			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
 			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 			{
@@ -167,24 +182,25 @@ void Stepper_Foc_Run(void)
 			}	
 					
 			float error = MC.SpdPid.Ref - MC.SpdPid.Fbk;
-			// 1) 强托阶段：加速旋转磁场把电机拉起来
+			// 1) 强托阶段把电机拉起来
 			if (!VF_open_finish)
 			{
-					MC.IqPid.Ref = 0.5f;
-					VF_xita_rate+=0.1; 
-					VF_xita+=VF_xita_rate*0.01; 
+					MC.IqPid.Ref = 1.0f;
+					VF_xita_rate+=3.1415926; 
+					VF_xita+=VF_xita_rate*0.0005;
 					if (VF_xita >= MC.Encoder.EncoderValMax) 
 					{ VF_xita -= MC.Encoder.EncoderValMax; } 
 					if (VF_xita < 0.0f) 
 					{ VF_xita += MC.Encoder.EncoderValMax; } 
-					foc_electrical = VF_xita;
-					// 退出条件：真实速度达到一定值并稳定（你原先那套阈值计数逻辑也可以放这里）
+					MC.Encoder.ElectricalVal = VF_xita;
+					// 退出条件SHI真实速度达到一定值并稳定（你原先那套阈值计数逻辑也可以放这里）
 					if (fabsf(MC.SpdPid.Fbk) > VF_EXIT_SPEED_LOOP_AIM)
 					{
 							vf_exit_cnt++;
 							if (vf_exit_cnt >= VF_EXIT_CNT_TH)
 							{
 									// 进入“过渡锁相”阶段：不再加速VF_xita_rate，但仍继续推进VF_xita
+								  vxrp_offset = VF_xita_rate-(VF_EXIT_CNT_TH-1)*3.1415926;
 									VF_open_finish = 1;
 									vf_exit_cnt = 0;
 							}
@@ -194,19 +210,23 @@ void Stepper_Foc_Run(void)
 							vf_exit_cnt = 0;
 					}
 			}
-			// 2) 过渡锁相阶段（关键）：继续推进VF_xita，不要停磁场
+			// 2) 过渡锁相阶段shi继续推进VF_xita，磁场不要停aaaaaaaaaaaaaa
 			else
 			{
-					// 速度PID调扭矩Iq（但先禁止负扭矩，避免刹停）
+					MC.SpdPid.Fbk/=1000.000f;
 					PID_Control(&MC.SpdPid);
 					MC.IqPid.Ref = MC.SpdPid.Out;
-					float diff = Stepper_Foc_ElectricalDiff((float)MC.Encoder.ElectricalVal, foc_electrical, MC.Encoder.EncoderValMax);
-					float step = Stepper_Foc_Clamp(diff, -VF_ALIGN_STEP_MAX, VF_ALIGN_STEP_MAX);
-					foc_electrical = Stepper_Foc_AdvanceElectrical(foc_electrical, step, MC.Encoder.EncoderValMax);
+				  VF_xita_rate_pid();
+					VF_xita_rate=vxrp_offset+vxrp_addout;
+					// 继续用上一次的VF_xita_rate推进磁场（不要停aaaaaaaaaa）
+					VF_xita+=VF_xita_rate*0.0005;
+					if (VF_xita >= MC.Encoder.EncoderValMax) 
+					{ VF_xita -= MC.Encoder.EncoderValMax; } 
+					if (VF_xita < 0.0f) 
+					{ VF_xita += MC.Encoder.EncoderValMax; } 
+			} 
 			}
-//			printf("%d,%0.3f,%d,%f,%f\n",VF_open_finish,VF_xita,MC.Encoder.ElectricalVal,MC.SpdPid.Fbk,MC.SpdPid.Out);  
-			}
-			Calculate_Sin_Cos(foc_electrical, &MC.Foc.SinVal, &MC.Foc.CosVal);
+			Calculate_Sin_Cos((s32)VF_xita, &MC.Foc.SinVal, &MC.Foc.CosVal);
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
       Pack_Transform(&MC.Foc);
@@ -250,3 +270,8 @@ void Stepper_Foc_Run(void)
 	IPack_Transform(&MC.Foc);
   Calculate_Stepper_PWM(&MC.Foc);
 	}
+
+	
+	
+	
+	

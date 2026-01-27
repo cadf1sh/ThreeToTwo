@@ -20,7 +20,15 @@
 void PID_Control(PID_STRUCT *p)
 {
 	p->Err = p->Ref - p->Fbk;	                            //计算误差	
-		
+	if(p->Err >= p->ErrLim)
+	{
+		p->Err=p->ErrLim;
+	}
+	if(p->Err <= -p->ErrLim)
+	{
+		p->Err=-p->ErrLim;
+	}
+	
 	if(p->Out < p->OutMax && p->Out > p->OutMin)          //没达到输出限幅就一直积分
 	{
 		p->Integrate = p->Integrate + p->Err;
