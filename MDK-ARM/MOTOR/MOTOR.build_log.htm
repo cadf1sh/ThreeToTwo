@@ -27,6 +27,28 @@ Project File Date:  01/26/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\Version5.06\Bin'
 Build target 'MOTOR'
+compiling usart_task.c...
+../User/MotorControl/encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\MDK-ARM\stepper_foc.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\UsartControl\usart_task.c: 2 warnings, 0 errors
+compiling motor_system.c...
+..\User\MotorControl\encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\MDK-ARM\stepper_foc.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\MotorControl\motor_system.c(47): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if ((MC.Sample.BusReal >= 3 && MC.Sample.BusReal <= 11.8) || MC.Sample.BusReal >= 25)
+..\User\MotorControl\motor_system.c: 3 warnings, 0 errors
+compiling global_control.c...
+../User/MotorControl/encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\MDK-ARM\stepper_foc.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\GlobalControl\global_control.c(112): warning:  #1-D: last line of file ends without a newline
+  }
+..\User\GlobalControl\global_control.c: 3 warnings, 0 errors
 compiling stepper_foc.c...
 ../User/MotorControl/encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
@@ -42,9 +64,9 @@ stepper_foc.c(64): warning:  #177-D: function "VF_xita_rate_pid"  was declared b
   	static void VF_xita_rate_pid()
 stepper_foc.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=20474 RO-data=15626 RW-data=36 ZI-data=2092  
+Program Size: Code=23842 RO-data=15626 RW-data=36 ZI-data=2092  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 6 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,7 +89,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>
