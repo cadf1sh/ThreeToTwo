@@ -34,9 +34,7 @@ void Motor_Struct_Init()
 	MC.Encoder.EncoderValMax = PUL_MAX;  					   //设置编码器单圈脉冲的最大值
 		MC.Encoder.CalibOffset = 0;
 	MC.Encoder.CalibFlag = 0;
-	
-	MC.Foc.IdLPFFactor = 0.2f;	                     //设置d轴电流低通滤波系数
-	MC.Foc.IqLPFFactor = 0.2f;	                     //设置q轴电流低通滤波系数
+
 	MC.Foc.PwmCycle = PWM_CYCLE;									   //设置PWM周期
 	MC.Foc.PwmLimit = PWM_LIMLT;									   //设置PWM限幅值
 	

@@ -95,7 +95,7 @@ void Stepper_Foc_Run(void)
 				MC.Foc.Uq = 0.0f;
 				MC.Foc.SinVal = 0;
 				MC.Foc.CosVal = 0;
-								if (MC.Encoder.CalibFlag == 0)
+					if (MC.Encoder.CalibFlag == 0)
 				{
 					MC.Foc.Ud += 0.0001f;
 					MC.Foc.SinVal =1;
@@ -157,7 +157,7 @@ void Stepper_Foc_Run(void)
 			
 			case SPEED_CURRENT_LOOP:
 			{
-				HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_15);
+      MC.IqPid.Ref = 0.5f;
 			MC.Speed.SpeedCalculateCnt++;  			
 			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
 			{
@@ -166,11 +166,9 @@ void Stepper_Foc_Run(void)
 			Calculate_Speed(&MC.Speed);                                  	 //根据当前电角度和上次电角度计算电角速度
 			MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
 				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
-//			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
-				
-			MC.SpdPid.Ref = VF_EXIT_SPEED_LOOP_AIM/1000.000f;					                 //获得目标值   
-				  
-				//MC.SpdPid.Ref = (MC.Speed.MechanicalSpeedSet/1.7/4096);
+			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
+
+			MC.SpdPid.Ref = (MC.Speed.MechanicalSpeedSet/4);
 			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
 			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
 			{
@@ -181,52 +179,11 @@ void Stepper_Foc_Run(void)
 				MC.SpdPid.Kp = MC.SpdPid.KpMin;
 			}	
 					
-			float error = MC.SpdPid.Ref - MC.SpdPid.Fbk;
-			// 1) 强托阶段把电机拉起来
-			if (!VF_open_finish)
-			{
-					MC.IqPid.Ref = 1.0f;
-					VF_xita_rate+=3.1415926; 
-					VF_xita+=VF_xita_rate*0.0005;
-					if (VF_xita >= MC.Encoder.EncoderValMax) 
-					{ VF_xita -= MC.Encoder.EncoderValMax; } 
-					if (VF_xita < 0.0f) 
-					{ VF_xita += MC.Encoder.EncoderValMax; } 
-					MC.Encoder.ElectricalVal = VF_xita;
-					// 退出条件SHI真实速度达到一定值并稳定（你原先那套阈值计数逻辑也可以放这里）
-					if (fabsf(MC.SpdPid.Fbk) > VF_EXIT_SPEED_LOOP_AIM)
-					{
-							vf_exit_cnt++;
-							if (vf_exit_cnt >= VF_EXIT_CNT_TH)
-							{
-									// 进入“过渡锁相”阶段：不再加速VF_xita_rate，但仍继续推进VF_xita
-								  vxrp_offset = VF_xita_rate-(VF_EXIT_CNT_TH-1)*3.1415926;
-									VF_open_finish = 1;
-									vf_exit_cnt = 0;
-							}
-					}
-					else
-					{
-							vf_exit_cnt = 0;
-					}
+			PID_Control(&MC.SpdPid);
+			MC.IqPid.Ref = MC.SpdPid.Out;
+			
 			}
-			// 2) 过渡锁相阶段shi继续推进VF_xita，磁场不要停aaaaaaaaaaaaaa
-			else
-			{
-					MC.SpdPid.Fbk/=1000.000f;
-					PID_Control(&MC.SpdPid);
-					MC.IqPid.Ref = MC.SpdPid.Out;
-				  VF_xita_rate_pid();
-					VF_xita_rate=vxrp_offset+vxrp_addout;
-					// 继续用上一次的VF_xita_rate推进磁场（不要停aaaaaaaaaa）
-					VF_xita+=VF_xita_rate*0.0005;
-					if (VF_xita >= MC.Encoder.EncoderValMax) 
-					{ VF_xita -= MC.Encoder.EncoderValMax; } 
-					if (VF_xita < 0.0f) 
-					{ VF_xita += MC.Encoder.EncoderValMax; } 
-			} 
-			}
-			Calculate_Sin_Cos((s32)VF_xita, &MC.Foc.SinVal, &MC.Foc.CosVal);
+			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);	
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
       Pack_Transform(&MC.Foc);
@@ -234,6 +191,7 @@ void Stepper_Foc_Run(void)
       MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
       MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
 
+			MC.IdPid.Ref = 0;
       MC.IdPid.Fbk = MC.Foc.IdLPF;
       PID_Control(&MC.IdPid);
 
@@ -246,7 +204,7 @@ void Stepper_Foc_Run(void)
 			
 			case POS_SPEED_CURRENT_LOOP:
 			{
-      MC.IqPid.Ref = 0.0f;
+      MC.IqPid.Ref = 0.5f;
 			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);			
 			MC.Foc.Ialpha = MC.Sample.IaReal;
       MC.Foc.Ibeta = MC.Sample.IbReal;
