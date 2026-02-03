@@ -50,9 +50,9 @@ void Usart_Task(void)
 //      printf("%0.3f\n",MC.SPLL.ETheta);                                                                    //滑膜观测器计算得到的电角度			
 //      printf("%0.3f,%0.3f,%d,%d,%d,%d,%0.3f\n",MC.Foc.Ualpha,MC.Foc.Ubeta,MC.Foc.DutyCycleA,MC.Foc.DutyCycleB,MC.Foc.DutyCycleC,MC.Foc.DutyCycleD, MC.Foc.Ubus); 	//    	printf("%0.3d,%0.3d,%0.3d,%0.3d\n",MC.Foc.DutyCycleA,MC.Foc.DutyCycleB,MC.Foc.DutyCycleC,MC.Foc.DutyCycleD); 
 //			  printf("%d,%d,%d,%d,%d\n",MC.Encoder.EncoderVal,MC.Encoder.ElectricalVal,MC.Encoder.Dir,MC.Encoder.PolePairs,MC.Encoder.CalibOffset); 	//    	printf("%0.3d,%0.3d,%0.3d,%0.3d\n",MC.Foc.DutyCycleA,MC.Foc.DutyCycleB,MC.Foc.DutyCycleC,MC.Foc.DutyCycleD); 
-printf("%0.3f,%0.3f,%0.3f,%0.3f,%0.3f,%0.3f\n",
+printf("%0.3f,%0.3f,%0.3f,%0.3f,%0.3f,%0.3f,%0.3f\n",
        MC.Foc.Id, MC.Foc.Iq, MC.Foc.IdLPF, MC.Foc.IqLPF,
-       MC.Foc.Ud, MC.Foc.Uq);
+       MC.Foc.Ud, MC.Foc.Uq,MC.Sample.IaReal);
 			UsartTaskId = 10; 
 		}
 		break;
