@@ -84,6 +84,7 @@ void Stepper_Foc_SetCurrentLimit(void)
 return;
 }
 
+int iq_dir =1;
 void Stepper_Foc_Run(void)
 {
   MC.Foc.Ubus = MC.Sample.BusReal;
@@ -123,42 +124,52 @@ void Stepper_Foc_Run(void)
 						
 			case CURRENT_CLOSE_LOOP:
 			{
+				if(iq_dir)
+				{
+				MC.IqPid.Ref+=0.00001;
+				if(MC.IqPid.Ref>0.5)iq_dir=0;
+				}
+				else if(!iq_dir)
+				{
+				MC.IqPid.Ref-=0.00001;
+				if(MC.IqPid.Ref<-0.5)iq_dir=1;
+				}
 //      MC.IqPid.Ref = 0.5f;
-//			MC.IdPid.Ref = 0.0f;
-//			#if STEPPER_FOC_OPEN_LOOP_TEST
-//				stepper_open_loop_electrical += STEPPER_FOC_OPEN_LOOP_STEP;
-//				if (stepper_open_loop_electrical >= MC.Encoder.EncoderValMax)
-//				{
-//					stepper_open_loop_electrical -= MC.Encoder.EncoderValMax;
-//				}
-//				if (stepper_open_loop_electrical < 0.0f)
-//				{
-//					stepper_open_loop_electrical += MC.Encoder.EncoderValMax;
-//				}
-//				Calculate_Sin_Cos(stepper_open_loop_electrical, &MC.Foc.SinVal, &MC.Foc.CosVal);
-//			#else
-//				Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
-//			#endif			
-//			MC.Foc.Ialpha = MC.Sample.IaReal;
-//      MC.Foc.Ibeta = MC.Sample.IbReal;
-//      Pack_Transform(&MC.Foc);
+			MC.IdPid.Ref = 0.0f;
+			#if STEPPER_FOC_OPEN_LOOP_TEST
+				stepper_open_loop_electrical += STEPPER_FOC_OPEN_LOOP_STEP;
+				if (stepper_open_loop_electrical >= MC.Encoder.EncoderValMax)
+				{
+					stepper_open_loop_electrical -= MC.Encoder.EncoderValMax;
+				}
+				if (stepper_open_loop_electrical < 0.0f)
+				{
+					stepper_open_loop_electrical += MC.Encoder.EncoderValMax;
+				}
+				Calculate_Sin_Cos(stepper_open_loop_electrical, &MC.Foc.SinVal, &MC.Foc.CosVal);
+			#else
+				Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);
+			#endif			
+			MC.Foc.Ialpha = MC.Sample.IaReal;
+      MC.Foc.Ibeta = MC.Sample.IbReal;
+      Pack_Transform(&MC.Foc);
 
-//      MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
-//      MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
+      MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
+      MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
 
-//      MC.IdPid.Fbk = MC.Foc.IdLPF;
-//      PID_Control(&MC.IdPid);
+      MC.IdPid.Fbk = MC.Foc.IdLPF;
+      PID_Control(&MC.IdPid);
 
-//      MC.IqPid.Fbk = MC.Foc.IqLPF;
-//      PID_Control(&MC.IqPid);
+      MC.IqPid.Fbk = MC.Foc.IqLPF;
+      PID_Control(&MC.IqPid);
 
-//      MC.Foc.Ud = MC.IdPid.Out;
-//      MC.Foc.Uq = MC.IqPid.Out;
+      MC.Foc.Ud = MC.IdPid.Out;
+      MC.Foc.Uq = MC.IqPid.Out;
 
-						MC.Foc.Ud = 3.0f;
-						MC.Foc.Uq = 0.0f;
-						MC.Foc.CosVal = 1;
-						MC.Foc.SinVal = 0;
+//						MC.Foc.Ud = 3.0f;
+//						MC.Foc.Uq = 0.0f;
+//						MC.Foc.CosVal = 0;
+//						MC.Foc.SinVal = 1;
 			}break;
 			
 			case SPEED_CURRENT_LOOP:
