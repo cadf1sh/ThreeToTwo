@@ -19,11 +19,10 @@
   */
 void Calculate_Encoder_Data(ENCODER_STRUCT *p)
 {
-	if(p->Dir == 1)                                                         //判断编码器方向  
+	if(p->Dir == 0)                                                         //判断编码器方向  
 	{
 		p->EncoderVal = p->EncoderValMax - p->EncoderVal;			                //方向取反
 	}
-	
 /**********************************计算电角度********************************/	
 	p->ElectricalVal = ((p->EncoderVal - p->CalibOffset) * p->PolePairs) % p->EncoderValMax; 
 	if(p->ElectricalVal < 0)                                                //处理校准可能带来的负值

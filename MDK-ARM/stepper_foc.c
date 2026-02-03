@@ -157,47 +157,50 @@ void Stepper_Foc_Run(void)
 			
 			case SPEED_CURRENT_LOOP:
 			{
-			MC.Speed.SpeedCalculateCnt++;  			
-			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
-			{
-			MC.Speed.SpeedCalculateCnt=0;
-			MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //获取当前电角度
-			Calculate_Speed(&MC.Speed);                                  	 //根据当前电角度和上次电角度计算电角速度
-			MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
-				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
-			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
+//			MC.Speed.SpeedCalculateCnt++;  			
+//			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
+//			{
+//			MC.Speed.SpeedCalculateCnt=0;
+//			MC.Speed.ElectricalPosThis = MC.Encoder.ElectricalVal;         //获取当前电角度
+//			Calculate_Speed(&MC.Speed);                                  	 //根据当前电角度和上次电角度计算电角速度
+//			MC.Speed.ElectricalSpeedLPF = MC.Speed.ElectricalSpeedRaw * MC.Speed.ElectricalSpeedLPFFactor
+//				                            + MC.Speed.ElectricalSpeedLPF * (1 - MC.Speed.ElectricalSpeedLPFFactor);//低通滤波	
+//			MC.Speed.MechanicalSpeed = MC.Speed.ElectricalSpeedLPF / MC.Encoder.PolePairs;	
 
-			MC.SpdPid.Ref = (MC.Speed.MechanicalSpeedSet/4);
-			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
-			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
-			{
-				MC.SpdPid.Kp = MC.SpdPid.KpMax;
-			}
-			else
-			{
-				MC.SpdPid.Kp = MC.SpdPid.KpMin;
-			}	
-					
-			PID_Control(&MC.SpdPid);
-			MC.IqPid.Ref = MC.SpdPid.Out;
-			
-			}
+//			MC.SpdPid.Ref = (MC.Speed.MechanicalSpeedSet/4);
+//			MC.SpdPid.Fbk = MC.Speed.ElectricalSpeedLPF;	 					       //反馈速度值	
+//			if(MC.SpdPid.Fbk > -2000 && MC.SpdPid.Fbk < 2000) 
+//			{
+//				MC.SpdPid.Kp = MC.SpdPid.KpMax;
+//			}
+//			else
+//			{
+//				MC.SpdPid.Kp = MC.SpdPid.KpMin;
+//			}	
+//					
+//			PID_Control(&MC.SpdPid);
+//			MC.IqPid.Ref = MC.SpdPid.Out;
+//			
+//			}
 			Calculate_Sin_Cos((float)MC.Encoder.ElectricalVal, &MC.Foc.SinVal, &MC.Foc.CosVal);	
-			MC.Foc.Ialpha = MC.Sample.IaReal;
-      MC.Foc.Ibeta = MC.Sample.IbReal;
-      Pack_Transform(&MC.Foc);
+//			MC.Foc.Ialpha = MC.Sample.IaReal;
+//      MC.Foc.Ibeta = MC.Sample.IbReal;
+//      Pack_Transform(&MC.Foc);
 
-      MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
-      MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
+//      MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
+//      MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
 
-      MC.IdPid.Fbk = MC.Foc.IdLPF;
-      PID_Control(&MC.IdPid);
+//      MC.IdPid.Fbk = MC.Foc.IdLPF;
+//      PID_Control(&MC.IdPid);
 
-      MC.IqPid.Fbk = MC.Foc.IqLPF;
-      PID_Control(&MC.IqPid);
+//      MC.IqPid.Fbk = MC.Foc.IqLPF;
+//      PID_Control(&MC.IqPid);
 
-      MC.Foc.Ud = MC.IdPid.Out;
-      MC.Foc.Uq = MC.IqPid.Out;
+//      MC.Foc.Ud = MC.IdPid.Out;
+////      MC.Foc.Uq = MC.IqPid.Out;
+//			MC.Foc.SinVal=0, MC.Foc.CosVal=1;
+      MC.Foc.Ud = 3;
+      MC.Foc.Uq = 0;
 			}break;
 			
 			case POS_SPEED_CURRENT_LOOP:
