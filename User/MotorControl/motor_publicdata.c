@@ -25,6 +25,9 @@ void Motor_Struct_Init()
 	MC.Motor.RunState = ADC_CALIB;      			 	  	 //设置电机最初的运行状态
 	MC.Motor.RunMode = ENCODER_CALIB;                //设置运行后最初的运行模式
 		
+	MC.Identify.VoltageSet[0] = 3.0f;
+	MC.Identify.VoltageSet[1] = 3.0f;
+	
 	MC.Sample.CurrentDir = -1;       					  	   //设置电机电流采样的方向(由硬件决定)
 	MC.Sample.CurrentFactor = PHASE_CURRENT_FACTOR;  //相电流计算系数(由采样电阻值和放大倍数以及ADC分辨率计算得出)
 	MC.Sample.BusFactor = VBUS_FACTOR;               //母线电压计算系数（由分压电阻计算得出）
@@ -54,17 +57,17 @@ void Motor_Struct_Init()
   MC.IqPid.Ref = 0.0f;
   MC.IdPid.Ref_lim = 2.0f;
   MC.IqPid.Ref_lim = 2.0f;
-	MC.IdPid.ErrLim = 5.0f;
-	MC.IqPid.ErrLim = 5.0f;
+	MC.IdPid.ErrLim = 1.0f;
+	MC.IqPid.ErrLim = 1.0f;
 	
-  MC.IdPid.Kp = 0.0005f;
-  MC.IdPid.Ki = 0.0005f;
+  MC.IdPid.Kp = 0.01f;
+  MC.IdPid.Ki = 0.001f;
   MC.IdPid.Kd = 0.0f;
   MC.IdPid.OutMax = 6.0f;
   MC.IdPid.OutMin = -6.0f;
 
-  MC.IqPid.Kp = 0.0005f;
-  MC.IqPid.Ki = 0.0005f;
+  MC.IqPid.Kp = 0.01f;
+  MC.IqPid.Ki = 0.001f;
   MC.IqPid.Kd = 0.0f;
   MC.IqPid.OutMax = 6.0f;
   MC.IqPid.OutMin = -6.0f;

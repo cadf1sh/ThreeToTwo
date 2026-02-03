@@ -84,7 +84,6 @@ void Stepper_Foc_SetCurrentLimit(void)
 return;
 }
 
-int iq_dir =1;
 void Stepper_Foc_Run(void)
 {
   MC.Foc.Ubus = MC.Sample.BusReal;
@@ -124,17 +123,7 @@ void Stepper_Foc_Run(void)
 						
 			case CURRENT_CLOSE_LOOP:
 			{
-				if(iq_dir)
-				{
-				MC.IqPid.Ref+=0.00001;
-				if(MC.IqPid.Ref>0.5)iq_dir=0;
-				}
-				else if(!iq_dir)
-				{
-				MC.IqPid.Ref-=0.00001;
-				if(MC.IqPid.Ref<-0.5)iq_dir=1;
-				}
-//      MC.IqPid.Ref = 0.5f;
+      MC.IqPid.Ref = 0.5f;
 			MC.IdPid.Ref = 0.0f;
 			#if STEPPER_FOC_OPEN_LOOP_TEST
 				stepper_open_loop_electrical += STEPPER_FOC_OPEN_LOOP_STEP;
@@ -166,10 +155,6 @@ void Stepper_Foc_Run(void)
       MC.Foc.Ud = MC.IdPid.Out;
       MC.Foc.Uq = MC.IqPid.Out;
 
-//						MC.Foc.Ud = 3.0f;
-//						MC.Foc.Uq = 0.0f;
-//						MC.Foc.CosVal = 0;
-//						MC.Foc.SinVal = 1;
 			}break;
 			
 			case SPEED_CURRENT_LOOP:
