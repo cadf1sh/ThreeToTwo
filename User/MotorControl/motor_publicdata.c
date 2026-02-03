@@ -25,7 +25,7 @@ void Motor_Struct_Init()
 	MC.Motor.RunState = ADC_CALIB;      			 	  	 //设置电机最初的运行状态
 	MC.Motor.RunMode = ENCODER_CALIB;                //设置运行后最初的运行模式
 		
-	MC.Sample.CurrentDir = -1;       					  	   //设置电机电流采样的方向(由硬件决定)
+	MC.Sample.CurrentDir = 1;       					  	   //设置电机电流采样的方向(由硬件决定)
 	MC.Sample.CurrentFactor = PHASE_CURRENT_FACTOR;  //相电流计算系数(由采样电阻值和放大倍数以及ADC分辨率计算得出)
 	MC.Sample.BusFactor = VBUS_FACTOR;               //母线电压计算系数（由分压电阻计算得出）
 
