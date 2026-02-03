@@ -157,7 +157,6 @@ void Stepper_Foc_Run(void)
 			
 			case SPEED_CURRENT_LOOP:
 			{
-      MC.IqPid.Ref = 0.5f;
 			MC.Speed.SpeedCalculateCnt++;  			
 			if(MC.Speed.SpeedCalculateCnt >= SPEED_DIVISION_FACTOR)          //每SPEED_DIVISION_FACTOR次 执行一次速度闭环
 			{
@@ -191,7 +190,6 @@ void Stepper_Foc_Run(void)
       MC.Foc.IdLPF = MC.Foc.Id * MC.Foc.IdLPFFactor + MC.Foc.IdLPF * (1.0f - MC.Foc.IdLPFFactor);
       MC.Foc.IqLPF = MC.Foc.Iq * MC.Foc.IqLPFFactor + MC.Foc.IqLPF * (1.0f - MC.Foc.IqLPFFactor);
 
-			MC.IdPid.Ref = 0;
       MC.IdPid.Fbk = MC.Foc.IdLPF;
       PID_Control(&MC.IdPid);
 

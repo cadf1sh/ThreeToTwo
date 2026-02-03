@@ -27,24 +27,24 @@ Project File Date:  01/26/2026
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\Version5.06\Bin'
 Build target 'MOTOR'
-compiling motor_publicdata.c...
-..\User\MotorControl\encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
-  #endif 
-..\User\MotorControl\motor_publicdata.c(85): warning:  #1-D: last line of file ends without a newline
-  }  
-..\User\MotorControl\motor_publicdata.c: 2 warnings, 0 errors
-compiling global_control.c...
+compiling stepper_foc.c...
 ../User/MotorControl/encoder_drv.h(19): warning:  #1-D: last line of file ends without a newline
   #endif 
-..\MDK-ARM\stepper_foc.h(15): warning:  #1-D: last line of file ends without a newline
+stepper_foc.h(15): warning:  #1-D: last line of file ends without a newline
   #endif
-..\User\GlobalControl\global_control.c(112): warning:  #1-D: last line of file ends without a newline
-  }
-..\User\GlobalControl\global_control.c: 3 warnings, 0 errors
+stepper_foc.c(10): warning:  #177-D: variable "vf_exit_cnt"  was declared but never referenced
+  static uint16_t vf_exit_cnt = 0;
+stepper_foc.c(29): warning:  #177-D: function "Stepper_Foc_AdvanceElectrical"  was declared but never referenced
+  static float Stepper_Foc_AdvanceElectrical(float electrical, float step, float max_val)
+stepper_foc.c(43): warning:  #177-D: function "Stepper_Foc_ElectricalDiff"  was declared but never referenced
+  static float Stepper_Foc_ElectricalDiff(float a, float b, float max_val)
+stepper_foc.c(64): warning:  #177-D: function "VF_xita_rate_pid"  was declared but never referenced
+  	static void VF_xita_rate_pid()
+stepper_foc.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=23982 RO-data=15626 RW-data=40 ZI-data=2088  
+Program Size: Code=23870 RO-data=15626 RW-data=40 ZI-data=2088  
 FromELF: creating hex file...
-"MOTOR\MOTOR.axf" - 0 Error(s), 5 Warning(s).
+"MOTOR\MOTOR.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -67,7 +67,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
